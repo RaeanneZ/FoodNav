@@ -98,7 +98,7 @@ Feature to allow user to use camera function to capture texts on ingredients of 
 
 **Sian Kim**
 
-*Add feature here*
+Feature in Search Bar that suggest words from the dictionary that match the text entered in the search field before the user finishes entering their query. These suggestions are valuable because they can effectively predict what the user wants and provide instant access to it.
 
 **Jovan**
 

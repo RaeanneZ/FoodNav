@@ -102,7 +102,7 @@ Feature in Search Bar that suggest words from the dictionary that match the text
 
 **Jovan**
 
-*Add feature here*
+Feature to allow items in food log to be scrolled horizontally, in addition to vertically, which would reveal icons that have functions such as delete or favourite. The favourites page would be a separate page that shows all the "favourite" items. These improve UX as it makes adding and deleting food more convenient.
 
 **Hong Rong**
 

@@ -91,7 +91,22 @@ This app targets male and females of age 18 - 70 who are health conscious. They 
    Easy to use tool to search on food categories when deciding which variant is a healthier choice. Users can type food keywords to search for the related list of variants so they can make a healthier choice with all the macros and calories information. Recommendations will be made based on users’ diet plan.  
 
 ### Stage 2
-*To be updated*
+
+**Raeanne**
+
+Feature to allow user to use camera function to capture texts on ingredients of food, then display nutritional information of the food. 
+
+**Sian Kim**
+
+Feature in Search Bar that suggest words from the dictionary that match the text entered in the search field before the user finishes entering their query. These suggestions are valuable because they can effectively predict what the user wants and provide instant access to it.
+
+**Jovan**
+
+*Add feature here*
+
+**Hong Rong**
+
+*Add feature here*
 
 ## Feature Test 
 

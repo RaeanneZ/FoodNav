@@ -10,14 +10,14 @@ import java.util.concurrent.Executors;
 
 public class ConnectionClass {
     String classes = "net.sourceforge.jtds.jdbc.Driver";
-    public static String ip =  "172.16.168.235";
+    public static String ip =  "192.168.1.238";
     public static String userName =  "user";
     public static String password =  "guestD@TABASE!";
     public static String dbName =  "FoodNav";
     public static String portNumber = "1433";
 
     // This is to create the connection between the server and the application
-    public Connection conn(){
+    public Connection connectDatabase(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection connection = null;
@@ -35,7 +35,8 @@ public class ConnectionClass {
         return connection;
     }
 
-    public void connect(Connection con){
+    // Connection con should be a variable that calls on the conn() class
+    public void ExecuteDatabase(Connection con){
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {

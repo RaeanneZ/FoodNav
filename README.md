@@ -106,7 +106,7 @@ Feature to allow items in food log to be scrolled horizontally, in addition to v
 
 **Hong Rong**
 
-filtering system allowing users to refine search results based on specific dietary preferences, price ranges with customizable thresholds and discounts, ingredient preferences or exclusions for allergy or preference considerations, nutritional criteria such as calories, fat, sugar, and protein content, health labels or certifications like organic or non-GMO, and user ratings or reviews for social validation.
+*Add feature here*
 
 ## Feature Test 
 

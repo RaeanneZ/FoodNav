@@ -31,6 +31,7 @@ public class LoginInfoClass extends ContextWrapper {
         getDBConnection();
     }
 
+    // Read Function
     public ResultSet GetRecord(String email, Connection con){
         String sql = "SELECT * FROM LoginInfo WHERE AccEmail = '"+email+"'";
 
@@ -49,6 +50,8 @@ public class LoginInfoClass extends ContextWrapper {
             dbCon=app.getConnection();
         }
     }
+
+    // Create Function
     public boolean CreateRecord(String email, String password) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;

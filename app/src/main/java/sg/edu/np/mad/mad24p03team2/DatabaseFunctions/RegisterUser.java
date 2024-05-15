@@ -1,7 +1,6 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,14 +14,14 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
     ArrayList<IDBProcessListener> dbListeners = null;
 
     // Login Data Class
-    LoginInfoClass loginInfoClass = null;
+    LoginInfoDB loginInfoDB = null;
 
 
     private ArrayList<IDBProcessListener> listeners = new ArrayList<IDBProcessListener>();
 
 
     public RegisterUser(Context appContext){
-        this.loginInfoClass = new LoginInfoClass(appContext);
+        this.loginInfoDB = new LoginInfoDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -42,7 +41,7 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
         try{
             String email = inputs[0];
             String password = inputs[1];
-            isSuccess = loginInfoClass.CreateRecord(email, password);
+            isSuccess = loginInfoDB.CreateRecord(email, password);
         }
         catch (Exception e) {
             z = e.getMessage();

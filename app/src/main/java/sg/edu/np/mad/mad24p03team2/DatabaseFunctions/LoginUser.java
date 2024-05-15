@@ -19,11 +19,11 @@ public class LoginUser extends AsyncTaskExecutorService<String, String , String>
 
 
     // Login Data Class
-    LoginInfoClass loginInfoClass = null;
+    LoginInfoDB loginInfoDB = null;
 
     public LoginUser(Context appContext){
         // Later will pass in ApplicationContext
-        this.loginInfoClass = new LoginInfoClass(appContext);
+        this.loginInfoDB = new LoginInfoDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -43,7 +43,7 @@ public class LoginUser extends AsyncTaskExecutorService<String, String , String>
         try{
             String email = inputs[0];
             String password = inputs[1];
-            checks = loginInfoClass.ValidateRecord(email, password);
+            checks = loginInfoDB.ValidateRecord(email, password);
             isValid = checks[isValidIdx];
             isExist = checks[isExistIdx];
         }

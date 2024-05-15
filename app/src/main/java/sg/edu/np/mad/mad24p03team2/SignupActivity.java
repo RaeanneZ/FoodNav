@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,11 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
     @Override
     public void afterProcess(Boolean executeStatus) {
         // Your code to update UI here
+        if(executeStatus) {
+            Log.d("Sign Up", "Success");
+        } else {
+            Log.d("Sign Up", "Fail");
+        }
     }
 
     @Override

@@ -17,10 +17,10 @@ and control passes to the corresponding catch block. After executing the catch b
 the control will be transferred to finally block(if present) and
 then the rest program will be executed.
 * */
-public class LoginInfoClass extends AbstractDBProcess{
+public class LoginInfoDB extends AbstractDBProcess{
     Statement stmt;
 
-    public LoginInfoClass(Context base) {
+    public LoginInfoDB(Context base) {
         super(base);
     }
 

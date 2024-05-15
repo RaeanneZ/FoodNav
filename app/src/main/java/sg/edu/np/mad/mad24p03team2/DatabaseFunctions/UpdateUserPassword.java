@@ -13,11 +13,11 @@ public class UpdateUserPassword extends AsyncTaskExecutorService<String, String 
     Boolean isSuccess = false;
     ArrayList<IDBProcessListener> dbListeners = null;
     // Login Data Class
-    LoginInfoClass loginInfoClass = null;
+    LoginInfoDB loginInfoDB = null;
 
     public UpdateUserPassword(Context appContext){
         // Later will pass in ApplicationContext
-        this.loginInfoClass = new LoginInfoClass(appContext);
+        this.loginInfoDB = new LoginInfoDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -36,7 +36,7 @@ public class UpdateUserPassword extends AsyncTaskExecutorService<String, String 
         try{
             String email = inputs[0];
             String password = inputs[1];
-            isSuccess = loginInfoClass.UpdateRecord(email, password);
+            isSuccess = loginInfoDB.UpdateRecord(email, password);
         }
         catch (Exception e){
             isSuccess = false;

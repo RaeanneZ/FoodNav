@@ -1,15 +1,11 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
-import android.util.Log;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
-import sg.edu.np.mad.mad24p03team2.Interfaces.AbstractDBProcess;
-import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class LoginUser extends AsyncTaskExecutorService<String, String , String>{
 

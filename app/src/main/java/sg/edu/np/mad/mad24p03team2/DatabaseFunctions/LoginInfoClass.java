@@ -1,7 +1,6 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.util.Log;
 
 import java.sql.Connection;
@@ -10,8 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 
-import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
-import sg.edu.np.mad.mad24p03team2.Interfaces.AbstractDBProcess;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.AbstractDBProcess;
 
 /*
 If a statement in try block raised an exception, then the rest of the try block doesn’t execute

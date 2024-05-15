@@ -1,7 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
-import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class SignupActivity extends AppCompatActivity implements IDBProcessListener {
 

@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad24p03team2.Interfaces;
+package sg.edu.np.mad.mad24p03team2.Abstract_Interfaces;
 
 public interface IDBProcessListener {
     // Function to be implemented

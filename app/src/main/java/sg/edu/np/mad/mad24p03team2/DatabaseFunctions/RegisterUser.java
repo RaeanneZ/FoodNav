@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
-import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class RegisterUser extends AsyncTaskExecutorService<String, String , String> {
 

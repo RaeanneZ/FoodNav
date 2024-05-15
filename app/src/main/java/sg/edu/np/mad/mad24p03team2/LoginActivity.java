@@ -1,12 +1,10 @@
 package sg.edu.np.mad.mad24p03team2;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
-
-import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginInfoClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
-import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class LoginActivity extends AppCompatActivity implements IDBProcessListener {
     EditText emailComponent, passwordComponent;

@@ -52,11 +52,7 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
 
     @Override
     public void afterProcess(Boolean executeStatus) {
-        if(executeStatus) {
-            Log.d("SignUp","Sign up successful!");
-        } else {
-            Log.d("SignUp","Sign up fail!");
-        }
+        // Your code to update UI here
     }
 
     @Override

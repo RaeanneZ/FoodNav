@@ -39,7 +39,7 @@ public abstract class AsyncTaskExecutorService < Params, Progress, Result > {
         // Override this method whereever you want to perform task before background execution get started
     }
 
-    protected abstract Result doInBackground(Params params);
+    protected abstract Result doInBackground(Params... params);
 
     protected abstract void onPostExecute(Result result);
 
@@ -56,7 +56,7 @@ public abstract class AsyncTaskExecutorService < Params, Progress, Result > {
         execute(null);
     }
 
-    public void execute(Params params) {
+    public void execute(Params... params) {
         getHandler().post(() -> {
             onPreExecute();
             executor.execute(() -> {

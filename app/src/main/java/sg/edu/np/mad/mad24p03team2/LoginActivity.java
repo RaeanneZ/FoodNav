@@ -14,13 +14,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginInfoClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
+import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements IDBProcessListener {
     EditText emailComponent, passwordComponent;
     String email, password;
     Button loginBtn;
+
+    LoginUser loginUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,54 +43,30 @@ public class LoginActivity extends AppCompatActivity {
         passwordComponent = (EditText) findViewById(R.id.password);
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
+        loginUser = new LoginUser(getApplicationContext(),this);
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 email = emailComponent.getText().toString();
                 password = passwordComponent.getText().toString();
-                new LoginUser(getApplicationContext()).execute("");
+                loginUser.execute(email, password);
             }
         });
     }
 
-    // For View, only edit the postExecution function
-    public class LoginUser extends AsyncTaskExecutorService<String, String , String> {
+    //Methods from IDBProcessListener
+    @Override
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+        // User Login process will return 2 boolean flag to indicate whether its wrong username or
+        // wrong password that caused LOGIN UNSUCCESSFUL
+        // Please update your UI here
 
-        String z = "";
-        Boolean[] checks;
-        Boolean isValid;
-        Boolean isExist;
-        Integer isValidIdx = 0;
-        Integer isExistIdx = 1;
+        Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
+    }
 
-        @Override
-        protected void onPostExecute(String s) {
-            // E.g. Send a Toast message: Login Successful
-            // Go to Home Dashboard Page
-        }
-
-        // BACKEND PART ----------------------------------------------------------------------------
-        // DO NOT TOUCH
-        // Login Data Class
-        LoginInfoClass loginInfoClass = null;
-
-        public LoginUser(Context appContext){
-            this.loginInfoClass = new LoginInfoClass(getApplicationContext());
-        }
-
-        // This is to check password corresponds
-        @Override
-        protected String doInBackground(String s) {
-            try{
-                checks = loginInfoClass.ValidateRecord(email, password);
-                isValid = checks[isValidIdx];
-                isExist = checks[isExistIdx];
-            }
-            catch (Exception e){
-                z = e.getMessage();
-            }
-            return z;
-        }
-        // BACKEND PART ----------------------------------------------------------------------------
+    @Override
+    public void afterProcess(Boolean executeStatus) {
+        // For 1 return value (e.g. whether registration is successful)
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -17,9 +18,10 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class SignupActivity extends AppCompatActivity implements IDBProcessListener {
 
-    EditText emailComponent, pwdComponent;
-    String email, password;
+    EditText nameComponent, emailComponent, pwdComponent;
+    String name, email, password;
     Button signUpBtn;
+    CheckBox checkboxBtn;
     RegisterUser registerUser = null;
 
     @Override
@@ -33,8 +35,10 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
             return insets;
         });
 
+        nameComponent = (EditText) findViewById(R.id.name);
         emailComponent = (EditText) findViewById(R.id.username);
         pwdComponent = (EditText) findViewById(R.id.password);
+        checkboxBtn = (CheckBox) findViewById(R.id.checkBox);
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
 
         registerUser = new RegisterUser(getApplicationContext(),this);
@@ -42,9 +46,10 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                name = nameComponent.getText().toString();
                 email = emailComponent.getText().toString();
                 password = pwdComponent.getText().toString();
-                registerUser.execute(email, password);
+                registerUser.execute(name, email, password);
             }
         });
     }

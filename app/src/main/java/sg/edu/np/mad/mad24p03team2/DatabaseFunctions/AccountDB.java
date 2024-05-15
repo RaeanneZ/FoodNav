@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.AbstractDBProcess;
+import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
 
 
 public class AccountDB extends AbstractDBProcess {
@@ -50,6 +51,9 @@ public class AccountDB extends AbstractDBProcess {
                 stmt = dbCon.createStatement();
                 stmt.executeUpdate(sql);
                 isSuccess = true;
+
+                // Save current user account to Account object created in StartUp
+                saveCurrentUserInfo(email);
             }
         }
         catch (Exception e) {
@@ -113,5 +117,31 @@ public class AccountDB extends AbstractDBProcess {
         return isUpdateSuccessful;
     }
 
+    // Save Account Info to Start
+    private void saveCurrentUserInfo(String email){
+        StartUp startUpApp = (StartUp) this.getApplicationContext();
+        int id = 0;
+        String name = null;
+        int dietPlanOpt = 0;
+
+        try{
+            ResultSet resultSet = GetRecord(email, dbCon);
+            // There is Data
+            if(resultSet.isBeforeFirst() && resultSet.getRow() != 0){
+                id = resultSet.getInt("AccID");
+                name = resultSet.getString("Name");
+                dietPlanOpt = resultSet.getInt("DietPlanID");
+            }
+        } catch(Exception e) {
+            Log.d("GetCurrentUserInfo", "No Account to get");
+        }
+
+        AccountClass userAccount = new AccountClass(id, name, email, dietPlanOpt);
+        startUpApp.setCurrentUser(userAccount);
+
+        Log.d("SaveCurrentUserInfo", "Current User ID: " + startUpApp.getCurrentUser().getId());
+        Log.d("SaveCurrentUserInfo", "Current Username: " + startUpApp.getCurrentUser().getName());
+        Log.d("SaveCurrentUserInfo", "Current Email: " + startUpApp.getCurrentUser().getEmail());
+    }
 
 }

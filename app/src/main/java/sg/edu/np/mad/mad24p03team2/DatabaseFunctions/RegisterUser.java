@@ -13,15 +13,18 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
     Boolean isSuccess = false;
     ArrayList<IDBProcessListener> dbListeners = null;
 
-    // Login Data Class
+    // LoginInfo DB Class
     LoginInfoDB loginInfoDB = null;
 
+    // Account DB
+    AccountDB accountDB = null;
 
     private ArrayList<IDBProcessListener> listeners = new ArrayList<IDBProcessListener>();
 
 
     public RegisterUser(Context appContext){
         this.loginInfoDB = new LoginInfoDB(appContext);
+        this.accountDB = new AccountDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -39,9 +42,10 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
     @Override
     protected String doInBackground(String... inputs)  {
         try{
-            String email = inputs[0];
-            String password = inputs[1];
-            isSuccess = loginInfoDB.CreateRecord(email, password);
+            String name = inputs[0];
+            String email = inputs[1];
+            String password = inputs[2];
+            isSuccess = (loginInfoDB.CreateRecord(email, password) && accountDB.CreateRecord(name, email));
         }
         catch (Exception e) {
             z = e.getMessage();

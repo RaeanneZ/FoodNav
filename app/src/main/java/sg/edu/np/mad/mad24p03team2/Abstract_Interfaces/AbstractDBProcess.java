@@ -27,5 +27,9 @@ public class AbstractDBProcess extends ContextWrapper {
         }
     }
 
+    public Context getApplicationContext(){
+        return context;
+    }
+
 
 }

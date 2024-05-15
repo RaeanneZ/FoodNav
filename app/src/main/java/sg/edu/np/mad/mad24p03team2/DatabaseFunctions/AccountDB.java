@@ -69,7 +69,7 @@ public class AccountDB extends AbstractDBProcess {
         return isSuccess;
     }
 
-    public boolean UpdateRecord(String email, String gender, String birthDate, String height, String weight) throws SQLException {
+    public boolean UpdateRecord(String email, String dietPlanOpt, String gender, String birthDate, String height, String weight) throws SQLException {
         boolean isUpdateSuccessful = false;
         ResultSet resultSet = null;
         String sql = null;
@@ -78,6 +78,11 @@ public class AccountDB extends AbstractDBProcess {
             resultSet = GetRecord(email,dbCon);
             if(resultSet.next()){
                 // Create and execute the SQL statement to Database
+                if (dietPlanOpt != null) {
+                    sql = "UPDATE ACCOUNT SET DietPlanID = '"+dietPlanOpt+"' WHERE AccEmail = '"+email+"'";
+                    stmt = dbCon.createStatement();
+                    stmt.executeUpdate(sql);
+                }
                 if (gender != null) {
                     sql = "UPDATE ACCOUNT SET Gender = '"+gender+"' WHERE AccEmail = '"+email+"'";
                     stmt = dbCon.createStatement();

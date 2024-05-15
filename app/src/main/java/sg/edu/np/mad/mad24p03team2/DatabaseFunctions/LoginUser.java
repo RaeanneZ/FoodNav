@@ -45,7 +45,9 @@ public class LoginUser extends AsyncTaskExecutorService<String, String , String>
     @Override
     protected String doInBackground(String... inputs) {
         try{
-            checks = loginInfoClass.ValidateRecord(inputs[0], inputs[1]);
+            String email = inputs[0];
+            String password = inputs[1];
+            checks = loginInfoClass.ValidateRecord(email, password);
             isValid = checks[isValidIdx];
             isExist = checks[isExistIdx];
         }

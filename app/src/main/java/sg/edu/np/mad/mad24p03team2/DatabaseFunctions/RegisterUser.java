@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -19,20 +20,29 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
 
     private ArrayList<IDBProcessListener> listeners = new ArrayList<IDBProcessListener>();
 
-    public void registerListener(IDBProcessListener listener){
-        listeners.add(listener);
+
+    public RegisterUser(Context appContext){
+        this.loginInfoClass = new LoginInfoClass(appContext);
+        this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
+    public RegisterUser(Context appContext, IDBProcessListener listener){
+        this(appContext);
+        if(listener != null)
+            registerListener(listener);
+    }
 
-    public RegisterUser(LoginInfoClass loginInfoClass){
-        this.loginInfoClass = loginInfoClass;
+    public void registerListener(IDBProcessListener listener){
+        listeners.add(listener);
     }
 
 
     @Override
     protected String doInBackground(String... inputs)  {
         try{
-            isSuccess = loginInfoClass.CreateRecord(inputs[0], inputs[1]);
+            String email = inputs[0];
+            String password = inputs[1];
+            isSuccess = loginInfoClass.CreateRecord(email, password);
         }
         catch (Exception e) {
             z = e.getMessage();

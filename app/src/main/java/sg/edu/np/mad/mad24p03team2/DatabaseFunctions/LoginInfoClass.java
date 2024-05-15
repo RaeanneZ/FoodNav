@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
+import sg.edu.np.mad.mad24p03team2.Interfaces.AbstractDBProcess;
 
 /*
 If a statement in try block raised an exception, then the rest of the try block doesn’t execute
@@ -18,17 +19,11 @@ and control passes to the corresponding catch block. After executing the catch b
 the control will be transferred to finally block(if present) and
 then the rest program will be executed.
 * */
-public class LoginInfoClass extends ContextWrapper {
+public class LoginInfoClass extends AbstractDBProcess{
     Statement stmt;
-
-    private final Context context;
-
-    private Connection dbCon = null;
 
     public LoginInfoClass(Context base) {
         super(base);
-        this.context = base;
-        getDBConnection();
     }
 
     // Read Function
@@ -41,13 +36,6 @@ public class LoginInfoClass extends ContextWrapper {
         }
         catch (Exception e) {
             return null;
-        }
-    }
-
-    private void getDBConnection(){
-        if(context instanceof StartUp){
-            final StartUp app = (StartUp) context;
-            dbCon=app.getConnection();
         }
     }
 

@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.Interfaces.AbstractDBProcess;
 import sg.edu.np.mad.mad24p03team2.Interfaces.IDBProcessListener;
 
-public class LoginUser extends AsyncTaskExecutorService<String, String , String> {
+public class LoginUser extends AsyncTaskExecutorService<String, String , String>{
 
     String z = "";
     Boolean[] checks;
@@ -56,7 +57,7 @@ public class LoginUser extends AsyncTaskExecutorService<String, String , String>
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d("LoginUser", "Notify all listeners!");
+        //Notify all listeners
         for(IDBProcessListener listener : dbListeners){
             listener.afterProcess(isValid, isExist);
         }

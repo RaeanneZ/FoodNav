@@ -5,8 +5,11 @@ import android.util.Log;
 
 import java.sql.Connection;
 
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
+
 public class StartUp extends Application {
-    public Connection con = null;
+    private Connection con = null;
+    private AccountClass currentUser = null; // Store the current logged in user
 
     @Override
     public void onCreate() {
@@ -26,5 +29,12 @@ public class StartUp extends Application {
 
     public Connection getConnection(){
         return con;
+    }
+
+    public AccountClass getCurrentUser() {
+        return currentUser;
+    }
+    public void setCurrentUser(AccountClass currentUser) {
+        this.currentUser = currentUser;
     }
 }

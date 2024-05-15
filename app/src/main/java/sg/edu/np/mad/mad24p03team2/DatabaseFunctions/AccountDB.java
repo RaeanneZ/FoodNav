@@ -119,29 +119,31 @@ public class AccountDB extends AbstractDBProcess {
 
     // Save Account Info to Start
     private void saveCurrentUserInfo(String email){
-        StartUp startUpApp = (StartUp) this.getApplicationContext();
+
         int id = 0;
-        String name = null;
+        String name = " ";
         int dietPlanOpt = 0;
+
+        StartUp startUpApp = (StartUp) this.getApplicationContext();
 
         try{
             ResultSet resultSet = GetRecord(email, dbCon);
             // There is Data
-            if(resultSet.isBeforeFirst() && resultSet.getRow() != 0){
+            if(resultSet.next()){
                 id = resultSet.getInt("AccID");
                 name = resultSet.getString("Name");
                 dietPlanOpt = resultSet.getInt("DietPlanID");
+
+                AccountClass userAccount = new AccountClass(id, name, email, dietPlanOpt);
+                startUpApp.setCurrentUser(userAccount);
             }
         } catch(Exception e) {
             Log.d("GetCurrentUserInfo", "No Account to get");
         }
 
-        AccountClass userAccount = new AccountClass(id, name, email, dietPlanOpt);
-        startUpApp.setCurrentUser(userAccount);
-
-        Log.d("SaveCurrentUserInfo", "Current User ID: " + startUpApp.getCurrentUser().getId());
-        Log.d("SaveCurrentUserInfo", "Current Username: " + startUpApp.getCurrentUser().getName());
-        Log.d("SaveCurrentUserInfo", "Current Email: " + startUpApp.getCurrentUser().getEmail());
+//        Log.d("SaveCurrentUserInfo", "ID: " + startUpApp.getCurrentUser().getId());
+//        Log.d("SaveCurrentUserInfo", "Name: " + startUpApp.getCurrentUser().getName());
+//        Log.d("SaveCurrentUserInfo", "Email: " + startUpApp.getCurrentUser().getEmail());
     }
 
 }

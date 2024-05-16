@@ -16,12 +16,13 @@ public class DietPlanOptDB extends AbstractDBProcess {
     }
 
     // Get DietPlan data through its ID
-    public ResultSet GetRecord(String id, Connection con){
-        String sql = "SELECT * FROM DietPlan WHERE DietPlanID = '"+id+"'";
+    public ResultSet GetRecord(String name, String trackBloodSugar){
+        Connection con = dbCon;
+        String sql = "SELECT * FROM DietPlan WHERE Name = '"+name+"' AND TrackBloodSugar = '"+trackBloodSugar+"'";
 
         try {
             stmt = con.createStatement();
-            return stmt.executeQuery(sql); // Column 1 = email, Column 2 = password
+            return stmt.executeQuery(sql);
         }
         catch (Exception e) {
             return null;

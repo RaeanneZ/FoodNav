@@ -15,7 +15,20 @@ public class FoodDB extends AbstractDBProcess {
     }
 
     // Get Food data through its ID
-    public ResultSet GetRecord(String name, Connection con){
+    public ResultSet GetAllRecords(Connection con){
+        String sql = "SELECT * FROM Food";
+
+        try {
+            stmt = con.createStatement();
+            return stmt.executeQuery(sql);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
+    // Get Food data through its ID
+    public ResultSet GetSpecificRecord(String name, Connection con){
         String sql = "SELECT * FROM Food WHERE Name = '"+name+"'";
 
         try {

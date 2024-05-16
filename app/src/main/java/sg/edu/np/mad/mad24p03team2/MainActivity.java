@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,11 +27,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button button = findViewById(R.id.login);
+        Button login = findViewById(R.id.login);
         TextView signup = findViewById(R.id.signup);
-
-        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
+        login.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
         signup.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SignupActivity.class)));
-
     }
 }

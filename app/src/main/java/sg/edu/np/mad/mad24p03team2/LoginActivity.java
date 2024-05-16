@@ -1,17 +1,18 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
@@ -62,5 +63,6 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
     @Override
     public void afterProcess(Boolean executeStatus) {
         // For 1 return value (e.g. whether registration is successful)
+
     }
 }

@@ -66,6 +66,5 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
 
     @Override
     public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
-
     }
 }

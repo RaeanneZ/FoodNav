@@ -28,7 +28,7 @@ public class AccountDB extends AbstractDBProcess {
 
         try {
             stmt = con.createStatement();
-            return stmt.executeQuery(sql); // Column 1 = email, Column 2 = password
+            return stmt.executeQuery(sql);
         }
         catch (Exception e) {
             return null;

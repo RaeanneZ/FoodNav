@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <!-- transfer over to smt else -->
     <style name = "circular">
         <item name = "cornerSize">20dp</item>
     </style>

@@ -12,10 +12,12 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
 
     int id = 0;
     String name = " ";
+    boolean isSuccess = false;
     int reccCarbIntake = 0;
     int reccProteinIntake = 0;
     int reccFatsIntake = 0;
     boolean isTracked = false;
+    DietPlanClass dietPlan;
 
     ArrayList<IDBProcessListener> dbListeners = null;
     // Login Data Class
@@ -39,9 +41,8 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        String name = strings[0];
-        String trackBloodSugar = strings[1];
+    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
+
         ResultSet resultSet = dietPlanOptDB.GetRecord(name, trackBloodSugar);
 
         try{
@@ -59,15 +60,34 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
                 } else {
                     isTracked = false;
                 }
+
+                DietPlanClass dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, isTracked);
+                isSuccess = true;
             }
         } catch( Exception e){}
 
-        // TODO: RETURN ALL THE VARIABLES FROM RESULTSET
-        return null;
+        return dietPlan;
     }
 
     @Override
     protected void onPostExecute(String s) {
-
+        for(IDBProcessListener listener : dbListeners){
+            listener.afterProcess(isSuccess);
+        }
     }
+
+    // IGNORED -------------------------------------------------------------------------------------
+    @Override
+    protected String doInBackground(String... strings) {
+        return null;
+    }
+
+    @Override
+    protected ArrayList<FoodItemClass> doInBackground() {
+        return null;
+    }
+
+    @Override
+    protected ArrayList<FoodItemClass> doInBackground(String name) { return null; }
+    // IGNORED -------------------------------------------------------------------------------------
 }

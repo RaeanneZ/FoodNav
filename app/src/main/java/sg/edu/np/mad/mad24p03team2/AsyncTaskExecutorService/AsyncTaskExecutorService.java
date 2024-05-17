@@ -5,8 +5,12 @@ import android.os.Looper;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 
 public abstract class AsyncTaskExecutorService < Params, Progress, Result > {
 
@@ -36,10 +40,16 @@ public abstract class AsyncTaskExecutorService < Params, Progress, Result > {
     }
 
     protected void onPreExecute() {
-        // Override this method whereever you want to perform task before background execution get started
+        // Override this method wherever you want to perform task before background execution get started
     }
 
     protected abstract Result doInBackground(Params... params);
+
+    protected abstract ArrayList<FoodItemClass> doInBackground();
+
+    protected abstract ArrayList<FoodItemClass> doInBackground(String name);
+
+    protected abstract DietPlanClass doInBackground(String name, String trackBloodSugar);
 
     protected abstract void onPostExecute(Result result);
 

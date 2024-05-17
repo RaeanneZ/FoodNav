@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="Profile"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/baseline_circle_24" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="66dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/imageicon" />
+
+    <EditText
+        android:id="@+id/height"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Height (cm)"
+        android:selectAllOnFocus="true"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthdate" />
+
+    <EditText
+        android:id="@+id/birthdate"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="180dp"
+        android:hint="Birth Date"
+        android:inputType="date"
+        android:selectAllOnFocus="true"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Weight"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="70dp"
+        android:background="@color/lavender"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Gender"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/male"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/male"
+        android:layout_width="131dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="210dp"
+        android:background="@color/lavender"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Male"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/female"
+        android:layout_width="131dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="74dp"
+        android:background="#FFC0CB"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Female"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/birthdate"
+        app:layout_constraintTop_toTopOf="@+id/birthdate"
+        app:srcCompat="@drawable/calendericon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

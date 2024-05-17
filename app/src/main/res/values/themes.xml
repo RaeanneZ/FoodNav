@@ -5,5 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <!-- transfer over to smt else -->
+    <style name = "circular">
+        <item name = "cornerSize">20dp</item>
+    </style>
+
     <style name="Theme.MAD24P03Team2" parent="Base.Theme.MAD24P03Team2" />
 </resources>

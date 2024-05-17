@@ -12,12 +12,12 @@
         android:orientation="horizontal"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/textView3"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" <  "
-            android:textSize="24sp" />
+            android:layout_height="20dp"
+            android:layout_weight="0.4"
+            app:srcCompat="@drawable/left_arrow" />
 
         <TextView
             android:id="@+id/textView2"
@@ -25,7 +25,10 @@
             android:layout_height="wrap_content"
             android:text="Diabetic Friendly Diet"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_weight="0.6"/>
+
+
     </LinearLayout>
 
     <LinearLayout

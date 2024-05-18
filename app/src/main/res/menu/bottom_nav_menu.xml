@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Dashboard"
-        android:id="@+id/Dashboard"
+        android:id="@+id/dashboard"
         android:icon="@drawable/baseline_grid_view_24"/>
     <item android:title="Log Food"
         android:id="@+id/logfood"
@@ -9,13 +9,13 @@
         />
     <item android:title="Fooducate"
         android:icon="@drawable/baseline_info_outline_24"
-        android:id="@+id/Fooducate"/>
+        android:id="@+id/fooducate"/>
     <item android:title="Food2nom"
         android:icon="@drawable/baseline_restaurant_menu_24"
-        android:id="@+id/Food2nom"
+        android:id="@+id/food2nom"
         />
     <item android:title="Account"
         android:icon="@drawable/baseline_person_24"
-        android:id="@+id/Account"
+        android:id="@+id/account"
         />
 </menu>

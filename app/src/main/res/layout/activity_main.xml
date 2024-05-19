@@ -13,15 +13,14 @@
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginTop="85dp"
-        android:layout_marginBottom="142dp"
         android:background="@color/lavender"
         android:fontFamily="@font/inter_black"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDesc"
-        app:layout_constraintVertical_bias="0.711" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.725" />
 
     <TextView
         android:id="@+id/signup"
@@ -61,15 +60,30 @@
         android:layout_width="269dp"
         android:layout_height="143dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="159dp"
         android:layout_marginEnd="73dp"
         android:fontFamily="@font/inter_black"
         android:text="Navigate your  Food Journey  With Us"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.414" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

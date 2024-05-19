@@ -30,6 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         setContentView(R.layout.activity_main2);
+      
         // Set default fragment
         replaceFragment(new Dashboard());
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav);

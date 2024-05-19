@@ -393,16 +393,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/cardc" />
 
-                        <Button
-                            android:id="@+id/button"
+
+                        <TextView
+                            android:id="@+id/textView3"
                             android:layout_width="wrap_content"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginEnd="10dp"
-                            android:backgroundTint="@color/beige"
-                            android:text=">"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="30dp"
+                            android:background="@drawable/baseline_keyboard_arrow_right_24"
+                            android:text=""
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/cardf" />
+                            app:layout_constraintTop_toBottomOf="@+id/cardp" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>

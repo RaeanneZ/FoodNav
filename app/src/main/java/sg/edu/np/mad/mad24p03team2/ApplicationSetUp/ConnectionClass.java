@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class ConnectionClass {
     String classes = "net.sourceforge.jtds.jdbc.Driver";
-    public static String ip =  "192.168.1.238";
+    public static String ip =  "172.16.4.31";
     public static String userName =  "user";
     public static String password =  "guestD@TABASE!";
     public static String dbName =  "FoodNav";

@@ -22,6 +22,18 @@ public class FoodDB extends AbstractDBProcess {
         getDBConnection();
     }
 
+    public ResultSet GetAllRecord(){
+        String sql = "SELECT * FROM Food";
+
+        try {
+            stmt = dbCon.createStatement();
+            return stmt.executeQuery(sql); // Column 1 = email, Column 2 = password
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
     public ResultSet GetRecord(String name){
         String sql = "SELECT * FROM Food WHERE Name LIKE '%"+name+"%'";
 

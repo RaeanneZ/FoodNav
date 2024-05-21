@@ -1,10 +1,13 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.ApiHandler;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 
@@ -13,7 +16,9 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
     boolean isSuccess = false;
     FoodDB foodDB = null;
     ArrayList<IDBProcessListener> dbListeners = null;
+    FoodItemClass foodItem;
     ArrayList<FoodItemClass> foodItems = null;
+    ApiHandler apiHandler = new ApiHandler();
 
     public GetAllFood(Context appContext){
         // Later will pass in ApplicationContext
@@ -34,31 +39,23 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground() {
-        int id;
-        String name;
-        int calories;
-        int carb;
-        int protein;
-        int fat;
-        String servingSize;
-
-        try{
-            ResultSet resultSet = foodDB.GetAllRecords();
-
+        ResultSet resultSet = foodDB.GetAllRecord();
+        try {
             while (resultSet.next()) {
-                id = resultSet.getInt("FoodID");
-                name = resultSet.getString("Name");
-                calories = resultSet.getInt("Calories");
-                carb = resultSet.getInt("Carbohydrates");
-                protein = resultSet.getInt("Protein");
-                fat = resultSet.getInt("Fat");
-                servingSize = resultSet.getString("ServingSize");
-
-                FoodItemClass foodItem = new FoodItemClass(id, name, calories, carb, protein, fat, servingSize);
+                foodItem = new FoodItemClass(resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
                 foodItems.add(foodItem);
             }
-        } catch (Exception e){ }
-
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try{
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (Exception e) { Log.d("Get Food", "Resultset unable to close"); }
+        }
         return foodItems;
     }
 

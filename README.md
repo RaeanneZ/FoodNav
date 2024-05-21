@@ -82,14 +82,6 @@ This app targets male and females of age 18 - 70 who are health conscious. They 
    - Dashboard, it provides a quick summary at a glance on Today progress as well as a summary view of each meal
    - Daily Missions achievement to motivate users’ in keeping to their desired diet plan
 
-6. **Fooducate**
-   
-   Get health insights and useful tips so that users can make better food choices based on their diet plan. Users can type to search for the related food articles that they are interested in.
-
-7. **Food2Nom**
-    
-   Easy to use tool to search on food categories when deciding which variant is a healthier choice. Users can type food keywords to search for the related list of variants so they can make a healthier choice with all the macros and calories information. Recommendations will be made based on users’ diet plan.  
-
 ### Stage 2
 
 **Raeanne**
@@ -112,14 +104,9 @@ filtering system allowing users to refine search results based on specific dieta
 
 1. First time user can sign up as member
 2. After signing up as member successfully, user can login with email and password
-3. Able to add food to meal via:
-    - Type food name in search bar
-    - Scan food barcode
-    - Take food photo
+3. Able to add food to meal via typing food name in search bar
 5. Able to remove food from meal
 6. Update of food details (macros, calories) on Food log page as well as dashboard - meal summary card
-7. Fooducate will return search result of typed in food name in search bar
-8. Food2Nom will return search result of typed in food name in search bar or photos snapped
    
 ## Development Schedule
 **Week 2** 

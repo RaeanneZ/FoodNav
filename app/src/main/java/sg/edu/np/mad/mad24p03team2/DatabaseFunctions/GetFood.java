@@ -35,14 +35,18 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
+        // Check if the exact match is there
         ResultSet resultSet = foodDB.GetSpecificRecord(name);
         try {
+            // Add the food if its not there
             if(!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
                 apiHandler.fetchNutritionInfo(name, foodDB);
-                resultSet = foodDB.GetSpecificRecord(name);
             }
-            foodItem = new FoodItemClass(resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
-            foodItems.add(foodItem);
+            resultSet = foodDB.GetRecord(name);
+            while(resultSet.next()) {
+                foodItem = new FoodItemClass(resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
+                foodItems.add(foodItem);
+            }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

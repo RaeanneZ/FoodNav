@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
             return insets;
         });
 
-        emailComponent = (EditText) findViewById(R.id.username);
+        emailComponent = (EditText) findViewById(R.id.email);
         passwordComponent = (EditText) findViewById(R.id.password);
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
@@ -56,8 +58,12 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         // User Login process will return 2 boolean flag to indicate whether its wrong username or
         // wrong password that caused LOGIN UNSUCCESSFUL
         // Please update your UI here
-
-        Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
+        if (isValidPwd == false || isValidUser == false){
+            Toast.makeText(LoginActivity.this, "User not found. Try again", Toast.LENGTH_SHORT).show();
+        } else{
+            loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));
+            Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
+        }
     }
 
     @Override

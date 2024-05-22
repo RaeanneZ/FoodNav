@@ -1,11 +1,13 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +20,8 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
 public class SignupActivity extends AppCompatActivity implements IDBProcessListener {
 
-    EditText nameComponent, emailComponent, pwdComponent;
-    String name, email, password;
+    EditText nameComponent, emailComponent, pwdComponent, cfpwdComponent;
+    String name, email, password, confirm;
     Button signUpBtn;
     CheckBox checkboxBtn;
     RegisterUser registerUser = null;
@@ -36,12 +38,13 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
         });
 
         nameComponent = (EditText) findViewById(R.id.name);
-        emailComponent = (EditText) findViewById(R.id.username);
+        emailComponent = (EditText) findViewById(R.id.email);
         pwdComponent = (EditText) findViewById(R.id.password);
+        cfpwdComponent = (EditText) findViewById(R.id.confirmPassword);
         checkboxBtn = (CheckBox) findViewById(R.id.checkBox);
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
 
-        registerUser = new RegisterUser(getApplicationContext(),this);
+        registerUser = new RegisterUser(getApplicationContext(), this);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +52,17 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
                 name = nameComponent.getText().toString();
                 email = emailComponent.getText().toString();
                 password = pwdComponent.getText().toString();
-                registerUser.execute(name, email, password);
+                confirm = cfpwdComponent.getText().toString();
+                if (password.isEmpty()) {
+                    Toast.makeText(SignupActivity.this, "Password should not be empty!", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirm)) {
+                    // Display error message - passwords don't match
+                    Toast.makeText(SignupActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                } else if (name.isEmpty() || email.isEmpty()) {
+                    Toast.makeText(SignupActivity.this, "Name or email cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    registerUser.execute(name, email, password);
+                }
             }
         });
     }
@@ -57,11 +70,13 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
     @Override
     public void afterProcess(Boolean executeStatus) {
         // Your code to update UI here
-        if(executeStatus) {
+        if (executeStatus) {
             Log.d("Sign Up", "Success");
         } else {
             Log.d("Sign Up", "Fail");
         }
+        signUpBtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
+
     }
 
     @Override

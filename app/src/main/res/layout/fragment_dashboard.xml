@@ -35,8 +35,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="16dp"
                     android:text="Today, 28 Apr"
-                    android:textSize="34sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
+                    android:textColor="@color/eggplant"
+                    android:fontFamily="@font/inter_extrabold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.14"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +47,9 @@
                 <View
                     android:id="@+id/viewline"
                     android:layout_width="380dp"
-                    android:layout_height="1dp"
+                    android:layout_height="2.5dp"
                     android:layout_marginTop="12dp"
-                    android:background="@color/black"
+                    android:background="@color/lavender"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvdate" />
@@ -72,12 +74,13 @@
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/circularProgressIndicator"
-                    android:layout_width="199dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="51dp"
                     android:background="@drawable/progress_circle"
-                    app:indicatorSize="180dp"
+                    app:indicatorSize="100dp"
+                    android:progress="75"
+                    android:progressTint="@color/pink"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,11 +88,13 @@
                     android:id="@+id/tvProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="76dp"
                     android:text="1535"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="62dp"
+                    android:layout_marginTop="43dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.078"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,17 +104,19 @@
                     android:id="@+id/tvkcalleft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
+                    android:fontFamily="@font/inter_extrabold"
                     android:text="Kcal Left"
-                    android:textSize="24sp"
+                    android:layout_marginStart="77dp"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
                     android:textStyle="bold"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/circularProgressIndicator" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -120,76 +127,90 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <ProgressBar
-                            android:id="@+id/progressBarcarbs"
-                            style="?android:attr/progressBarStyleHorizontal"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="48dp"
-                            android:progress="25"
-                            android:progressTint="@color/green"
-                            app:layout_constraintStart_toEndOf="@id/tvCarbs"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            >
 
-                        <TextView
-                            android:id="@+id/tvCarbs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="48dp"
-                            android:text="Carbs"
-                            android:textColor="@color/green"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvProtein"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Protein"
-                            android:textColor="@color/red"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvCarbs" />
+                                <TextView
+                                    android:id="@+id/tvCarbs"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:text="Carbs"
+                                    android:fontFamily="@font/inter_regular"
+                                    android:textColor="@color/green"
+                                    android:textSize="13sp" />
 
-                        <ProgressBar
-                            android:id="@+id/progressBarprotein"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="7dp"
-                            android:layout_marginTop="16dp"
-                            android:progress="35"
-                            android:progressTint="@color/red"
-                            app:layout_constraintStart_toEndOf="@+id/tvProtein"
-                            app:layout_constraintTop_toBottomOf="@+id/progressBarcarbs" />
+                                <TextView
+                                    android:id="@+id/tvProtein"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:text="Protein"
+                                    android:textColor="@color/red"
+                                    android:fontFamily="@font/inter_regular"
+                                    android:textSize="13sp" />
 
-                        <TextView
-                            android:id="@+id/tvFats"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Fats"
-                            android:textColor="@color/pink"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvProtein" />
+                                <TextView
+                                    android:id="@+id/tvFats"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:text="Fats"
+                                    android:textColor="@color/pink"
+                                    android:fontFamily="@font/inter_regular"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
 
-                        <ProgressBar
-                            android:id="@+id/progressBarfats"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="21dp"
-                            android:layout_marginTop="20dp"
-                            android:maxHeight="16dip"
-                            android:progress="45"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                            android:progressTint="@color/pink"
-                            app:layout_constraintStart_toEndOf="@+id/tvFats"
-                            app:layout_constraintTop_toBottomOf="@+id/progressBarprotein" />
+                                <ProgressBar
+                                    android:id="@+id/progressBarcarbs"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="113dp"
+                                    android:layout_height="8dp"
+                                    android:layout_marginTop="25dp"
+                                    android:progress="25"
+                                    android:progressTint="@color/green"
+                                    android:progressDrawable="@drawable/custom_progress_bar_green"/>
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarprotein"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="113dp"
+                                    android:layout_height="8dp"
+                                    android:layout_marginTop="27dp"
+                                    android:progress="35"
+                                    android:progressTint="@color/red"
+                                    android:progressDrawable="@drawable/custom_progress_bar_red"/>
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarfats"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="113dp"
+                                    android:layout_height="8dp"
+                                    android:layout_marginTop="25dp"
+                                    android:maxHeight="16dip"
+                                    android:progress="45"
+                                    android:progressDrawable="@drawable/custom_progress_bar_pink"
+                                    android:progressTint="@color/pink" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
@@ -226,12 +247,14 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tvname"
+                        app:layout_constraintStart_toEndOf="@+id/tvname">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/imagefd"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginStart="20dp"
                             app:cardCornerRadius="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -253,9 +276,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/inter_semibold"
                             android:text="505"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imagefd"
@@ -268,7 +292,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="12dp"
+                            android:fontFamily="@font/inter_regular"
                             android:text="Kcal"
+                            android:textColor="@color/black"
+                            android:textSize="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imagefd"
                             app:layout_constraintTop_toBottomOf="@+id/kcalnum" />
@@ -277,11 +304,12 @@
                             android:id="@+id/tvname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="15dp"
                             android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_semibold"
                             android:text="Lunch"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/imagefd" />
 

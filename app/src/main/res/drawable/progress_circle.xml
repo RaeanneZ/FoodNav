@@ -2,27 +2,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="ring"
-            android:useLevel="false"
-            android:thicknessRatio="20">
-            <solid android:color="@color/yellow"/>
+            android:useLevel="true"
+            android:thickness="10dp"
+            android:thicknessRatio="50">
+            <solid android:color="@color/pink"/>
             <size
                 android:width="200dp"
                 android:height="200dp" />
         </shape>
     </item>
-    <item>
-        <rotate
-            android:fromDegrees="270"
-            android:toDegrees="270">_
-            <shape android:shape="ring"
-                android:useLevel="true"
-                android:thicknessRatio="20">
-                <solid android:color="@color/pink"/>
-                <size
-                    android:width="200dp"
-                    android:height="200dp" />
-            </shape>
 
-        </rotate>
-    </item>
 </layer-list>

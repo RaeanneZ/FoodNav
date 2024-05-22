@@ -49,4 +49,13 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0") // for recycler view
     testImplementation("junit:junit:4+")
     implementation("net.sourceforge.jtds:jtds:1.3.1") //net.sourceforge.jtds:jtds:1.3.1
+
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.10.1") //com.fasterxml.jackson.core:jackson-databind:2.10.1
+    implementation ("com.fasterxml.jackson.core:jackson-core:2.10.1") //com.fasterxml.jackson.core:jackson-core:2.10.1
+    implementation ("com.fasterxml.jackson.core:jackson-annotations:2.10.1") //com.fasterxml.jackson.core:jackson-annotations:2.10.1
+
+    dependencies {
+        implementation ("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
+        implementation ("com.google.code.gson:gson:2.10.1") //com.google.code.gson:gson:2.10.1
+    }
 }

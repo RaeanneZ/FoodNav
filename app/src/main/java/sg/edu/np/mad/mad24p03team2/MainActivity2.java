@@ -46,6 +46,10 @@ public class MainActivity2 extends AppCompatActivity {
                 replaceFragment(new LogFoodProduct());
                 return true;
             }
+            if (itemId == R.id.account) {
+                replaceFragment(new accountpage());
+                return true;
+            }
             return false;
         });
 

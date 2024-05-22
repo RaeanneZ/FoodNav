@@ -24,4 +24,9 @@
         <item name="android:layout_height">2dp</item> // thickness to be changed
         <item name="android:background">@color/lavender</item>
     </style>
+
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_height">10dp</item> <!-- Adjust the height as needed -->
+        <item name="android:progressDrawable">@drawable/custom_progress_bar_green</item>
+    </style>
 </resources>

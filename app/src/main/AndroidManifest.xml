@@ -24,13 +24,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".accountpage"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity2"
             android:exported="false" >
+
+
         </activity>
 
         <activity

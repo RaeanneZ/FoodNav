@@ -53,13 +53,15 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
                 email = emailComponent.getText().toString();
                 password = pwdComponent.getText().toString();
                 confirm = cfpwdComponent.getText().toString();
-                if (password.isEmpty()) {
-                    Toast.makeText(SignupActivity.this, "Password should not be empty!", Toast.LENGTH_SHORT).show();
+                if (name.isEmpty() || email.isEmpty()) {
+                    Toast.makeText(SignupActivity.this, "Please fill in the fields!", Toast.LENGTH_SHORT).show();
+
                 } else if (!password.equals(confirm)) {
                     // Display error message - passwords don't match
                     Toast.makeText(SignupActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
-                } else if (name.isEmpty() || email.isEmpty()) {
-                    Toast.makeText(SignupActivity.this, "Name or email cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else if (password.isEmpty()) {
+                    Toast.makeText(SignupActivity.this, "Password should not be empty!", Toast.LENGTH_SHORT).show();
+
                 } else {
                     registerUser.execute(name, email, password);
                 }

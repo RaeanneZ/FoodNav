@@ -58,7 +58,9 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         // User Login process will return 2 boolean flag to indicate whether its wrong username or
         // wrong password that caused LOGIN UNSUCCESSFUL
         // Please update your UI here
-        if (isValidPwd == false || isValidUser == false){
+        if (email.isEmpty() || password.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Please fill in the fields", Toast.LENGTH_SHORT).show();
+        } else if (isValidPwd == false || isValidUser == false){
             Toast.makeText(LoginActivity.this, "User not found. Try again", Toast.LENGTH_SHORT).show();
         } else{
             loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));

@@ -69,6 +69,5 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
     @Override
     public void afterProcess(Boolean executeStatus) {
         // For 1 return value (e.g. whether registration is successful)
-
     }
 }

@@ -23,7 +23,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <RadioGroup
                     android:id="@+id/RB"
@@ -43,7 +43,8 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
+                        android:padding="10dp"
+                        android:fontFamily="@font/inter_semibold"
                         android:text="Breakfast" />
 
                     <RadioButton
@@ -51,9 +52,14 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
+                        android:backgroundTint="@color/lavender"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Lunch" />
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="Lunch"
+                        android:fontFamily="@font/inter_semibold"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -61,8 +67,9 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Dinner" />
+                        android:padding="10dp"
+                        android:text="Dinner"
+                        android:fontFamily="@font/inter_semibold"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -70,8 +77,9 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Others" />
+                        android:padding="10dp"
+                        android:text="Others"
+                        android:fontFamily="@font/inter_semibold"/>
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,8 +107,8 @@
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/inter_semibold"
                     android:text="Nutritional info"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -297,14 +305,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/beige"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="12dp"
+                    app:cardCornerRadius="10dp"
                     android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -312,7 +319,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/textView9"
@@ -320,8 +327,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
+                            android:fontFamily="@font/inter_semibold"
                             android:text="Blood Sugar Level"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -331,39 +340,45 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
+                            android:paddingBottom="10dp"
                             android:text="Time Recorded "
+                            android:fontFamily="@font/inter_regular"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/textView9" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/timeRecorded"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
+                            android:layout_marginEnd="44dp"
+                            android:fontFamily="@font/inter_regular"
                             android:text="125 mg/dL"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view3"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.916" />
 
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="13 : 30"
+                            android:paddingBottom="10dp"
+                            android:fontFamily="@font/inter_regular"
                             app:layout_constraintStart_toEndOf="@+id/textView11"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                         <View
                             android:id="@+id/view3"
-                            android:layout_width="100dp"
+                            android:layout_width="75dp"
                             android:layout_height="1dp"
-                            android:background="@color/lavender"
-                            app:layout_constraintEnd_toEndOf="@id/textView12"
-                            app:layout_constraintStart_toStartOf="@id/textView12"
-                            app:layout_constraintTop_toBottomOf="@id/textView12" />
+                            android:layout_marginBottom="19dp"
+                            android:background="@color/light_grey"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/timeRecorded"
+                            app:layout_constraintStart_toStartOf="@id/timeRecorded" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -388,10 +403,12 @@
                     android:id="@+id/tvfdname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/inter_bold"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/inter_regular"
                     android:text="Fried Bee Hoon"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -409,9 +426,11 @@
                     android:id="@+id/tvnump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="27dp"
                     android:layout_marginTop="10dp"
                     android:text="1 Plate"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_regular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvfdname" />
 
@@ -419,17 +438,18 @@
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="86dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="44dp"
+                    android:fontFamily="@font/inter_regular"
                     android:text="505 Kcal"
                     android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/viewline2"
-                    android:layout_width="380dp"
+                    android:layout_width="360dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/black"

@@ -297,7 +297,7 @@
             android:id="@+id/lay33"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -326,7 +326,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="15dp"
                             android:fontFamily="@font/inter_semibold"
                             android:text="Blood Sugar Level"
                             android:textColor="@color/black"
@@ -340,9 +340,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:paddingBottom="10dp"
-                            android:text="Time Recorded "
                             android:fontFamily="@font/inter_regular"
+                            android:paddingBottom="15dp"
+                            android:text="Time Recorded "
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/textView9" />
 
@@ -350,7 +350,8 @@
                             android:id="@+id/timeRecorded"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="44dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="48dp"
                             android:fontFamily="@font/inter_regular"
                             android:text="125 mg/dL"
                             android:textColor="@color/black"
@@ -358,15 +359,15 @@
                             app:layout_constraintBottom_toBottomOf="@+id/view3"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.916" />
+                            app:layout_constraintVertical_bias="0.558" />
 
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="13 : 30"
-                            android:paddingBottom="10dp"
                             android:fontFamily="@font/inter_regular"
+                            android:paddingBottom="10dp"
+                            android:text="13 : 30"
                             app:layout_constraintStart_toEndOf="@+id/textView11"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -374,7 +375,7 @@
                             android:id="@+id/view3"
                             android:layout_width="75dp"
                             android:layout_height="1dp"
-                            android:layout_marginBottom="19dp"
+                            android:layout_marginBottom="21dp"
                             android:background="@color/light_grey"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@id/timeRecorded"
@@ -388,7 +389,7 @@
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"

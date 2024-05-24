@@ -43,7 +43,8 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
+                        android:padding="10dp"
+                        android:fontFamily="@font/inter_semibold"
                         android:text="Breakfast" />
 
                     <RadioButton
@@ -51,9 +52,14 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
+                        android:backgroundTint="@color/lavender"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Lunch" />
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="Lunch"
+                        android:fontFamily="@font/inter_semibold"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -61,8 +67,9 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Dinner" />
+                        android:padding="10dp"
+                        android:text="Dinner"
+                        android:fontFamily="@font/inter_semibold"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -70,8 +77,9 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="15dp"
-                        android:text="Others" />
+                        android:padding="10dp"
+                        android:text="Others"
+                        android:fontFamily="@font/inter_semibold"/>
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,8 +107,8 @@
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/inter_semibold"
                     android:text="Nutritional info"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -304,10 +312,12 @@
                     android:id="@+id/tvfdname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/inter_bold"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/inter_regular"
                     android:text="Fried Bee Hoon"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -325,9 +335,11 @@
                     android:id="@+id/tvnump"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="27dp"
                     android:layout_marginTop="10dp"
                     android:text="1 Plate"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_regular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvfdname" />
 
@@ -335,17 +347,18 @@
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="86dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="44dp"
+                    android:fontFamily="@font/inter_regular"
                     android:text="505 Kcal"
                     android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/viewline2"
-                    android:layout_width="380dp"
+                    android:layout_width="360dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/black"

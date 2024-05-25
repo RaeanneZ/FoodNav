@@ -10,11 +10,6 @@ import java.util.concurrent.Executors;
 
 public class ConnectionClass {
     String classes = "net.sourceforge.jtds.jdbc.Driver";
-    public static String ip =  "192.168.242.1";
-    public static String userName =  "user";
-    public static String password =  "guestD@TABASE!";
-    public static String dbName =  "FoodNav";
-    public static String portNumber = "1433";
 
     // This is to create the connection between the server and the application
     public Connection connectDatabase(){
@@ -25,7 +20,7 @@ public class ConnectionClass {
 
         try{
             Class.forName(classes);
-            connectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + portNumber + ";databasename=" + dbName + ";user=" + userName + ";password=" + password + ";";
+            connectionURL = "jdbc:jtds:sqlserver://mad-foodnav-database.database.windows.net:1433/FoodNav;user=foodNavAdmin@mad-foodnav-database;password=MADf00dnav;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;ssl=request;";
             connection = DriverManager.getConnection(connectionURL);
         }
         catch (Exception e){

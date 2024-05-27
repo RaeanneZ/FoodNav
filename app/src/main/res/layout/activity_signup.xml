@@ -126,6 +126,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="276dp"
         android:background="@color/lavender"
+        android:fontFamily="@font/inter_semibold"
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"

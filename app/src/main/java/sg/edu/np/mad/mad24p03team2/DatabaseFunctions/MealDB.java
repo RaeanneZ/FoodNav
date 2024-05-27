@@ -83,7 +83,7 @@ public class MealDB extends AbstractDBProcess {
                 if (quantity > 0) {
                     mealId = resultSet.getInt("MealID");
                     // Create and execute the SQL statement to Database
-                    sql = "UPDATE MealDB SET Quantity = '" + quantity + "' WHERE MealId = '" + mealId + "'";
+                    sql = "UPDATE MealDB SET Quantity = '"+quantity+"' WHERE MealId = '"+mealId+"'";
                 } else {
                     // Quantity is 0, so should delete the record
                     DeleteMealItem(mealId);

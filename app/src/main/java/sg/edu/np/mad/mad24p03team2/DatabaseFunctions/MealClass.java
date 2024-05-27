@@ -1,23 +1,24 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MealClass {
     // Attributes
     private int id;
     private String mealName;
-    private Map<FoodItemClass, Integer> selectedFoodList;
+    private Map<FoodItemClass, Integer> selectedFoodList ;
 
     // Constructor
     public MealClass(String mealName) {
         this.mealName = mealName;
     }
 
-    public MealClass(int id, String mealName, Map<FoodItemClass, Integer> selectedFoodList) {
+    public MealClass(int id, String mealName) {
         this.id = id;
         this.mealName = mealName;
-        this.selectedFoodList = selectedFoodList;
+        this.selectedFoodList = new HashMap<FoodItemClass, Integer>();
     }
 
     // Getters and Setters

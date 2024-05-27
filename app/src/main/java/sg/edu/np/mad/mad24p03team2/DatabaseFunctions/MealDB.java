@@ -142,6 +142,8 @@ public class MealDB extends AbstractDBProcess {
 
         try {
             sql = "DELETE FROM Meal WHERE MealID = " + mealId;
+            stmt = dbCon.createStatement();
+            stmt.executeUpdate(sql);
             isUpdateSuccessful = true;
         } catch (Exception e) {
             Log.d("DELETE MEAL", "Deletion failed: " + e.getMessage());

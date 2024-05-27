@@ -4,20 +4,22 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 
-public class CreateMeal extends AsyncTaskExecutorService<String, String , String> {
+public class UpdateMeal extends AsyncTaskExecutorService<String, String , String> {
+
     Boolean isSuccess = false;
     ArrayList<IDBProcessListener> dbListeners = null;
     MealDB mealDB = null;
 
-    public CreateMeal(Context appContext){
+    public UpdateMeal(Context appContext){
         this.mealDB = new MealDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
-    public CreateMeal(Context appContext, IDBProcessListener listener){
+    public UpdateMeal(Context appContext, IDBProcessListener listener){
         this(appContext);
         if(listener != null)
             registerListener(listener);
@@ -27,16 +29,19 @@ public class CreateMeal extends AsyncTaskExecutorService<String, String , String
         dbListeners.add(listener);
     }
 
+
     protected String doInBackground(FoodItemClass foodItem, String... strings) {
         String mealName = strings[0];
-        String quantity = strings[1];
-        String bloodSugar = strings[2];
+        int quantity = Integer.parseInt(strings[1]);
+
+        // If there is record, update the record
+        // If there is no record, create the record
+        // If quantity is reduced to 0, delete the record
         try {
-            isSuccess = mealDB.CreateRecord(foodItem, mealName, Integer.parseInt(quantity));
+            isSuccess = mealDB.UpdateQuantity(foodItem, mealName, quantity);
         } catch (Exception e) {
             Log.d("Create Meal", "Error occurred: " + e.getMessage());
         }
-
         return null;
     }
 

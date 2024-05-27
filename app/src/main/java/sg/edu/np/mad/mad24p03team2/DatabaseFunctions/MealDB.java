@@ -45,10 +45,10 @@ public class MealDB extends AbstractDBProcess {
         }
     }
 
-    public boolean CreateRecord(FoodItemClass foodItem, String mealName, int quantity, float bloodSugar) throws SQLException {
+    public boolean CreateRecord(FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
-        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, BloodSugar, Timestamp) VALUES ('"+account.getId()+"','"+foodItem.getId()+"','"+mealName+"',"+quantity+","+bloodSugar+", GETDATE())";
+        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, Timestamp) VALUES ('"+account.getId()+"','"+foodItem.getId()+"','"+mealName+"',"+quantity+", GETDATE())";
 
         try{
             // Check if record is already inside LoginInfo
@@ -70,7 +70,7 @@ public class MealDB extends AbstractDBProcess {
         return isSuccess;
     }
 
-    public boolean UpdateQuantity(String mealName, int quantity) throws SQLException {
+    public boolean UpdateQuantity(FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
         boolean isUpdateSuccessful = false;
         ResultSet resultSet = null;
         String sql = null;
@@ -89,6 +89,9 @@ public class MealDB extends AbstractDBProcess {
                     DeleteMealItem(mealId);
                 }
                 isUpdateSuccessful = true;
+            } else {
+                // Create a new record
+                CreateRecord(foodItem, mealName, quantity);
             }
         } catch (Exception e) {
             Log.d("UpdateRecord failed", e.getMessage());

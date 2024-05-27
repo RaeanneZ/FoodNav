@@ -45,10 +45,10 @@ public class MealDB extends AbstractDBProcess {
         }
     }
 
-    public boolean CreateRecord(FoodItemClass foodItem, String mealName, float bloodSugar) throws SQLException {
+    public boolean CreateRecord(FoodItemClass foodItem, String mealName, int quantity, float bloodSugar) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
-        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, BloodSugar, Timestamp) VALUES ('"+account.getId()+"','"+foodItem.getId()+"','"+mealName+"', 1,"+bloodSugar+", GETDATE())";
+        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, BloodSugar, Timestamp) VALUES ('"+account.getId()+"','"+foodItem.getId()+"','"+mealName+"',"+quantity+","+bloodSugar+", GETDATE())";
 
         try{
             // Check if record is already inside LoginInfo
@@ -79,15 +79,15 @@ public class MealDB extends AbstractDBProcess {
         try {
             resultSet = GetRecord(mealName);
             if (resultSet.next()) {
-
+                // If there is record
                 if (quantity > 0) {
                     mealId = resultSet.getInt("MealID");
                     // Create and execute the SQL statement to Database
                     sql = "UPDATE MealDB SET Quantity = '" + quantity + "' WHERE MealId = '" + mealId + "'";
                 } else {
-
+                    // Quantity is 0, so should delete the record
+                    DeleteMealItem(mealId);
                 }
-
                 isUpdateSuccessful = true;
             }
         } catch (Exception e) {

@@ -84,6 +84,9 @@ public class MealDB extends AbstractDBProcess {
                     mealId = resultSet.getInt("MealID");
                     // Create and execute the SQL statement to Database
                     sql = "UPDATE MealDB SET Quantity = '"+quantity+"' WHERE MealId = '"+mealId+"'";
+                    stmt = dbCon.createStatement();
+                    stmt.executeUpdate(sql);
+
                 } else {
                     // Quantity is 0, so should delete the record
                     DeleteMealItem(mealId);
@@ -104,6 +107,32 @@ public class MealDB extends AbstractDBProcess {
         }
 
         Log.d("Update Record", "status = " + isUpdateSuccessful);
+        return isUpdateSuccessful;
+    }
+
+    public boolean UpdateBloodSugar(String mealName, Float bloodSugar) throws SQLException {
+        boolean isUpdateSuccessful = false;
+        ResultSet resultSet = null;
+        String sql = null;
+        int mealId = 0;
+
+        try {
+            resultSet = GetRecord(mealName);
+            if (resultSet.next()) {
+                // If there is record
+                sql = "UPDATE MealDB SET BloodSugar = '" + bloodSugar + "' WHERE MealId = '" + mealId + "'";
+                stmt = dbCon.createStatement();
+                stmt.executeUpdate(sql);
+                isUpdateSuccessful = true;
+            }
+        } catch (Exception e) {
+            Log.d("UpdateBloodSugar", "Error: " + e.getMessage());
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+
         return isUpdateSuccessful;
     }
 

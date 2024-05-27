@@ -69,4 +69,53 @@ public class MealDB extends AbstractDBProcess {
 
         return isSuccess;
     }
+
+    public boolean UpdateQuantity(String mealName, int quantity) throws SQLException {
+        boolean isUpdateSuccessful = false;
+        ResultSet resultSet = null;
+        String sql = null;
+        int mealId = 0;
+
+        try {
+            resultSet = GetRecord(mealName);
+            if (resultSet.next()) {
+
+                if (quantity > 0) {
+                    mealId = resultSet.getInt("MealID");
+                    // Create and execute the SQL statement to Database
+                    sql = "UPDATE MealDB SET Quantity = '" + quantity + "' WHERE MealId = '" + mealId + "'";
+                } else {
+
+                }
+
+                isUpdateSuccessful = true;
+            }
+        } catch (Exception e) {
+            Log.d("UpdateRecord failed", e.getMessage());
+            return isUpdateSuccessful = false;
+        } finally {
+            // Close resultset
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+
+        Log.d("Update Record", "status = " + isUpdateSuccessful);
+        return isUpdateSuccessful;
+    }
+
+    public boolean DeleteMealItem(int mealId) throws SQLException {
+        boolean isUpdateSuccessful = false;
+        String sql = null;
+
+        try {
+            sql = "DELETE FROM Meal WHERE MealID = " + mealId;
+            isUpdateSuccessful = true;
+        } catch (Exception e) {
+            Log.d("DELETE MEAL", "Deletion failed: " + e.getMessage());
+            isUpdateSuccessful = false;
+        }
+
+        return isUpdateSuccessful;
+    }
 }

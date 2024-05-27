@@ -44,7 +44,7 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
             }
             resultSet = foodDB.GetRecord(name);
             while(resultSet.next()) {
-                foodItem = new FoodItemClass(resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
+                foodItem = new FoodItemClass(resultSet.getInt("FoodID"), resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
                 foodItems.add(foodItem);
             }
         }

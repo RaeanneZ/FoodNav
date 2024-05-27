@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 public class FoodItemClass {
+    private int id;
     private String name;
     private double calories;
     private double serving_size_g;
@@ -13,6 +14,16 @@ public class FoodItemClass {
     private double carbohydrates_total_g;
     private double fiber_g;
     private double sugar_g;
+
+    public FoodItemClass(int id, String name, double calories, double serving_size_g, double fat_total_g, double protein_g, double carbohydrates_total_g) {
+        this.id = id;
+        this.name = name;
+        this.calories = calories;
+        this.serving_size_g = serving_size_g;
+        this.fat_total_g = fat_total_g;
+        this.protein_g = protein_g;
+        this.carbohydrates_total_g = carbohydrates_total_g;
+    }
 
     public FoodItemClass(String name, double calories, double serving_size_g, double fat_total_g, double protein_g, double carbohydrates_total_g) {
         this.name = name;
@@ -39,6 +50,9 @@ public class FoodItemClass {
     }
 
     // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
     public String getName() {
         return name;
     }

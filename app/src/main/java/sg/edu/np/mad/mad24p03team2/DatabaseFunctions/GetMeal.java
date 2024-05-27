@@ -26,6 +26,16 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
+    public GetMeal(Context appContext, IDBProcessListener listener){
+        this(appContext);
+        if(listener != null)
+            registerListener(listener);
+    }
+
+    public void registerListener(IDBProcessListener listener){
+        dbListeners.add(listener);
+    }
+
 
     @Override
     protected String doInBackground(String... strings) {

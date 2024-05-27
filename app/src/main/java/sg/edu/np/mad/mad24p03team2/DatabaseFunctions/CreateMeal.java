@@ -17,6 +17,16 @@ public class CreateMeal extends AsyncTaskExecutorService<String, String , String
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
+    public CreateMeal(Context appContext, IDBProcessListener listener){
+        this(appContext);
+        if(listener != null)
+            registerListener(listener);
+    }
+
+    public void registerListener(IDBProcessListener listener){
+        dbListeners.add(listener);
+    }
+
     protected String doInBackground(FoodItemClass foodItem, String... strings) {
         String mealName = strings[0];
         String quantity = strings[1];

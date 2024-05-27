@@ -6,6 +6,7 @@ import android.util.Log;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -16,6 +17,7 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
     FoodDB foodDB = null;
     FoodItemClass foodItem = null;
     MealClass mealClass = null;
+    boolean isSuccess = false;
 
     public GetMeal(Context appContext){
         // Later will pass in ApplicationContext
@@ -41,12 +43,19 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
                     // Change it into an object
                     foodItem = new FoodItemClass(foodResultSet.getInt("FoodID"), foodResultSet.getString("Name"), foodResultSet.getFloat("Calories"), foodResultSet.getFloat("Carbohydrates"), foodResultSet.getFloat("Protein"), foodResultSet.getFloat("Fats"), foodResultSet.getFloat("ServingSize"));
                     mealClass.getSelectedFoodList().put(foodItem, mealResultSet.getInt("Quantity"));
+                    isSuccess = true;
                 } catch (Exception e) {
                     Log.d("GetMeal: Food", e.getMessage());
                 } finally {
                     if(foodResultSet != null) {
                         foodResultSet.close();
                     }
+                }
+
+                // Optional: only if User tracks blood sugar level
+                if (!Objects.equals(mealResultSet.getString("BloodSugar"), "")) {
+                    mealClass.setBloodSugar(mealResultSet.getFloat("BloodSugar"));
+                    mealClass.setTimestamp(mealResultSet.getString("TimeStamp"));
                 }
             }
         }
@@ -65,7 +74,9 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
 
     @Override
     protected void onPostExecute(String s) {
-
+        for(IDBProcessListener listener : dbListeners){
+            listener.afterProcess(isSuccess);
+        }
     }
 
     // IGNORE --------------------------------------------------------------------------------------

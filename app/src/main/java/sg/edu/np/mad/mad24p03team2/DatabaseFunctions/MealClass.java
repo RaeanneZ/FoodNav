@@ -9,6 +9,8 @@ public class MealClass {
     private int id;
     private String mealName;
     private Map<FoodItemClass, Integer> selectedFoodList ;
+    private float bloodSugar;
+    private String timestamp;
 
     // Constructor
     public MealClass(String mealName) {
@@ -19,6 +21,14 @@ public class MealClass {
         this.id = id;
         this.mealName = mealName;
         this.selectedFoodList = new HashMap<FoodItemClass, Integer>();
+    }
+
+    public MealClass(int id, String mealName, Map<FoodItemClass, Integer> selectedFoodList, float bloodSugar, String timestamp) {
+        this.id = id;
+        this.mealName = mealName;
+        this.selectedFoodList = selectedFoodList;
+        this.bloodSugar = bloodSugar;
+        this.timestamp = timestamp;
     }
 
     // Getters and Setters
@@ -46,7 +56,17 @@ public class MealClass {
         this.selectedFoodList = selectedFoodList;
     }
 
+    public float getBloodSugar() {
+        return bloodSugar;
+    }
+    public void setBloodSugar(float bloodSugar) {
+        this.bloodSugar = bloodSugar;
+    }
 
-
-    
+    public String getTimestamp() {
+        return timestamp;
+    }
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 }

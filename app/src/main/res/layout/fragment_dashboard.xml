@@ -104,7 +104,7 @@
                     android:fontFamily="@font/inter_extrabold"
                     android:text="1535"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.078"
@@ -292,7 +292,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -309,7 +309,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd_b"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum_b" />
 
@@ -322,7 +322,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Breakfast"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd_b" />
 
@@ -433,7 +433,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc_b" />
 
@@ -495,7 +495,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -512,7 +512,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum" />
 
@@ -525,7 +525,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Lunch"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd" />
 
@@ -636,7 +636,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc" />
 
@@ -698,7 +698,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -715,7 +715,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd_d"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum_d" />
 
@@ -728,7 +728,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Dinner"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd_d" />
 
@@ -839,7 +839,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc_d" />
 
@@ -901,7 +901,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -918,7 +918,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd_o"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum_o" />
 
@@ -931,7 +931,7 @@
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Snacks"
                                 android:textColor="@color/black"
-                                android:textSize="15dp"
+                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd_o" />
 
@@ -1042,7 +1042,7 @@
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
                                 android:textColor="@color/black"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc_o" />
 

@@ -45,6 +45,19 @@ public class FoodDB extends AbstractDBProcess {
             return null;
         }
     }
+
+    public ResultSet GetRecordById(int id){
+        String sql = "SELECT * FROM Food WHERE FoodID = " + id;
+
+        try {
+            stmt = dbCon.createStatement();
+            return stmt.executeQuery(sql); // Column 1 = email, Column 2 = password
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
     public ResultSet GetSpecificRecord(String name){
         String sql = "SELECT * FROM Food WHERE Name = '"+name+"'";
 

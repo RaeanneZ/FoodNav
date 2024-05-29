@@ -3,4 +3,6 @@
 
     <dimen name="gender_margin">470dp</dimen>
     <dimen name="info_margin">475dp</dimen>
+    <dimen name="acc_start">460dp</dimen>
+    <dimen name="acc_margin">35dp</dimen>
 </resources>

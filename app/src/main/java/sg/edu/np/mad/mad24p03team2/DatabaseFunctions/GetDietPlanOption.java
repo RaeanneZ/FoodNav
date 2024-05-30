@@ -55,12 +55,6 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
                 reccFatsIntake = resultSet.getInt("ReccFatsIntake");
                 gender =  resultSet.getString("Gender");
 
-//                if (trackBloodSugar.compareTo("T") == 0){
-//                    isTracked = true;
-//                } else {
-//                    isTracked = false;
-//                }
-
                 DietPlanClass dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
                 isSuccess = true;
             }

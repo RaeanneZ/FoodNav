@@ -16,7 +16,7 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
     int reccCarbIntake = 0;
     int reccProteinIntake = 0;
     int reccFatsIntake = 0;
-    boolean isTracked = false;
+    String gender = " ";
     DietPlanClass dietPlan;
 
     ArrayList<IDBProcessListener> dbListeners = null;
@@ -53,15 +53,15 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
                 reccCarbIntake = resultSet.getInt("ReccCarbIntake");
                 reccProteinIntake = resultSet.getInt("ReccProteinIntake");
                 reccFatsIntake = resultSet.getInt("ReccFatsIntake");
-                trackBloodSugar =  resultSet.getString("TrackBloodSugar");
+                gender =  resultSet.getString("Gender");
 
-                if (trackBloodSugar.compareTo("T") == 0){
-                    isTracked = true;
-                } else {
-                    isTracked = false;
-                }
+//                if (trackBloodSugar.compareTo("T") == 0){
+//                    isTracked = true;
+//                } else {
+//                    isTracked = false;
+//                }
 
-                DietPlanClass dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, isTracked);
+                DietPlanClass dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
                 isSuccess = true;
             }
         } catch( Exception e){}

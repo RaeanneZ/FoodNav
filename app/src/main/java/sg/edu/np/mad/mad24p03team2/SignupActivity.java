@@ -64,6 +64,7 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
 
                 } else {
                     registerUser.execute(name, email, password);
+                    SingletonSession.getInstance().SignUpAccount(name, email);
                 }
             }
         });

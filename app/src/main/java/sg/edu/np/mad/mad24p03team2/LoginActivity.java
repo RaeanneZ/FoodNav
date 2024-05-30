@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountDB;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         // User Login process will return 2 boolean flag to indicate whether its wrong username or
         // wrong password that caused LOGIN UNSUCCESSFUL
         // Please update your UI here
+
         if (email.isEmpty() || password.isEmpty()){
             Toast.makeText(LoginActivity.this, "Please fill in the fields", Toast.LENGTH_SHORT).show();
         } else if (isValidPwd == false || isValidUser == false){
@@ -65,6 +68,9 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         } else{
             loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));
             Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
+
+            // Keep track of current user
+            SingletonSession.getInstance().CurrentLoginUser(email);
         }
     }
 

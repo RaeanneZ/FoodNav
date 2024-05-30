@@ -14,6 +14,7 @@ public class AccountClass {
     private String gender;
     private int height;
     private float weight;
+    private boolean trackBloodSugar;
 
     public AccountClass(){
 
@@ -94,5 +95,12 @@ public class AccountClass {
     }
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public boolean isTrackBloodSugar() {
+        return trackBloodSugar;
+    }
+    public void setTrackBloodSugar(boolean trackBloodSugar) {
+        this.trackBloodSugar = trackBloodSugar;
     }
 }

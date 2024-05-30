@@ -42,10 +42,11 @@ public class SingletonSession {
         account.setGender(gender);
         account.setHeight(height);
         account.setWeight(weight);
+        account.setDietPlanOpt("Diabetic Friendly");
     }
 
-    public void SetDietPlan(String dietPlanType) {
-        account.setDietPlanOpt(dietPlanType);
+    public void SetBloodSugarTracking(Boolean toTrack) {
+        account.setTrackBloodSugar(toTrack);
     }
 
     public void CurrentLoginUser(String email) {

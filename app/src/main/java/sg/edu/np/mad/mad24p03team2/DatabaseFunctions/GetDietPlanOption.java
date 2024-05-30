@@ -41,9 +41,9 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
     }
 
     @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
+    protected DietPlanClass doInBackground(String name, String gender) {
 
-        ResultSet resultSet = dietPlanOptDB.GetRecord(name, trackBloodSugar);
+        ResultSet resultSet = dietPlanOptDB.GetRecord(name, gender);
 
         try{
             // If there is a result
@@ -55,7 +55,7 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
                 reccFatsIntake = resultSet.getInt("ReccFatsIntake");
                 gender =  resultSet.getString("Gender");
 
-                DietPlanClass dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
+                dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
                 isSuccess = true;
             }
         } catch( Exception e){}

@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity  {
         });
 
         // JOVAN TODO: Populate profile form details from SingletonSession.getInstance().GetCurrentUserProfile();
-        // TODO: when user clicks in from Account in navigation bar
+        // TODO: when user clicks in from Account from navbar -> My Account -> Edit Profile
 
         // Find Buttons from the layout
         Button male = findViewById(R.id.male);

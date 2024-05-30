@@ -1,7 +1,9 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
@@ -12,12 +14,13 @@ public class UpdateUserProfile extends AsyncTaskExecutorService<String, String ,
     String z = "";
     Boolean isSuccess = false;
     ArrayList<IDBProcessListener> dbListeners = null;
-    // Login Data Class
+    DietPlanOptDB dietPlanOptDB = null;
     AccountDB accountDB = null;
 
     public UpdateUserProfile(Context appContext){
         // Later will pass in ApplicationContext
         this.accountDB = new AccountDB(appContext);
+        this.dietPlanOptDB = new DietPlanOptDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -40,7 +43,20 @@ public class UpdateUserProfile extends AsyncTaskExecutorService<String, String ,
             String birthDate = inputs[3];
             String height = inputs[4];
             String weight = inputs[5];
-            isSuccess = accountDB.UpdateRecord(email, dietPlanOpt, gender, birthDate, height, weight);
+
+            ResultSet resultset = null;
+            String dietPlanid = "1";
+
+            try{
+                resultset = dietPlanOptDB.GetRecord(dietPlanOpt, gender);
+                if (resultset.next()) {
+                    dietPlanid = resultset.getString("DietPlanID");
+                }
+            } catch(Exception e){
+                Log.d("UpdateUserProfile", "Something went wrong: " + e.getMessage());
+            }
+
+            isSuccess = accountDB.UpdateRecord(email, dietPlanid, gender, birthDate, height, weight);
         }
         catch (Exception e){
             isSuccess = false;

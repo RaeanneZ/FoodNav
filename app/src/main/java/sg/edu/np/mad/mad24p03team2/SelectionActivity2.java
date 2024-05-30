@@ -8,20 +8,45 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class SelectionActivity2 extends AppCompatActivity {
-    private Button button;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
+
+public class SelectionActivity2 extends AppCompatActivity implements IDBProcessListener {
+    private Button continueButton;
+    UpdateUserProfile updateUserProfile = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setup_selectoption_lowsugar);
-
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        updateUserProfile = new UpdateUserProfile(getApplicationContext(), this);
+        continueButton = findViewById(R.id.button);
+        continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // SIAN KIM TODO: Get user option (yes = true, no = false) and input into the function SetBloodSugarTracking();
+                // TO BE UNCOMMENTED: SingletonSession.getInstance().SetBloodSugarTracking();
+
+                // Update the account in database
+                AccountClass account = SingletonSession.getInstance().GetAccount();
+                updateUserProfile.execute(account.getEmail(), account.getDietPlanOpt(), account.getGender(), account.getGender(),
+                        account.getBirthDate().toString(), Integer.toString(account.getHeight()), Float.toString(account.getWeight()));
+
+                // Move to next page
                 Intent intent = new Intent(SelectionActivity2.this, SelectionActivity3.class);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+
+    }
+
+    @Override
+    public void afterProcess(Boolean executeStatus) {
+
     }
 }

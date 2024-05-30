@@ -1,17 +1,13 @@
 package sg.edu.np.mad.mad24p03team2;
 
-import android.accounts.Account;
-
 import java.util.Date;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAccount;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetCurrentUserProfile;
 
 public class SingletonSession {
     private AccountClass account = null;
-    GetAccount getAccount = null;
+    GetCurrentUserProfile getCurrentUserProfile = null;
     private static volatile SingletonSession INSTANCE = null;
 
     // private constructor to prevent instantiation of the class

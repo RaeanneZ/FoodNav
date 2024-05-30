@@ -9,7 +9,7 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.SingletonSession;
 
-public class GetAccount extends AsyncTaskExecutorService<String, String , String> {
+public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, String , String> {
 
     String z = "";
     Boolean isSuccess = false;
@@ -37,12 +37,12 @@ public class GetAccount extends AsyncTaskExecutorService<String, String , String
         return z;
     }
 
-    public GetAccount(Context appContext){
+    public GetCurrentUserProfile(Context appContext){
         this.accountDB = new AccountDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
-    public GetAccount(Context appContext, IDBProcessListener listener){
+    public GetCurrentUserProfile(Context appContext, IDBProcessListener listener){
         this(appContext);
         if(listener != null)
             registerListener(listener);

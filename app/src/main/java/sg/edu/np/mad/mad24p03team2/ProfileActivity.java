@@ -28,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity  {
             return insets;
         });
 
-        // JOVAN TODO: Populate profile form details from SingletonSession.getInstance().GetAccount();
+        // JOVAN TODO: Populate profile form details from SingletonSession.getInstance().GetCurrentUserProfile();
         // TODO: when user clicks in from Account in navigation bar
 
         // Find Buttons from the layout

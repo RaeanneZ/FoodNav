@@ -6,9 +6,12 @@ import java.util.Date;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAccount;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
 
 public class SingletonSession {
     private AccountClass account = null;
+    GetAccount getAccount = null;
     private static volatile SingletonSession INSTANCE = null;
 
     // private constructor to prevent instantiation of the class
@@ -52,6 +55,9 @@ public class SingletonSession {
     public void CurrentLoginUser(String email) {
         account = new AccountClass();
         account.setEmail(email);
+    }
 
+    public AccountClass GetAccount(){
+            return account;
     }
 }

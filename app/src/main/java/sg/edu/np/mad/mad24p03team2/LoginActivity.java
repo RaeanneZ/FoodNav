@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountDB;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAccount;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
     Button loginBtn;
 
     LoginUser loginUser = null;
+    GetAccount getAccount = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
         loginUser = new LoginUser(getApplicationContext(),this);
+        getAccount = new GetAccount(getApplicationContext(),this);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +72,8 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
             loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));
             Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
 
-            // Keep track of current user
-            SingletonSession.getInstance().CurrentLoginUser(email);
+            // Grab current user profile and store into SingletonSession
+            getAccount.execute(email);
         }
     }
 

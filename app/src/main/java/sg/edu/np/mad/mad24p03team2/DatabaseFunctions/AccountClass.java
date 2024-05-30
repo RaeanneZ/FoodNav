@@ -17,28 +17,14 @@ public class AccountClass {
     private boolean trackBloodSugar;
 
     public AccountClass(){
-
+        dietPlanOpt = "Diabetic Friendly";
     }
 
     public AccountClass(int id, String name, String email){
+        this();
         this.id = id;
         this.name = name;
         this.email = email;
-    }
-    public AccountClass(int id, String name, String email, String dietPlanOpt){
-        this(id, email, name);
-        this.dietPlanOpt = dietPlanOpt;
-    }
-
-    public AccountClass(int id, String name, String email, Date birthDate, String dietPlanOpt, String gender, int height, float weight) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.dietPlanOpt = dietPlanOpt;
-        this.gender = gender;
-        this.height = height;
-        this.weight = weight;
     }
 
     public int getId() {

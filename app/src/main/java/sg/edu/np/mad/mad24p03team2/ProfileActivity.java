@@ -28,6 +28,9 @@ public class ProfileActivity extends AppCompatActivity  {
             return insets;
         });
 
+        // JOVAN TODO: Populate profile form details from SingletonSession.getInstance().GetAccount();
+        // TODO: when user clicks in from Account in navigation bar
+
         // Find Buttons from the layout
         Button male = findViewById(R.id.male);
         Button female = findViewById(R.id.female);
@@ -56,7 +59,8 @@ public class ProfileActivity extends AppCompatActivity  {
         // This is to save the inputs by user to database
         saveBtn.setOnClickListener(view -> {
             // Put the details into an Account object from sign up page
-
+            // JOVAN TODO: Fill in the method UpdateProfile() with required parameters
+            // TO BE UNCOMMENTED: SingletonSession.getInstance().UpdateProfile();
         });
     }
 }

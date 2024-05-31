@@ -41,6 +41,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         // getMeal.execute( "Dinner", SingletonSession.getInstance().GetAccount().getId());
 
 
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
@@ -50,7 +51,12 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     @Override
     public void afterProcess(Boolean executeStatus) {
-        // Return Value:
+
+        //HONG RONG
+        //TODO: After database fetch all the meals from the execution statement above,
+        //TODO: all meals are stored in SingletonTodayMeal (global class)
+        //TODO: To get each meal details to update the UI, write the below code
+        // -->> MealClass breakfastMeal = SingletonTodayMeal.getInstance().getMeal("Breakfast");
     }
 
     @Override

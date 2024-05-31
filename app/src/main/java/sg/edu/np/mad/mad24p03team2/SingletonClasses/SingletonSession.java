@@ -7,7 +7,6 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetCurrentUserProfile;
 
 public class SingletonSession {
     private AccountClass account = null;
-    GetCurrentUserProfile getCurrentUserProfile = null;
     private static volatile SingletonSession INSTANCE = null;
 
     // private constructor to prevent instantiation of the class

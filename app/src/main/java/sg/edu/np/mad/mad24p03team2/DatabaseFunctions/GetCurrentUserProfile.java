@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
-import sg.edu.np.mad.mad24p03team2.SingletonSession;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, String , String> {
 

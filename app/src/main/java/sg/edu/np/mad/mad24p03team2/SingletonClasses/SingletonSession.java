@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad24p03team2;
+package sg.edu.np.mad.mad24p03team2.SingletonClasses;
 
 import java.util.Date;
 

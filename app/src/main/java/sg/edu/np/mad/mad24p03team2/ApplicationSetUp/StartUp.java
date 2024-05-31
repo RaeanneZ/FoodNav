@@ -7,12 +7,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleObserver;
 
 import java.sql.Connection;
-
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
-import sg.edu.np.mad.mad24p03team2.SingletonSession;
 
 public class StartUp extends Application implements Application.ActivityLifecycleCallbacks {
     private Connection con = null;
@@ -33,6 +29,8 @@ public class StartUp extends Application implements Application.ActivityLifecycl
         } else {
             Log.d("STARTUP","Connection is not established");
         }
+
+        this.getApplicationContext();
     }
 
     public Connection getConnection(){

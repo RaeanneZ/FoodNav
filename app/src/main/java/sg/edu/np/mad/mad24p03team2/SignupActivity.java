@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class SignupActivity extends AppCompatActivity implements IDBProcessListener {
 

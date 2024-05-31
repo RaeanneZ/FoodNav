@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class SelectionActivity2 extends AppCompatActivity implements IDBProcessListener {
     private Button continueButton;

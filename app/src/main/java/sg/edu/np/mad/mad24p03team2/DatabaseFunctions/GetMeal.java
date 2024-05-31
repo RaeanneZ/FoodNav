@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
     ArrayList<IDBProcessListener> dbListeners = null;
@@ -40,23 +41,25 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
     @Override
     protected String doInBackground(String... strings) {
         String mealName = strings[0];
+        int accID = Integer.parseInt(strings[1]);
         ResultSet foodResultSet = null;
-        ResultSet mealResultSet = mealDB.GetRecord(mealName);
+        ResultSet mealResultSet = mealDB.GetRecord(mealName, accID);
         try {
-            mealClass = new MealClass(mealResultSet.getInt("MealID"), mealResultSet.getString("MealName"));
+            mealClass = new MealClass(mealResultSet.getString("MealName"));
 
             // If there are meals recorded today
-            if(mealResultSet.next()) {
+            while (mealResultSet.next()) {
                 try{
                     // Get the foodData from Meal data
                     foodResultSet =  foodDB.GetRecordById(mealResultSet.getInt("FoodID"));
                     // Change it into an object
                     foodItem = new FoodItemClass(foodResultSet.getInt("FoodID"), foodResultSet.getString("Name"), foodResultSet.getFloat("Calories"), foodResultSet.getFloat("Carbohydrates"), foodResultSet.getFloat("Protein"), foodResultSet.getFloat("Fats"), foodResultSet.getFloat("ServingSize"));
                     mealClass.getSelectedFoodList().put(foodItem, mealResultSet.getInt("Quantity"));
-                    isSuccess = true;
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     Log.d("GetMeal: Food", e.getMessage());
-                } finally {
+                }
+                finally {
                     if(foodResultSet != null) {
                         foodResultSet.close();
                     }
@@ -68,6 +71,10 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
                     mealClass.setTimestamp(mealResultSet.getString("TimeStamp"));
                 }
             }
+
+            // Save db return for global access
+            SingletonTodayMeal.getInstance().AddMeal(mealClass);
+            isSuccess = true;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -79,7 +86,7 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
                 }
             } catch (Exception e) { Log.d("Get Meal", "ResultSet unable to close"); }
         }
-        return null;
+        return mealName;
     }
 
     @Override

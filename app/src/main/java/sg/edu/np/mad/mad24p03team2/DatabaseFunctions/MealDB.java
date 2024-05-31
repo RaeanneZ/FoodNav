@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.AbstractDBProcess;
 import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class MealDB extends AbstractDBProcess {
     Statement stmt;
@@ -28,13 +29,12 @@ public class MealDB extends AbstractDBProcess {
         if(context instanceof StartUp){
             final StartUp app = (StartUp) context;
             dbCon = app.getConnection();
-            account = app.getCurrentUser();
         }
     }
 
-    public ResultSet GetRecord(String mealName){
+    public ResultSet GetRecord(String mealName, int accountID){
         // Get records that are equal to the mealname (eg Breakfast) and is today's record
-        String sql = "SELECT * FROM Meal WHERE MealName = '"+mealName+"' && (CONVERT(varchar(10), Timestamp, 111) = CONVERT(varchar(10), GETDATE(), 111))";
+        String sql = "SELECT * FROM Meal WHERE MealName = '"+mealName+"' && AccID = '"+accountID+"'";
 
         try {
             stmt = dbCon.createStatement();
@@ -45,10 +45,10 @@ public class MealDB extends AbstractDBProcess {
         }
     }
 
-    public boolean CreateRecord(FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
+    public boolean CreateRecord(int accId, FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
-        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, Timestamp) VALUES ('"+account.getId()+"','"+foodItem.getId()+"','"+mealName+"',"+quantity+", GETDATE())";
+        String sql = "INSERT INTO Meal(AccID, FoodID, MealName, Quantity, Timestamp) VALUES ('"+accId+"','"+foodItem.getId()+"','"+mealName+"',"+quantity+", GETDATE())";
 
         try{
             // Check if record is already inside LoginInfo
@@ -70,14 +70,14 @@ public class MealDB extends AbstractDBProcess {
         return isSuccess;
     }
 
-    public boolean UpdateQuantity(FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
+    public boolean UpdateQuantity(int accId, FoodItemClass foodItem, String mealName, int quantity) throws SQLException {
         boolean isUpdateSuccessful = false;
         ResultSet resultSet = null;
         String sql = null;
         int mealId = 0;
 
         try {
-            resultSet = GetRecord(mealName);
+            resultSet = GetRecord(mealName, accId);
             if (resultSet.next()) {
                 // If there is record
                 if (quantity > 0) {
@@ -94,7 +94,7 @@ public class MealDB extends AbstractDBProcess {
                 isUpdateSuccessful = true;
             } else {
                 // Create a new record
-                CreateRecord(foodItem, mealName, quantity);
+                CreateRecord(accId, foodItem, mealName, quantity);
             }
         } catch (Exception e) {
             Log.d("UpdateRecord failed", e.getMessage());

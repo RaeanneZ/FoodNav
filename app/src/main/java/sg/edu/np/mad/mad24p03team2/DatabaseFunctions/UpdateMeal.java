@@ -31,14 +31,15 @@ public class UpdateMeal extends AsyncTaskExecutorService<String, String , String
 
 
     protected String doInBackground(FoodItemClass foodItem, String... strings) {
-        String mealName = strings[0];
-        int quantity = Integer.parseInt(strings[1]);
+        int accId = Integer.parseInt(strings[0]);
+        String mealName = strings[1];
+        int quantity = Integer.parseInt(strings[2]);
 
         // If there is record, update the record
         // If there is no record, create the record
         // If quantity is reduced to 0, delete the record
         try {
-            isSuccess = mealDB.UpdateQuantity(foodItem, mealName, quantity);
+            isSuccess = mealDB.UpdateQuantity(accId, foodItem, mealName, quantity);
         } catch (Exception e) {
             Log.d("Create Meal", "Error occurred: " + e.getMessage());
         }

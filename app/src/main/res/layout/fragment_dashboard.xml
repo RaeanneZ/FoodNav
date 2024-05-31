@@ -33,11 +33,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="40dp"
+                    android:fontFamily="@font/inter_extrabold"
                     android:text="Today, 28 Apr"
+                    android:textColor="@color/eggplant"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="@color/eggplant"
-                    android:fontFamily="@font/inter_extrabold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.14"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,8 +94,6 @@
                 </RelativeLayout>
 
 
-
-
                 <TextView
                     android:id="@+id/tvProgress"
                     android:layout_width="wrap_content"
@@ -116,9 +114,9 @@
                     android:id="@+id/tvkcalleft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="83dp"
                     android:fontFamily="@font/inter_extrabold"
                     android:text="Kcal Left"
-                    android:layout_marginStart="83dp"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -141,8 +139,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -156,8 +153,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="20dp"
-                                    android:text="Carbs"
                                     android:fontFamily="@font/inter_regular"
+                                    android:text="Carbs"
                                     android:textColor="@color/green"
                                     android:textSize="13sp" />
 
@@ -166,9 +163,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="15dp"
+                                    android:fontFamily="@font/inter_regular"
                                     android:text="Protein"
                                     android:textColor="@color/red"
-                                    android:fontFamily="@font/inter_regular"
                                     android:textSize="13sp" />
 
                                 <TextView
@@ -176,9 +173,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="15dp"
+                                    android:fontFamily="@font/inter_regular"
                                     android:text="Fats"
                                     android:textColor="@color/pink"
-                                    android:fontFamily="@font/inter_regular"
                                     android:textSize="13sp" />
                             </LinearLayout>
 
@@ -194,8 +191,8 @@
                                     android:layout_height="8dp"
                                     android:layout_marginTop="25dp"
                                     android:progress="25"
-                                    android:progressTint="@color/green"
-                                    android:progressDrawable="@drawable/custom_progress_bar_green"/>
+                                    android:progressDrawable="@drawable/custom_progress_bar_green"
+                                    android:progressTint="@color/green" />
 
                                 <ProgressBar
                                     android:id="@+id/progressBarprotein"
@@ -204,8 +201,8 @@
                                     android:layout_height="8dp"
                                     android:layout_marginTop="27dp"
                                     android:progress="35"
-                                    android:progressTint="@color/red"
-                                    android:progressDrawable="@drawable/custom_progress_bar_red"/>
+                                    android:progressDrawable="@drawable/custom_progress_bar_red"
+                                    android:progressTint="@color/red" />
 
                                 <ProgressBar
                                     android:id="@+id/progressBarfats"
@@ -1073,8 +1070,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="25dp"
-            android:text="Daily Missions"
             android:fontFamily="@font/inter_semibold"
+            android:text="Daily Missions"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"

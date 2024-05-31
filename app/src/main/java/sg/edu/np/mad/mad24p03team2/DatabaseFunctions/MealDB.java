@@ -117,7 +117,7 @@ public class MealDB extends AbstractDBProcess {
         int mealId = 0;
 
         try {
-            resultSet = GetRecord(mealName);
+            resultSet = GetRecord(mealName, mealId);
             if (resultSet.next()) {
                 // If there is record
                 sql = "UPDATE MealDB SET BloodSugar = '" + bloodSugar + "' WHERE MealId = '" + mealId + "'";

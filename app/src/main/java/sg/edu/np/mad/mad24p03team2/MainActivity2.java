@@ -36,17 +36,14 @@ public class MainActivity2 extends AppCompatActivity {
 
             if (itemId == R.id.dashboard) {
                 replaceFragment(new Dashboard());
-                Toast.makeText(MainActivity2.this, "Dashboard", Toast.LENGTH_SHORT).show();
                 return true;
             }
             if (itemId == R.id.logfood) {
                 replaceFragment(new LogFoodProduct());
-                Toast.makeText(MainActivity2.this, "Log Food Product", Toast.LENGTH_SHORT).show();
                 return true;
             }
             if (itemId == R.id.account) {
                 replaceFragment(new accountpage());
-                Toast.makeText(MainActivity2.this, "Account", Toast.LENGTH_SHORT).show();
                 return true;
             }
             return false;

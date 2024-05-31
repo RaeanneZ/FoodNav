@@ -53,12 +53,9 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1") //com.android.volley:volley:1.2.1
 
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.10.1") //com.fasterxml.jackson.core:jackson-databind:2.10.1
-    implementation ("com.fasterxml.jackson.core:jackson-core:2.10.1") //com.fasterxml.jackson.core:jackson-core:2.10.1
-    implementation ("com.fasterxml.jackson.core:jackson-annotations:2.10.1") //com.fasterxml.jackson.core:jackson-annotations:2.10.1
-
 
     implementation ("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
     implementation ("com.google.code.gson:gson:2.10.1") //com.google.code.gson:gson:2.10.1
-    implementation ("android.arch.lifecycle:extensions:1.1.1") //android.arch.lifecycle:extensions:1.1.1
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0") // Update version as needed
 
 }

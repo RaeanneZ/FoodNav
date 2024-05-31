@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
 
 public class SearchForFood extends Fragment implements IDBProcessListener {
@@ -48,6 +49,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
                 return false;
             }
 
+            // 1. User enter query text, send the text to search the db
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList(newText);
@@ -57,24 +59,26 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         //SIAN KIM TODO:
-        //TODO: 1. User enter query text, send the text to search the db
-        // --> ArrayList<FoodItemClass> foodItemList= getFood.execute(queryText);
+        ArrayList<FoodItemClass> foodItemList= getFood.execute(queryText);
+        // what does this mean?
 
-        //TODO: 2. UI Display <foodItemList> for user to choose
+
         //TODO: 3. User select from the list displayed and UI switched to <Add Food> Page
 
 
-        // get from the mssql
+        // Get all foodItem from MSSQL and display it here
         List<Item> items = new ArrayList<Item>();
-        items.add(new Item("Fried Bee Hoon, Plain", "252", " cal, 1 plate"));
-        items.add(new Item("Fried Bee Hoon, Plain", "252", " cal, 1 plate"));
+        for (FoodItemClass foodItemClass: foodItemList) {
+            items.add(new Item(foodItemClass.getName(), foodItemClass.getCalories(), foodItemClass.getServing_size_g()));
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new FoodAdapter(getContext(),items));
+        recyclerView.setAdapter(new FoodAdapter(getContext(),items, this));
     }
 
     private void filterList(String text) {
         List<Item> filteredList = new ArrayList<>();
+        //2. UI Display <foodItemList> for user to choose
         for (Item item : itemList) {
             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);

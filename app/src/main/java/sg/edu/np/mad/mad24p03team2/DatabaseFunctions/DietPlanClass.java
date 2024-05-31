@@ -6,15 +6,15 @@ public class DietPlanClass {
     private int reccCarbIntake;
     private int reccProteinIntake;
     private int reccFatsIntake;
-    private boolean trackBloodSugar;
+    private String gender;
 
-    public DietPlanClass(int id, String name, int reccCarbIntake, int reccProteinIntake, int reccFatsIntake, boolean trackBloodSugar){
+    public DietPlanClass(int id, String name, int reccCarbIntake, int reccProteinIntake, int reccFatsIntake, String gender){
         this.id = id;
         this.name = name;
         this.reccCarbIntake = reccCarbIntake;
         this.reccProteinIntake = reccProteinIntake;
         this.reccFatsIntake = reccFatsIntake;
-        this.trackBloodSugar = trackBloodSugar;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -52,11 +52,10 @@ public class DietPlanClass {
         this.reccFatsIntake = reccFatsIntake;
     }
 
-    public boolean isTrackBloodSugar() {
-        return trackBloodSugar;
+    public String getGender() {
+        return gender;
     }
-
-    public void setTrackBloodSugar(boolean trackBloodSugar) {
-        this.trackBloodSugar = trackBloodSugar;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

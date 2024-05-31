@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class MealClass {
     // Attributes
-    private int id;
     private String mealName;
     private Map<FoodItemClass, Integer> selectedFoodList ;
     private float bloodSugar;
@@ -15,31 +14,10 @@ public class MealClass {
     // Constructor
     public MealClass(String mealName) {
         this.mealName = mealName;
-    }
-
-    public MealClass(int id, String mealName) {
-        this.id = id;
-        this.mealName = mealName;
         this.selectedFoodList = new HashMap<FoodItemClass, Integer>();
     }
 
-    public MealClass(int id, String mealName, Map<FoodItemClass, Integer> selectedFoodList, float bloodSugar, String timestamp) {
-        this.id = id;
-        this.mealName = mealName;
-        this.selectedFoodList = selectedFoodList;
-        this.bloodSugar = bloodSugar;
-        this.timestamp = timestamp;
-    }
-
     // Getters and Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getMealName() {
         return mealName;
     }

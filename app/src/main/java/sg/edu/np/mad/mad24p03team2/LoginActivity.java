@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetCurrentUserProfile;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 
@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
     Button loginBtn;
 
     LoginUser loginUser = null;
+    GetCurrentUserProfile getCurrentUserProfile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
         loginUser = new LoginUser(getApplicationContext(),this);
+        getCurrentUserProfile = new GetCurrentUserProfile(getApplicationContext(),this);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         // User Login process will return 2 boolean flag to indicate whether its wrong username or
         // wrong password that caused LOGIN UNSUCCESSFUL
         // Please update your UI here
+
         if (email.isEmpty() || password.isEmpty()){
             Toast.makeText(LoginActivity.this, "Please fill in the fields", Toast.LENGTH_SHORT).show();
         } else if (isValidPwd == false || isValidUser == false){
@@ -65,6 +68,9 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         } else{
             loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));
             Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
+
+            // Grab current user profile and store into SingletonSession
+            getCurrentUserProfile.execute(email);
         }
     }
 

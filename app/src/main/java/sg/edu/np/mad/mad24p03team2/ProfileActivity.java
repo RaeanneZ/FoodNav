@@ -3,6 +3,7 @@ package sg.edu.np.mad.mad24p03team2;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -12,7 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ProfileActivity extends AppCompatActivity {
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+
+public class ProfileActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,18 @@ public class ProfileActivity extends AppCompatActivity {
             return insets;
         });
 
+        // JOVAN TODO: Populate profile form details from SingletonSession.getInstance().GetCurrentUserProfile();
+        // TODO: when user clicks in from Account from navbar -> My Account -> Edit Profile
+
         // Find Buttons from the layout
         Button male = findViewById(R.id.male);
         Button female = findViewById(R.id.female);
+        Button saveBtn = findViewById(R.id.save);
+
+        // All texts
+        EditText birthdateText = findViewById(R.id.birthdate);
+        EditText weightText = findViewById(R.id.weight);
+        EditText heightText = findViewById(R.id.height);
 
         // Set click listeners for Buttons
         male.setOnClickListener(view -> {
@@ -44,5 +56,11 @@ public class ProfileActivity extends AppCompatActivity {
             male.setBackgroundTintList(secondColorStateList);
         });
 
+        // This is to save the inputs by user to database
+        saveBtn.setOnClickListener(view -> {
+            // Put the details into an Account object from sign up page
+            // JOVAN TODO: Fill in the method UpdateProfile() with required parameters
+            // TO BE UNCOMMENTED: SingletonSession.getInstance().UpdateProfile();
+        });
     }
 }

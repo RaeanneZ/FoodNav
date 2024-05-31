@@ -1,25 +1,30 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 
+import java.util.Date;
+
 // By Rui Ning
 // Database User Account Object Class
 public class AccountClass {
     private int id;
     private String name;
     private String email;
-    private int dietPlanOpt;
-    private char gender;
+    private Date birthDate;
+    private String dietPlanOpt;
+    private String gender;
     private int height;
-    private int weight;
+    private float weight;
+    private boolean trackBloodSugar;
+
+    public AccountClass(){
+        dietPlanOpt = "Diabetic Friendly";
+    }
 
     public AccountClass(int id, String name, String email){
+        this();
         this.id = id;
         this.name = name;
         this.email = email;
-    }
-    public AccountClass(int id, String name, String email, int dietPlanOpt){
-        this(id, email, name);
-        this.dietPlanOpt = dietPlanOpt;
     }
 
     public int getId() {
@@ -43,17 +48,17 @@ public class AccountClass {
         this.email = email;
     }
 
-    public int getDietPlanOpt() {
+    public String getDietPlanOpt() {
         return dietPlanOpt;
     }
-    public void setDietPlanOpt(int dietPlanOpt) {
+    public void setDietPlanOpt(String dietPlanOpt) {
         this.dietPlanOpt = dietPlanOpt;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -64,12 +69,24 @@ public class AccountClass {
         this.height = height;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
+    public boolean isTrackBloodSugar() {
+        return trackBloodSugar;
+    }
+    public void setTrackBloodSugar(boolean trackBloodSugar) {
+        this.trackBloodSugar = trackBloodSugar;
+    }
 }

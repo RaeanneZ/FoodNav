@@ -2,6 +2,7 @@ package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -23,14 +24,6 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-/*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-*/
-
 
         setContentView(R.layout.activity_main2);
 
@@ -43,19 +36,27 @@ public class MainActivity2 extends AppCompatActivity {
 
             if (itemId == R.id.dashboard) {
                 replaceFragment(new Dashboard());
+                Toast.makeText(MainActivity2.this, "Dashboard", Toast.LENGTH_SHORT).show();
                 return true;
             }
             if (itemId == R.id.logfood) {
                 replaceFragment(new LogFoodProduct());
+                Toast.makeText(MainActivity2.this, "Log Food Product", Toast.LENGTH_SHORT).show();
                 return true;
             }
             if (itemId == R.id.account) {
                 replaceFragment(new accountpage());
+                Toast.makeText(MainActivity2.this, "Account", Toast.LENGTH_SHORT).show();
                 return true;
             }
             return false;
         });
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
     }
 

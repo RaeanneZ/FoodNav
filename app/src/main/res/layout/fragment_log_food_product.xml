@@ -28,7 +28,7 @@
 
                 <RadioGroup
                     android:id="@+id/RB"
-                    android:layout_width="wrap_content"
+                    android:layout_width="390dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
                     android:layout_marginEnd="56dp"
@@ -44,8 +44,9 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
-                        android:padding="10dp"
                         android:fontFamily="@font/inter_semibold"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
                         android:text="Breakfast" />
 
                     <RadioButton
@@ -53,14 +54,14 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
-                        android:backgroundTint="@color/lavender"
                         android:button="@android:color/transparent"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:minHeight="48dp"
                         android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
                         android:paddingRight="20dp"
-                        android:text="Lunch"
-                        android:fontFamily="@font/inter_semibold"/>
+                        android:paddingBottom="10dp"
+                        android:text="Lunch" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -68,9 +69,10 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
+                        android:fontFamily="@font/inter_semibold"
+                        android:minHeight="48dp"
                         android:padding="10dp"
-                        android:text="Dinner"
-                        android:fontFamily="@font/inter_semibold"/>
+                        android:text="Dinner" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -78,9 +80,10 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
+                        android:fontFamily="@font/inter_semibold"
+                        android:minHeight="48dp"
                         android:padding="10dp"
-                        android:text="Others"
-                        android:fontFamily="@font/inter_semibold"/>
+                        android:text="Others" />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "sg.edu.np.mad.mad24p03team2"
-        minSdk = 21
+        minSdk = 33
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -59,5 +59,6 @@ dependencies {
 
     implementation ("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
     implementation ("com.google.code.gson:gson:2.10.1") //com.google.code.gson:gson:2.10.1
+    implementation ("android.arch.lifecycle:extensions:1.1.1") //android.arch.lifecycle:extensions:1.1.1
 
 }

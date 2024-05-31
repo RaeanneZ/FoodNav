@@ -11,51 +11,25 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.ApiHandler;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 
-public class GetFood extends AsyncTaskExecutorService<String, String , String> {
+public class GetFoodByID extends AsyncTaskExecutorService<String, String , String> {
     ArrayList<IDBProcessListener> dbListeners = null;
     FoodItemClass foodItem;
-    ArrayList<FoodItemClass> foodItems;
     // Login Data Class
     FoodDB foodDB = null;
-    ApiHandler apiHandler = new ApiHandler();
     boolean isSuccess = false;
 
-    public GetFood(Context appContext){
+    public GetFoodByID(Context appContext){
         // Later will pass in ApplicationContext
         this.foodDB = new FoodDB(appContext);
         this.dbListeners = new ArrayList<IDBProcessListener>();
-        this.foodItems = new ArrayList<FoodItemClass>();
     }
 
-    public GetFood(Context appContext, IDBProcessListener listener){
-        this(appContext);
-        if(listener != null)
-            registerListener(listener);
-    }
-
-    public void registerListener(IDBProcessListener listener){
-        dbListeners.add(listener);
-    }
-
-    @Override
-    protected String doInBackground(String... strings) {
-        return null;
-    }
-
-
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground(String name) {
-        // Check if the exact match is there
-        ResultSet resultSet = foodDB.GetSpecificRecord(name);
+    protected FoodItemClass doInBackground(int id) {
+        ResultSet resultSet = foodDB.GetRecordById(id);
         try {
             // Add the food if its not there
-            if(!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
-                apiHandler.fetchNutritionInfo(name, foodDB);
-            }
-            resultSet = foodDB.GetRecord(name);
-            while(resultSet.next()) {
+            if(resultSet.next()) {
                 foodItem = new FoodItemClass(resultSet.getInt("FoodID"), resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
-                foodItems.add(foodItem);
             }
         }
         catch (SQLException e) {
@@ -66,26 +40,33 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
                 if(resultSet != null) {
                     resultSet.close();
                 }
-            } catch (Exception e) { Log.d("Get Food", "Resultset unable to close"); }
+            } catch (Exception e) { Log.d("Get Food", "ResultSet unable to close"); }
         }
 
-        return foodItems;
+        return foodItem;
     }
+
 
     @Override
     protected void onPostExecute(String s) {
-        for(IDBProcessListener listener : dbListeners){
-            listener.afterProcess(isSuccess);
-        }
+
     }
 
     // IGNORE --------------------------------------------------------------------------------------
     @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
+    protected String doInBackground(String... strings) {
+        return null;
+    }
+    @Override
+    protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }
     @Override
     protected ArrayList<FoodItemClass> doInBackground() {
+        return null;
+    }
+    @Override
+    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
         return null;
     }
     // IGNORE --------------------------------------------------------------------------------------

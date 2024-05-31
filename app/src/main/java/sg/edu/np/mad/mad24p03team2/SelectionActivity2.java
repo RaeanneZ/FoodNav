@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
@@ -20,11 +21,27 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setup_selectoption_lowsugar);
         updateUserProfile = new UpdateUserProfile(getApplicationContext(), this);
+
+        RadioButton yes = findViewById(R.id.radioButton);
+        RadioButton no = findViewById(R.id.radioButton2);
+
         continueButton = findViewById(R.id.button);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // SIAN KIM TODO: Get user option (yes = true, no = false) and input into the function SetBloodSugarTracking();
+                boolean options = false;
+
+                if (yes.isChecked()) {
+                    options = true;
+                }
+                else if (no.isChecked()) {
+                    options = false;
+                }
+
+                // is this how you do it?
+                // SetBloodSugarTracking(options);
+
                 // TO BE UNCOMMENTED: SingletonSession.getInstance().SetBloodSugarTracking();
 
                 // Update the account in database

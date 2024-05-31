@@ -8,8 +8,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ChangePassword extends AppCompatActivity {
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserPassword;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
+public class ChangePassword extends AppCompatActivity implements IDBProcessListener {
+
+    UpdateUserPassword updateUserPassword = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +25,20 @@ public class ChangePassword extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        updateUserPassword = new UpdateUserPassword(getApplication().getApplicationContext(), this);
+
+        //JOVAN TODO: Get Password input onClick, update database with below method
+        // updateUserPassword.execute(SingletonSession.getInstance().GetAccount().getEmail(), password);
+    }
+
+    @Override
+    public void afterProcess(Boolean executeStatus) {
+
+    }
+
+    @Override
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+
     }
 }

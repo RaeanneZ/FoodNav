@@ -23,11 +23,11 @@ public class AccountDB extends AbstractDBProcess {
     }
 
     // Read Function
-    public ResultSet GetRecord(String email, Connection con){
+    public ResultSet GetRecord(String email){
         String sql = "SELECT * FROM Account WHERE AccEmail = '"+email+"'";
 
         try {
-            stmt = con.createStatement();
+            stmt = dbCon.createStatement();
             return stmt.executeQuery(sql);
         }
         catch (Exception e) {
@@ -44,7 +44,7 @@ public class AccountDB extends AbstractDBProcess {
         try{
             // Check if record is already inside LoginInfo
             Log.d("CreateRecord", "Connection = " +dbCon);
-            resultSet = GetRecord(email,dbCon);
+            resultSet = GetRecord(email);
             if (!resultSet.isBeforeFirst() && resultSet.getRow() == 0){
                 // Create and execute the SQL statement to Database
                 Log.d("CreateRecord","IM IN");
@@ -75,7 +75,7 @@ public class AccountDB extends AbstractDBProcess {
         String sql = null;
 
         try{
-            resultSet = GetRecord(email,dbCon);
+            resultSet = GetRecord(email);
             if(resultSet.next()){
                 // Create and execute the SQL statement to Database
                 if (dietPlanOpt != null) {
@@ -132,15 +132,15 @@ public class AccountDB extends AbstractDBProcess {
         StartUp startUpApp = (StartUp) this.getApplicationContext();
 
         try{
-            ResultSet resultSet = GetRecord(email, dbCon);
+            ResultSet resultSet = GetRecord(email);
             // There is Data
             if(resultSet.next()){
                 id = resultSet.getInt("AccID");
                 name = resultSet.getString("Name");
-                dietPlanOpt = resultSet.getInt("DietPlanID");
+                // dietPlanOpt = resultSet.getString("DietPlanID");
 
-                AccountClass userAccount = new AccountClass(id, name, email, dietPlanOpt);
-                startUpApp.setCurrentUser(userAccount);
+                // AccountClass userAccount = new AccountClass(id, name, email, dietPlanOpt);
+                // startUpApp.setCurrentUser(userAccount);
             }
         } catch(Exception e) {
             Log.d("GetCurrentUserInfo", "No Account to get");

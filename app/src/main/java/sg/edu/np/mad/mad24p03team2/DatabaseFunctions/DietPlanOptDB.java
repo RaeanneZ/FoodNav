@@ -16,9 +16,9 @@ public class DietPlanOptDB extends AbstractDBProcess {
     }
 
     // Get DietPlan data through its ID
-    public ResultSet GetRecord(String name, String trackBloodSugar){
+    public ResultSet GetRecord(String name, String gender){
         Connection con = dbCon;
-        String sql = "SELECT * FROM DietPlan WHERE Name = '"+name+"' AND TrackBloodSugar = '"+trackBloodSugar+"'";
+        String sql = "SELECT * FROM DietPlan WHERE Name = '"+name+"' AND Gender = '"+gender+"'";
 
         try {
             stmt = con.createStatement();

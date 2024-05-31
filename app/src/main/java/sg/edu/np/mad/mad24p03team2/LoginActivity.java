@@ -63,7 +63,8 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         } else if (isValidPwd == false || isValidUser == false){
             Toast.makeText(LoginActivity.this, "User not found. Try again", Toast.LENGTH_SHORT).show();
         } else{
-            loginBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, MainActivity2.class)));
+            Intent login = new Intent(LoginActivity.this, MainActivity2.class);
+            startActivity(login);
             Log.d("afterProcess", "Execution status: " + (isValidPwd && isValidUser));
         }
     }

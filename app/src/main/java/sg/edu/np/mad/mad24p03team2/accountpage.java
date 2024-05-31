@@ -2,11 +2,15 @@ package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class accountpage extends Fragment {
+    private Switch darkmodeSwitch;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +64,39 @@ public class accountpage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_accountpage, container, false);
+        View view = inflater.inflate(R.layout.fragment_accountpage, container, false);
+
+        // Find the switch by its id
+        darkmodeSwitch = view.findViewById(R.id.darkmode);
+
+        // Set listener for switch changes
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            darkmodeSwitch.setChecked(true);
+        } else{
+            darkmodeSwitch.setChecked(false);
+        }
+        darkmodeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Update UI for Dark Mode
+                    updateUiForDarkMode();
+                } else {
+                    // Update UI for Light Mode
+                    updateUiForLightMode();
+                }
+            }
+        });
+
+        return view;
+    }
+
+    // Define methods to update UI elements based on theme (dark/light)
+    private void updateUiForDarkMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        Log.d("Working dark mode", "It's working");
+    }
+
+    private void updateUiForLightMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 }

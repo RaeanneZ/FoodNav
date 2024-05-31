@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".LogFoodProduct">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -254,6 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/greyblack"
                     android:text="Carbs"
                     app:layout_constraintEnd_toEndOf="@id/cardc"
                     app:layout_constraintStart_toStartOf="@id/cardc"
@@ -265,6 +267,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/greyblack"
                     android:text="Protein"
                     app:layout_constraintEnd_toEndOf="@id/cardp"
                     app:layout_constraintStart_toStartOf="@id/cardp"
@@ -276,6 +279,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/greyblack"
                     android:text="Fat"
                     app:layout_constraintEnd_toEndOf="@id/cardf"
                     app:layout_constraintStart_toStartOf="@id/cardf"
@@ -287,6 +291,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/greyblack"
                     android:text="Calories"
                     app:layout_constraintEnd_toEndOf="@id/cardk"
                     app:layout_constraintStart_toStartOf="@id/cardk"

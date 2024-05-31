@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Dashboard">
 
 
@@ -31,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="40dp"
                     android:text="Today, 28 Apr"
                     android:textSize="32sp"
                     android:textStyle="bold"
@@ -60,7 +61,7 @@
             android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="112dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -84,8 +85,8 @@
                         android:layout_marginStart="51dp"
                         android:indeterminateOnly="false"
                         android:indeterminateTint="@color/pink"
-                        android:progress="25"
                         android:max="100"
+                        android:progress="25"
                         android:progressDrawable="@drawable/progress_circle"
                         app:indicatorSize="100dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -291,8 +292,8 @@
                                 android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
-                                android:textColor="@color/black"
-                                android:textSize="15sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="15dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -308,8 +309,8 @@
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
-                                android:textColor="@color/black"
-                                android:textSize="10sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="10dp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd_b"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum_b" />
 
@@ -321,8 +322,8 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Breakfast"
-                                android:textColor="@color/black"
-                                android:textSize="15sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="15dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd_b" />
 
@@ -432,8 +433,8 @@
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="10dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc_b" />
 
@@ -494,8 +495,8 @@
                                 android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="505"
-                                android:textColor="@color/black"
-                                android:textSize="15sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="15dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -511,8 +512,8 @@
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
-                                android:textColor="@color/black"
-                                android:textSize="10sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="10dp"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd"
                                 app:layout_constraintTop_toBottomOf="@+id/kcalnum" />
 
@@ -524,8 +525,8 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Lunch"
-                                android:textColor="@color/black"
-                                android:textSize="15sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="15dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd" />
 
@@ -635,8 +636,8 @@
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Details"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
+                                android:textColor="@color/alsoblack"
+                                android:textSize="10dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardc" />
 

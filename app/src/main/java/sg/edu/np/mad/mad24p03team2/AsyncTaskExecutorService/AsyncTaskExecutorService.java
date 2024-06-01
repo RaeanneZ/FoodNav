@@ -47,8 +47,6 @@ public abstract class AsyncTaskExecutorService < Params, Progress, Result > {
 
     protected abstract ArrayList<FoodItemClass> doInBackground(String name);
 
-    protected abstract DietPlanClass doInBackground(String name, String trackBloodSugar);
-
     protected abstract void onPostExecute(Result result);
 
     protected void onProgressUpdate(@NotNull Progress value) {

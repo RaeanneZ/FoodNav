@@ -103,9 +103,5 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
         return null;
     }
 
-    @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
     // IGNORE --------------------------------------------------------------------------------------
 }

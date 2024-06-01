@@ -54,10 +54,5 @@ public class UpdateBloodSugarMeal extends AsyncTaskExecutorService<String, Strin
     protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }
-
-    @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
     // IGNORE --------------------------------------------------------------------------------------
 }

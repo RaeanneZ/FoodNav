@@ -58,11 +58,6 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
     }
 
     @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
-
-    @Override
     protected void onPostExecute(String s) {
 
     }

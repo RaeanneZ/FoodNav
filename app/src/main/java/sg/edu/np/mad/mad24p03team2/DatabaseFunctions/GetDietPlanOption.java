@@ -1,12 +1,14 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
 
 public class GetDietPlanOption extends AsyncTaskExecutorService<String, String , String> {
 
@@ -57,34 +59,12 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
                 dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
                 isSuccess = true;
             }
-        } catch( Exception e){}
+        } catch(Exception e){ }
 
         //return dietPlan;
-        return null;
+        SingletonDietPlanResult.getInstance().setDietPlan(dietPlan);
+        return "";
     }
-
-//    @Override
-//    protected DietPlanClass doInBackground(String name, String gender) {
-//
-//        ResultSet resultSet = dietPlanOptDB.GetRecord(name, gender);
-//
-//        try{
-//            // If there is a result
-//            if(resultSet.next()){
-//                id = resultSet.getInt("DietPlanID");
-//                name = resultSet.getString("Name");
-//                reccCarbIntake = resultSet.getInt("ReccCarbIntake");
-//                reccProteinIntake = resultSet.getInt("ReccProteinIntake");
-//                reccFatsIntake = resultSet.getInt("ReccFatsIntake");
-//                gender =  resultSet.getString("Gender");
-//
-//                dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
-//                isSuccess = true;
-//            }
-//        } catch( Exception e){}
-//
-//        return dietPlan;
-//    }
 
     @Override
     protected void onPostExecute(String s) {

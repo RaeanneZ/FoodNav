@@ -3,10 +3,10 @@ package sg.edu.np.mad.mad24p03team2;
 public class Item {
 
     String name;
-    String calNum;
-    String servingSize;
+    Double calNum;
+    Double servingSize;
 
-    public Item(String name, String calNum, String servingSize) {
+    public Item(String name, Double calNum, Double servingSize) {
         this.name = name;
         this.calNum = calNum;
         this.servingSize = servingSize;
@@ -20,19 +20,19 @@ public class Item {
         this.name = name;
     }
 
-    public String getCalNum() {
+    public Double getCalNum() {
         return calNum;
     }
 
-    public void setCalNum(String calNum) {
+    public void setCalNum(Double calNum) {
         this.calNum = calNum;
     }
 
-    public String getServingSize() {
+    public Double getServingSize() {
         return servingSize;
     }
 
-    public void setServingSize(String servingSize) {
+    public void setServingSize(Double servingSize) {
         this.servingSize = servingSize;
     }
 }

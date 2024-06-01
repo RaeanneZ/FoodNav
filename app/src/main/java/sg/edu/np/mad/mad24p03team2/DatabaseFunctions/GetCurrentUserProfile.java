@@ -31,6 +31,7 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
                 SingletonSession.getInstance().GetAccount().setId(resultSet.getInt("AccID"));
                 SingletonSession.getInstance().GetAccount().setName(resultSet.getString("Name"));
                 SingletonSession.getInstance().GetAccount().setEmail(resultSet.getString("AccEmail"));
+
                 // Update the user profile
                 SingletonSession.getInstance().UpdateProfile(resultSet.getString("Gender"), resultSet.getDate("BirthDate"), resultSet.getInt("Height"), resultSet.getFloat("Weight"));
             }
@@ -57,17 +58,7 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
     }
 
     @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
-
-    @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
-        return null;
-    }
-
-    @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
         return null;
     }
 

@@ -29,7 +29,6 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // SIAN KIM TODO: Get user option (yes = true, no = false) and input into the function SetBloodSugarTracking();
                 boolean options = false;
 
                 if (yes.isChecked()) {
@@ -38,11 +37,7 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
                 else if (no.isChecked()) {
                     options = false;
                 }
-
-                // is this how you do it?
-                // SetBloodSugarTracking(options);
-
-                // TO BE UNCOMMENTED: SingletonSession.getInstance().SetBloodSugarTracking();
+                SingletonSession.getInstance().SetBloodSugarTracking(options);
 
                 // Update the account in database
                 AccountClass account = SingletonSession.getInstance().GetAccount();

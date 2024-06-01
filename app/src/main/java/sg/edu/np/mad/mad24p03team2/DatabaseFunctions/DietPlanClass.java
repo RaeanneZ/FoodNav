@@ -8,6 +8,7 @@ public class DietPlanClass {
     private int reccFatsIntake;
     private String gender;
 
+    public DietPlanClass() { }
     public DietPlanClass(int id, String name, int reccCarbIntake, int reccProteinIntake, int reccFatsIntake, String gender){
         this.id = id;
         this.name = name;

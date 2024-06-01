@@ -6,10 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -17,6 +20,7 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
@@ -52,17 +56,17 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         ProgressBar fatBar = view.findViewById(R.id.progressBarfats);
         ProgressBar proteinBar = view.findViewById(R.id.progressBarprotein);
         ProgressBar cbar = view.findViewById(R.id.Cbar);
-        carbBar.setMax((int)carb);
-        fatBar.setMax((int) fat);
-        proteinBar.setMax((int) protein);
-        progress.setText(String.format("%.0f",BMR));
-        cbar.setMax((int)BMR);
+        carbBar.setMax(60);
+        fatBar.setMax(60);
+        proteinBar.setMax(75);
+        progress.setText("1200");
+        cbar.setMax(1200);
 
         Log.d("Dashboard", "Find bfast for :"+Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
         getMeal.execute("Breakfast", Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //getMeal.execute( "Lunch",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //getMeal.execute( "Dinner",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //getMeal.execute( "Others",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        getMeal.execute( "Lunch",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        getMeal.execute( "Dinner",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        getMeal.execute( "Others",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
 
         return view;
 
@@ -80,8 +84,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             MealClass lunch = SingletonTodayMeal.getInstance().GetMeal("Lunch");
             MealClass breakfastMeal = SingletonTodayMeal.getInstance().GetMeal("Breakfast");
             TextView textView = getView().findViewById(R.id.tvkcal_b);
-            breakfastMeal.getSelectedFoodList().values();
-            Log.i( "afterProcess: ",breakfastMeal.getSelectedFoodList().values().toString());
+            breakfastMeal.getSelectedFoodList().keySet();
+            Log.d("afterProcess: ","bbb"+ breakfastMeal.getSelectedFoodList().keySet());
+
 
             if (breakfastMeal != null) {
                 //textView.setText() // assuming getName() method returns the meal name

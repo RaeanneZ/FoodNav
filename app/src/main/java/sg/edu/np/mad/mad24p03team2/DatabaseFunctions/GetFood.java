@@ -51,6 +51,7 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
                 apiHandler.fetchNutritionInfo(name, foodDB);
             }
 
+            foodItems.clear();
             resultSet = foodDB.GetRecord(name);
             while(resultSet.next()) {
 

@@ -47,18 +47,19 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        itemList = new ArrayList<FoodItemClass>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
+        foodAdapter = new FoodAdapter(getView().getContext(), itemList, this);
 
         // TODO: LOOK HERE FOR DATABASE ACCESS
         getAllFood.execute(); // This is to get all food in database
 
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        foodAdapter = new FoodAdapter(view.getContext(), itemList, this);
+        //RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
         recyclerView.setAdapter(foodAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
 
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus(); // Remove cursor from search bar
@@ -76,30 +77,14 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
                 return true;
             }
         });
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-
-        //SIAN KIM TODO:
-        //ArrayList<FoodItemClass> foodItemList = getAllFood;
-        // what does this mean?
-
-
-        //TODO: 3. User select from the list displayed and UI switched to <Add Food> Page
-
-
-        // Get all foodItem from MSSQL and display it here
-//        List<FoodItemClass> items = new ArrayList<FoodItemClass>();
-//        for (FoodItemClass foodItemClass: foodItemList) {
-//            items.add(new Item(foodItemClass.getName(), foodItemClass.getCalories(), foodItemClass.getServing_size_g()));
-//        }
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(foodAdapter);
     }
 
     @Override
     public void afterProcess(Boolean executeStatus) {
         // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
+
         itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        Log.d("SEARCH FOR FOOD", "Itemlist = " + itemList.size());
         foodAdapter.setFilteredList(itemList);
         Log.d("SearchForFood", "Results: " + itemList);
     }
@@ -111,6 +96,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
 
     @Override
     public void onItemClick(int itemPos) {
+        // Move on to addfood page
 
     }
 }

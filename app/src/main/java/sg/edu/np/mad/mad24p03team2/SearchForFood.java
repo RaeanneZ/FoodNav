@@ -57,7 +57,6 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
 
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        //RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
 
@@ -84,9 +83,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
 
         itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
-        Log.d("SEARCH FOR FOOD", "Itemlist = " + itemList.size());
         foodAdapter.setFilteredList(itemList);
-        Log.d("SearchForFood", "Results: " + itemList);
     }
 
     @Override

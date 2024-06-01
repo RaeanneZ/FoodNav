@@ -56,11 +56,13 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         ProgressBar fatBar = view.findViewById(R.id.progressBarfats);
         ProgressBar proteinBar = view.findViewById(R.id.progressBarprotein);
         ProgressBar cbar = view.findViewById(R.id.Cbar);
+
         carbBar.setMax(60);
         fatBar.setMax(60);
         proteinBar.setMax(75);
         progress.setText("1200");
         cbar.setMax(1200);
+
 
         Log.d("Dashboard", "Find bfast for :"+Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
         getMeal.execute("Breakfast", Integer.toString(SingletonSession.getInstance().GetAccount().getId()));

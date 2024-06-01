@@ -79,7 +79,7 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
         } else {
             Log.d("Sign Up", "Fail");
         }
-        signUpBtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
+        signUpBtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, ProfileActivity.class)));
 
     }
 

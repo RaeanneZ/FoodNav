@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,8 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
-                android:text="Recommended Macros"
-                android:textSize="15dp"
+                android:text="@string/recommended_macros"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +90,7 @@
                         android:id="@+id/tvc1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="23g"
+                        android:text="@string/carbs_amount"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +122,7 @@
                         android:id="@+id/tvp1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="23g"
+                        android:text="@string/protein_amount"
                         android:textSize="16sp"
                         android:fontFamily="@font/inter_regular"
                         android:textColor="@color/white"
@@ -158,7 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_regular"
-                        android:text="23g"
+                        android:text="@string/fats_amount"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_semibold"
-                        android:text="505\nKcal"
+                        android:text="@string/kCal_amount"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="8dp"
-                android:text="Carbs"
+                android:text="@string/carbs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardc" />
 
@@ -218,7 +218,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="2dp"
-                android:text="Protein"
+                android:text="@string/protein"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvc2"
                 app:layout_constraintTop_toBottomOf="@id/cardp" />
@@ -230,7 +230,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="52dp"
-                android:text="Fat"
+                android:text="@string/fats"
                 app:layout_constraintEnd_toStartOf="@+id/tvk2"
                 app:layout_constraintStart_toEndOf="@+id/tvp2"
                 app:layout_constraintTop_toBottomOf="@+id/cardf" />
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
                 android:layout_marginTop="8dp"
-                android:text="Calories"
+                android:text="@string/cal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvf2"
                 app:layout_constraintTop_toBottomOf="@+id/cardk"

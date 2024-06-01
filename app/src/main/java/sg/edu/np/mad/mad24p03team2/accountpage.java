@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -10,7 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +26,9 @@ import android.widget.Switch;
  */
 public class accountpage extends Fragment {
     private Switch darkmodeSwitch;
+    private ImageView profileImageView;
+    private ImageView maleIconView;
+    private ImageView femaleIconView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,8 +76,12 @@ public class accountpage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accountpage, container, false);
 
+        TextView changePassword = view.findViewById(R.id.changePassword);
+
         // Find the switch by its id
         darkmodeSwitch = view.findViewById(R.id.darkmode);
+        maleIconView = view.findViewById(R.id.male_icon);
+        femaleIconView = view.findViewById(R.id.female_icon);
 
         // Set listener for switch changes
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
@@ -87,16 +101,66 @@ public class accountpage extends Fragment {
             }
         });
 
+        // Set click listener for the button
+        TextView editProfile = view.findViewById(R.id.editProfile);
+        String username = SingletonSession.getInstance().GetAccount().getName();
+        TextView tempName = view.findViewById(R.id.tempName);
+        tempName.setText(username);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch ChangePassword activity
+                Intent changePasswordIntent = new Intent(getActivity(), ChangePassword.class);
+                startActivity(changePasswordIntent);
+            }
+        });
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch EditProfile activity
+                Intent editProfileIntent = new Intent(getActivity(), editProfile.class);
+                startActivity(editProfileIntent);
+            }
+        });
+
+        // Populate profile details including profile picture
+        populateProfileDetails();
+
         return view;
+    }
+
+    private void populateProfileDetails() {
+        AccountClass currentUserProfile = SingletonSession.getInstance().GetAccount();
+        if (currentUserProfile != null) {
+            setProfileImage(currentUserProfile.getGender());
+        } else {
+            Toast.makeText(getContext(), "Failed to load profile details", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private void setProfileImage(String gender) {
+        if (gender.equalsIgnoreCase("M")) {
+            maleIconView.setVisibility(View.VISIBLE);
+            femaleIconView.setVisibility(View.GONE);
+        } else if (gender.equalsIgnoreCase("F")) {
+            maleIconView.setVisibility(View.GONE);
+            femaleIconView.setVisibility(View.VISIBLE);
+        } else {
+            maleIconView.setVisibility(View.GONE);
+            femaleIconView.setVisibility(View.GONE);
+        }
     }
 
     // Define methods to update UI elements based on theme (dark/light)
     private void updateUiForDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        Log.d("Working dark mode", "It's working");
+        Log.d("Dark Mode", "Dark mode activated");
     }
 
     private void updateUiForLightMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        Log.d("Light Mode", "Light mode activated");
     }
 }

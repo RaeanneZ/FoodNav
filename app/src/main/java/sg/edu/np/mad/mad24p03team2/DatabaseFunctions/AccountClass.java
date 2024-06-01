@@ -12,7 +12,7 @@ public class AccountClass {
     private Date birthDate;
     private String dietPlanOpt;
     private String gender;
-    private int height;
+    private float height;
     private float weight;
     private boolean trackBloodSugar;
 
@@ -62,10 +62,10 @@ public class AccountClass {
         this.gender = gender;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 

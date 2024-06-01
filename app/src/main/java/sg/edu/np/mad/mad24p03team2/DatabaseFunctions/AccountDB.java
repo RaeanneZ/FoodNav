@@ -53,7 +53,7 @@ public class AccountDB extends AbstractDBProcess {
                 isSuccess = true;
 
                 // Save current user account to Account object created in StartUp
-                saveCurrentUserInfo(email);
+                // saveCurrentUserInfo(email);
             }
         }
         catch (Exception e) {
@@ -145,10 +145,6 @@ public class AccountDB extends AbstractDBProcess {
         } catch(Exception e) {
             Log.d("GetCurrentUserInfo", "No Account to get");
         }
-
-//        Log.d("SaveCurrentUserInfo", "ID: " + startUpApp.getCurrentUser().getId());
-//        Log.d("SaveCurrentUserInfo", "Name: " + startUpApp.getCurrentUser().getName());
-//        Log.d("SaveCurrentUserInfo", "Email: " + startUpApp.getCurrentUser().getEmail());
     }
 
 }

@@ -4,10 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class UpdateUserProfile extends AsyncTaskExecutorService<String, String , String> {
 
@@ -51,6 +55,9 @@ public class UpdateUserProfile extends AsyncTaskExecutorService<String, String ,
                 resultset = dietPlanOptDB.GetRecord(dietPlanOpt, gender);
                 if (resultset.next()) {
                     dietPlanid = resultset.getString("DietPlanID");
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    SingletonSession.getInstance().UpdateProfile(gender, sdf.parse(birthDate), Float.parseFloat(height), Float.parseFloat(weight));
                 }
             } catch(Exception e){
                 Log.d("UpdateUserProfile", "Something went wrong: " + e.getMessage());

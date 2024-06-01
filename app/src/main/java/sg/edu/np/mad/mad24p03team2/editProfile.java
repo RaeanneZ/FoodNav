@@ -150,7 +150,7 @@ public class editProfile extends AppCompatActivity implements IDBProcessListener
             return;
         }
 
-        //assert birthDate != null;
+        // Call database
         updateUserProfile.execute(SingletonSession.getInstance().GetAccount().getEmail(), SingletonSession.getInstance().GetAccount().getDietPlanOpt(), gender, birthdate, Float.toString(height), Float.toString(weight));
         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
     }

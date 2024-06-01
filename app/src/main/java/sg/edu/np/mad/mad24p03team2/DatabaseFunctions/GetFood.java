@@ -46,10 +46,16 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
         try {
             // Add the food if its not there
             if(!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
+
+                Log.d("GetFood","No record found so let me add new record");
                 apiHandler.fetchNutritionInfo(name, foodDB);
             }
+
+            foodItems.clear();
             resultSet = foodDB.GetRecord(name);
             while(resultSet.next()) {
+
+                Log.d("GetFood","Result Found!");
                 foodItem = new FoodItemClass(resultSet.getInt("FoodID"), resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
                 foodItems.add(foodItem);
             }

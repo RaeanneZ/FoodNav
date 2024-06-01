@@ -62,11 +62,11 @@ public class editProfile extends AppCompatActivity {
 
         // Set click listeners for Buttons
         male.setOnClickListener(view -> {
-            setGenderSelection("male");
+            setGenderSelection("M");
         });
 
         female.setOnClickListener(view -> {
-            setGenderSelection("female");
+            setGenderSelection("F");
         });
 
         // Save the inputs by user to database
@@ -102,16 +102,14 @@ public class editProfile extends AppCompatActivity {
         ColorStateList maleDefaultColorStateList = getResources().getColorStateList(R.color.lavender);
         ColorStateList femaleDefaultColorStateList = getResources().getColorStateList(R.color.lightpink);
 
-        if (gender.equalsIgnoreCase("male")) {
-            ColorStateList newColorStateList = getResources().getColorStateList(R.color.purple);
-            male.setBackgroundTintList(newColorStateList);
+        if (gender.equalsIgnoreCase("M")) {
+            male.setBackgroundTintList(getResources().getColorStateList(R.color.purple));
             female.setBackgroundTintList(femaleDefaultColorStateList);
             maleIconView.setVisibility(View.VISIBLE);
             femaleIconView.setVisibility(View.GONE);
-        } else if (gender.equalsIgnoreCase("female")) {
-            ColorStateList newColorStateList = getResources().getColorStateList(R.color.altpink);
+        } else if (gender.equalsIgnoreCase("F")) {
             male.setBackgroundTintList(maleDefaultColorStateList);
-            female.setBackgroundTintList(newColorStateList);
+            female.setBackgroundTintList(getResources().getColorStateList(R.color.altpink));
             maleIconView.setVisibility(View.GONE);
             femaleIconView.setVisibility(View.VISIBLE);
         } else {
@@ -123,10 +121,17 @@ public class editProfile extends AppCompatActivity {
     }
     private void updateProfile() throws ParseException, NumberFormatException {
         String birthdate = birthdateText.getText().toString().trim();
-        int weight = Integer.parseInt(weightText.getText().toString());
-        int height = Integer.parseInt(heightText.getText().toString());
-        String gender = male.getBackgroundTintList() == getResources().getColorStateList(R.color.purple) ? "male" : "female";
-
+        float weight = Float.parseFloat(weightText.getText().toString());
+        float height = Float.parseFloat(heightText.getText().toString());
+        String gender;
+        if (male.getBackgroundTintList() == getResources().getColorStateList(R.color.purple)) {
+            gender = "M"; // Male
+        } else if (female.getBackgroundTintList() == getResources().getColorStateList(R.color.altpink)) {
+            gender = "F"; // Female
+        } else {
+            Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
+            return;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date birthDate = sdf.parse(birthdate);
 

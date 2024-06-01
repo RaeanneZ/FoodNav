@@ -47,7 +47,7 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
                 // Update the account in database
                 AccountClass account = SingletonSession.getInstance().GetAccount();
                 updateUserProfile.execute(account.getEmail(), account.getDietPlanOpt(), account.getGender(), account.getGender(),
-                        account.getBirthDate().toString(), Integer.toString(account.getHeight()), Float.toString(account.getWeight()));
+                        account.getBirthDate().toString(), Float.toString(account.getHeight()), Float.toString(account.getWeight()));
 
                 // Move to next page
                 Intent intent = new Intent(SelectionActivity2.this, SelectionActivity3.class);

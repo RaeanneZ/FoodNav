@@ -98,7 +98,7 @@ Feature to allow items in food log to be scrolled horizontally, in addition to v
 
 **Hong Rong**
 
-filtering system allowing users to refine search results based on specific dietary preferences, price ranges with customizable thresholds and discounts, ingredient preferences or exclusions for allergy or preference considerations, nutritional criteria such as calories, fat, sugar, and protein content, health labels or certifications like organic or non-GMO, and user ratings or reviews for social validation.
+Notifications are essential features that help keep users informed and engaged by sending them timely updates or reminders. These notifications serve as gentle nudges to keep users connected to relevant information or actions within an application or platform. By delivering messages directly to users, notifications enhance user experience and increase user engagement by ensuring they stay informed and up-to-date with the latest developments, events, or tasks.
 
 ## Feature Test 
 

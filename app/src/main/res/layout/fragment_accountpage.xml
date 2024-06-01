@@ -37,13 +37,13 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="11dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/tempName"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 app:srcCompat="@drawable/baseline_circle_24" />
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tempName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
@@ -62,10 +62,10 @@
                 style="@style/Divider.Horizontal"
                 android:layout_width="315dp"
                 android:layout_marginTop="28dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView5"
+                app:layout_constraintEnd_toEndOf="@+id/tempName"
                 app:layout_constraintHorizontal_bias="0.413"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintStart_toStartOf="@+id/tempName"
+                app:layout_constraintTop_toBottomOf="@+id/tempName" />
 
             <TextView
                 android:id="@+id/planName"
@@ -147,7 +147,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider_lavender" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -166,16 +166,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/divider_lavender"
                 app:layout_constraintHorizontal_bias="0.44"
                 app:layout_constraintStart_toStartOf="@+id/divider_lavender"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
                 app:layout_constraintEnd_toEndOf="@+id/arrow"
-                app:layout_constraintTop_toTopOf="@+id/textView6" />
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
             <ImageView
                 android:id="@+id/imageView10"
@@ -194,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="TextView"
+                android:text="Change plan"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView10"
@@ -224,7 +224,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="@font/inter_regular"
                 android:text="Dark mode"
                 android:textColor="@color/black"
@@ -272,6 +272,27 @@
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintEnd_toEndOf="@+id/imageView11"
                 app:layout_constraintTop_toTopOf="@+id/imageView12" />
+
+            <ImageView
+                android:id="@+id/male_icon"
+                android:layout_width="45dp"
+                android:layout_height="54dp"
+                android:src="@drawable/male"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <ImageView
+                android:id="@+id/female_icon"
+                android:layout_width="45dp"
+                android:layout_height="54dp"
+                android:src="@drawable/female"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

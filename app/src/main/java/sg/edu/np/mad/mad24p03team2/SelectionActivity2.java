@@ -37,7 +37,6 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
                 else if (no.isChecked()) {
                     options = false;
                 }
-
                 SingletonSession.getInstance().SetBloodSugarTracking(options);
 
                 // Update the account in database

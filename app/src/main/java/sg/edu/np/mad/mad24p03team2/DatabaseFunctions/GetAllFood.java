@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.ApiHandler;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
 public class GetAllFood extends AsyncTaskExecutorService<String, String , String> {
 
@@ -38,7 +39,7 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
     }
 
     @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
+    protected String doInBackground(String... strings) {
         ResultSet resultSet = foodDB.GetAllRecord();
         try {
             while (resultSet.next()) {
@@ -56,7 +57,8 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
                 }
             } catch (Exception e) { Log.d("Get Food", "Resultset unable to close"); }
         }
-        return foodItems;
+        SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
+        return "";
     }
 
     @Override
@@ -68,14 +70,8 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
 
     // Ignored -------------------------------------------------------------------------------------
     @Override
-    protected String doInBackground(String... strings) {
+    protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }
-    @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground(String name) { return null; }
     // Ignored -------------------------------------------------------------------------------------
 }

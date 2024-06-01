@@ -23,6 +23,7 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class editProfile extends AppCompatActivity implements IDBProcessListener {
     UpdateUserProfile updateUserProfile = null;
@@ -137,17 +138,33 @@ public class editProfile extends AppCompatActivity implements IDBProcessListener
             Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
             return;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthDate = sdf.parse(birthdate);
+
+        if(!isDateValid(birthdate)){
+            Toast.makeText(this, "Please enter Birthdate in YYYY-MM-DD", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         if (birthdate.isEmpty() || weightText.getText().toString().isEmpty() || heightText.getText().toString().isEmpty()) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        assert birthDate != null;
-        updateUserProfile.execute(SingletonSession.getInstance().GetAccount().getEmail(), SingletonSession.getInstance().GetAccount().getDietPlanOpt(), gender, birthDate.toString(), Float.toString(height), Float.toString(weight));
+        //assert birthDate != null;
+        updateUserProfile.execute(SingletonSession.getInstance().GetAccount().getEmail(), SingletonSession.getInstance().GetAccount().getDietPlanOpt(), gender, birthdate, Float.toString(height), Float.toString(weight));
         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isDateValid(String stringDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        sdf.setLenient(false);
+
+        try{
+            Date date = sdf.parse(stringDate);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     @Override

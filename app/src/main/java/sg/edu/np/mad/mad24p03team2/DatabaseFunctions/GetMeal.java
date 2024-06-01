@@ -97,10 +97,6 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
     }
 
     // IGNORE --------------------------------------------------------------------------------------
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {

@@ -55,10 +55,6 @@ public class UpdateUserPassword extends AsyncTaskExecutorService<String, String 
     }
 
     // IGNORE --------------------------------------------------------------------------------------
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) { return null; }

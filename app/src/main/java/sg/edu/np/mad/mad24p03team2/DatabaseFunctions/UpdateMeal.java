@@ -60,11 +60,6 @@ public class UpdateMeal extends AsyncTaskExecutorService<String, String , String
     }
 
     @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
-
-    @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }

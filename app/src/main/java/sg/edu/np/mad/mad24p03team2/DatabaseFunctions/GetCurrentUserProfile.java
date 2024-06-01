@@ -53,11 +53,6 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
     }
 
     @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
-
-    @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }

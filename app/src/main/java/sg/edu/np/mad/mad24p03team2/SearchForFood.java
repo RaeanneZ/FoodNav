@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +20,21 @@ import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
 public class SearchForFood extends Fragment implements IDBProcessListener {
     GetFood getFood = null;
+    GetAllFood getAllFood = null;
     private RecyclerView recyclerView;
-    private List<Item> itemList;
-    private FoodAdapter foodAdapter;
+    private List<FoodItemClass> itemList;
+    //private FoodAdapter foodAdapter;
     private SearchView searchView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getFood = new GetFood(requireContext().getApplicationContext(), this);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_for_food, container, false);
         return view;
@@ -41,8 +44,17 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getFood = new GetFood(requireContext().getApplicationContext(), this);
+        getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
+
+        // TODO: LOOK HERE FOR DATABASE ACCESS
+        getAllFood.execute(); // This is to get all food in database
+        getFood.execute("burger"); // This is to get from search query, Result get from Singleton in afterProcess
+
+
         searchView = view.findViewById(R.id.searchView);
-        searchView.clearFocus();
+        searchView.clearFocus(); // Remove cursor from search bar
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -52,14 +64,14 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
             // 1. User enter query text, send the text to search the db
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                //filterList(newText);
                 return true;
             }
         });
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         //SIAN KIM TODO:
-        ArrayList<FoodItemClass> foodItemList= getFood.execute(queryText);
+        //ArrayList<FoodItemClass> foodItemList = getAllFood;
         // what does this mean?
 
 
@@ -67,31 +79,31 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
 
 
         // Get all foodItem from MSSQL and display it here
-        List<Item> items = new ArrayList<Item>();
-        for (FoodItemClass foodItemClass: foodItemList) {
-            items.add(new Item(foodItemClass.getName(), foodItemClass.getCalories(), foodItemClass.getServing_size_g()));
-        }
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new FoodAdapter(getContext(),items, this));
+//        List<Item> items = new ArrayList<Item>();
+//        for (FoodItemClass foodItemClass: foodItemList) {
+//            items.add(new Item(foodItemClass.getName(), foodItemClass.getCalories(), foodItemClass.getServing_size_g()));
+//        }
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setAdapter(new FoodAdapter(getContext(),items, this));
     }
 
-    private void filterList(String text) {
-        List<Item> filteredList = new ArrayList<>();
-        //2. UI Display <foodItemList> for user to choose
-        for (Item item : itemList) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-        }
-
-        if (filteredList.isEmpty()) {
-            Toast.makeText(getContext(),"No data found", Toast.LENGTH_SHORT).show();
-        } else {
-            foodAdapter.setFilteredList(filteredList);
-        }
-
-    }
+//    private void filterList(String text) {
+//        List<FoodItemClass> filteredList = new ArrayList<>();
+//        //2. UI Display <foodItemList> for user to choose
+//        for (FoodItemClass item : itemList) {
+//            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+//                filteredList.add(item);
+//            }
+//        }
+//
+//        if (filteredList.isEmpty()) {
+//            Toast.makeText(getContext(),"No data found", Toast.LENGTH_SHORT).show();
+//        } else {
+//            foodAdapter.setFilteredList(filteredList);
+//        }
+//
+//    }
 
     @Override
     public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
@@ -100,6 +112,8 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
 
     @Override
     public void afterProcess(Boolean executeStatus) {
-
+        // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
+        itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        Log.d("SearchForFood", "Results: " + itemList);
     }
 }

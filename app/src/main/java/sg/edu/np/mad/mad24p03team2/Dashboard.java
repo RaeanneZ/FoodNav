@@ -6,11 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -54,11 +56,11 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         ProgressBar fatBar = view.findViewById(R.id.progressBarfats);
         ProgressBar proteinBar = view.findViewById(R.id.progressBarprotein);
         ProgressBar cbar = view.findViewById(R.id.Cbar);
-        carbBar.setMax((int)carb);
+/*        carbBar.setMax((int)carb);
         fatBar.setMax((int) fat);
         proteinBar.setMax((int) protein);
         progress.setText(String.format("%.0f",BMR));
-        cbar.setMax((int)BMR);
+        cbar.setMax((int)BMR);*/
 
         Log.d("Dashboard", "Find bfast for :"+Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
         getMeal.execute("Breakfast", Integer.toString(SingletonSession.getInstance().GetAccount().getId()));

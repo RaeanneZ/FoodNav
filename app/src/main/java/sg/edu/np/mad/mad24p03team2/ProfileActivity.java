@@ -61,11 +61,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Set click listeners for Buttons
         male.setOnClickListener(view -> {
-            setGenderSelection("male");
+            setGenderSelection("M");
         });
 
         female.setOnClickListener(view -> {
-            setGenderSelection("female");
+            setGenderSelection("F");
         });
 
         // Save the inputs by user to database
@@ -101,13 +101,13 @@ public class ProfileActivity extends AppCompatActivity {
         ColorStateList maleDefaultColorStateList = getResources().getColorStateList(R.color.lavender);
         ColorStateList femaleDefaultColorStateList = getResources().getColorStateList(R.color.lightpink);
 
-        if (gender.equalsIgnoreCase("male")) {
+        if (gender.equalsIgnoreCase("M")) {
             ColorStateList newColorStateList = getResources().getColorStateList(R.color.purple);
             male.setBackgroundTintList(newColorStateList);
             female.setBackgroundTintList(femaleDefaultColorStateList);
             maleIconView.setVisibility(View.VISIBLE);
             femaleIconView.setVisibility(View.GONE);
-        } else if (gender.equalsIgnoreCase("female")) {
+        } else if (gender.equalsIgnoreCase("F")) {
             ColorStateList newColorStateList = getResources().getColorStateList(R.color.altpink);
             male.setBackgroundTintList(maleDefaultColorStateList);
             female.setBackgroundTintList(newColorStateList);

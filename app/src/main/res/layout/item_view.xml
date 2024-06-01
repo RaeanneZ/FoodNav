@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
     android:background="@color/beige">
 
     <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fried Bee Hoon, Plain"
-        android:fontFamily="@font/inter_semibold"
-        android:textSize="15dp"
         android:layout_marginStart="10dp"
-        android:textColor="@color/black">
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Fried Bee Hoon, Plain"
+        android:textColor="@color/black"
+        android:textSize="15dp">
 
     </TextView>
 
@@ -34,16 +36,37 @@
     </TextView>
 
     <TextView
+        android:id="@+id/cal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_toEndOf="@+id/calNum"
+        android:fontFamily="@font/inter_regular"
+        android:text=" cal, "
+        android:textColor="@color/alsoblack"
+        android:textSize="12dp"></TextView>
+
+    <TextView
         android:id="@+id/servingSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" cal, 1 plate"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="12dp"
-        android:textColor="@color/alsoblack"
         android:layout_below="@+id/name"
-        android:layout_toEndOf="@+id/calNum" >
-    </TextView>
+        android:layout_toEndOf="@+id/cal"
+        android:fontFamily="@font/inter_regular"
+        android:text="100"
+        android:textColor="@color/black"
+        android:textSize="12dp"></TextView>
+
+    <TextView
+        android:id="@+id/grams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_toEndOf="@+id/servingSize"
+        android:fontFamily="@font/inter_regular"
+        android:text="g"
+        android:textColor="@color/black"
+        android:textSize="12dp"></TextView>
 
 
 </RelativeLayout>

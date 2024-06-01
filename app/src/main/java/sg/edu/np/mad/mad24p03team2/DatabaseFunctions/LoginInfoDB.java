@@ -45,7 +45,6 @@ public class LoginInfoDB extends AbstractDBProcess{
 
         try{
             // Check if record is already inside LoginInfo
-            Log.d("CreateRecord", "Connection = " +dbCon);
             resultSet = GetRecord(email,dbCon);
             if (!resultSet.isBeforeFirst() && resultSet.getRow() == 0){
                 // Create and execute the SQL statement to Database

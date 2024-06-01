@@ -40,14 +40,19 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        Log.d("GETMEAL", "I'm in!");
         String mealName = strings[0];
         int accID = Integer.parseInt(strings[1]);
         ResultSet foodResultSet = null;
         ResultSet mealResultSet = mealDB.GetRecord(mealName, accID);
         try {
-            mealClass = new MealClass(mealResultSet.getString("MealName"));
+            mealClass = new MealClass(mealName);
 
             // If there are meals recorded today
+            if(mealResultSet== null || (!mealResultSet.isBeforeFirst() && mealResultSet.getRow() == 0)){
+                SingletonTodayMeal.getInstance().AddMeal(mealClass);
+                return "No Records";
+            }
             while (mealResultSet.next()) {
                 try{
                     // Get the foodData from Meal data
@@ -97,19 +102,11 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
     }
 
     // IGNORE --------------------------------------------------------------------------------------
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }
 
-    @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
     // IGNORE --------------------------------------------------------------------------------------
 }

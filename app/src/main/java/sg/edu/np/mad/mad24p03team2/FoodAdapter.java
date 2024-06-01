@@ -2,6 +2,7 @@ package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Context;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,28 +34,27 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
-    ;
-
-    // I WILL FIX IT <-- YOU NEVER DID
     public FoodAdapter(Context context, List<FoodItemClass> items, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.items = items;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
-    // I WILL FIX IT
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate layout
         LayoutInflater inflator = LayoutInflater.from(context);
-        View view = inflator.inflate(R.layout.custom_macro_view, parent, false);
+        View view = inflator.inflate(R.layout.item_view, parent, false);
         return new FoodAdapter.FoodViewHolder(view, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         // Assigning values to the views created based on position of the recycler view
+        if(items == null || items.isEmpty()) {
+            return;
+        }
         FoodItemClass item = items.get(position);
         holder.nameView.setText(item.getName());
         holder.calNumView.setText(String.valueOf(item.getCalories()));

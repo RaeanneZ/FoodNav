@@ -16,6 +16,16 @@ public class StartUp extends Application implements Application.ActivityLifecycl
     private boolean isActivityChangingConfigurations = false;
 
     @Override
+    public void onTerminate() {
+        super.onTerminate();
+        try {
+            con.close();
+        } catch(Exception e) {
+            Log.d("STARTUP", "Unable to close connection: " + e.getMessage());
+        }
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
 
@@ -60,7 +70,7 @@ public class StartUp extends Application implements Application.ActivityLifecycl
     // If App goes to the background
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-        
+
     }
 
     @Override
@@ -71,10 +81,6 @@ public class StartUp extends Application implements Application.ActivityLifecycl
     // When App is killed, close connection
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        try {
-            con.close();
-        } catch(Exception e) {
-            Log.d("STARTUP", "Unable to close connection: " + e.getMessage());
-        }
+
     }
 }

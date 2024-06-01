@@ -46,6 +46,7 @@ public class ChangePassword extends AppCompatActivity implements IDBProcessListe
                 } else if (newPassword.equals(confirmPassword)) {
                     // Update database with new password
                     updateUserPassword.execute(SingletonSession.getInstance().GetAccount().getEmail(), newPassword);
+                    Log.d("ChangePassword", "Email = " + SingletonSession.getInstance().GetAccount().getEmail().toString());
                     Log.d("ChangePassword", "Password update process started");
                 } else {
                     Toast.makeText(ChangePassword.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();

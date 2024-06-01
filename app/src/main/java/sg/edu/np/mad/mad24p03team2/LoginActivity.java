@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetCurrentUserProfile;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class LoginActivity extends AppCompatActivity implements IDBProcessListener {
     EditText emailComponent, passwordComponent;
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
 
             // Grab current user profile and store into SingletonSession
             getCurrentUserProfile.execute(email);
+            SingletonSession.getInstance().CurrentLoginUser(email);
         }
     }
 

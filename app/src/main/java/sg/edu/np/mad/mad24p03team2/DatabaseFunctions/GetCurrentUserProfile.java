@@ -27,6 +27,9 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
         try{
             ResultSet resultSet = accountDB.GetRecord(email);
             if (resultSet.next()) {
+                // Get UserID
+                SingletonSession.getInstance().GetAccount().setId(resultSet.getInt("AccID"));
+                SingletonSession.getInstance().GetAccount().setName(resultSet.getString("Name"));
                 // Update the user profile
                 SingletonSession.getInstance().UpdateProfile(resultSet.getString("Gender"), resultSet.getDate("BirthDate"), resultSet.getInt("Height"), resultSet.getFloat("Weight"));
             }

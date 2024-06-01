@@ -42,13 +42,13 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
 
         // HONG RONG TODO: Get Card UI Elements
-       //getDietPlanOption.execute(SingletonSession.getInstance().GetAccount().getGender());
+        //getDietPlanOption.execute(SingletonSession.getInstance().GetAccount().getGender());
         // GET ALL MEAL DATA
         // HONG RONG TODO: Use the below code to get the details of each meal
 
         // getMeal.execute( "Lunch", SingletonSession.getInstance().GetAccount().getId());
          //getMeal.execute( "Dinner", SingletonSession.getInstance().GetAccount().getId());
-        getDietPlanOption.execute("Diabetic Friendly",SingletonSession.getInstance().GetAccount().getGender());
+        getDietPlanOption.execute("Diabetic Friendly", SingletonSession.getInstance().GetAccount().getGender());
 
          double BMR=447.593+(9.247*70)+(3.098*175)-(4.330*30);
          double TDEE= BMR*1.55;
@@ -69,19 +69,12 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         progress.setText(String.format("%.0f",BMR));
         cbar.setMax((int)BMR);
 
+        Log.d("Dashboard", "Find bfast for :"+Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        getMeal.execute("Breakfast", Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        //getMeal.execute( "Lunch",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        //getMeal.execute( "Dinner",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        //getMeal.execute( "Others",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
 
-       // if () {
-            getMeal.execute("Breakfast", Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //}
-        //else if () {
-            //getMeal.execute( "Lunch",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //}
-        //else if (){
-            //getMeal.execute( "Dinner",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //}
-        //else{
-            //getMeal.execute( "Others",Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-        //}
 
         return view;
 
@@ -99,7 +92,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             MealClass lunch = SingletonTodayMeal.getInstance().GetMeal("Lunch");
             MealClass breakfastMeal = SingletonTodayMeal.getInstance().GetMeal("Breakfast");
             TextView textView = getView().findViewById(R.id.tvkcal_b);
-          breakfastMeal.getSelectedFoodList().values();
+            breakfastMeal.getSelectedFoodList().values();
             Log.i( "afterProcess: ",breakfastMeal.getSelectedFoodList().values().toString());
 
             if (breakfastMeal != null) {

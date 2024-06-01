@@ -136,7 +136,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editProfile" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/key"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="24dp"
@@ -147,7 +147,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider_lavender" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -155,9 +155,9 @@
                 android:text="Change password"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+                app:layout_constraintBottom_toBottomOf="@+id/key"
+                app:layout_constraintStart_toEndOf="@+id/key"
+                app:layout_constraintTop_toTopOf="@+id/key" />
 
             <View
                 android:id="@+id/divider_lavender_2"
@@ -166,16 +166,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/divider_lavender"
                 app:layout_constraintHorizontal_bias="0.44"
                 app:layout_constraintStart_toStartOf="@+id/divider_lavender"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
                 app:layout_constraintEnd_toEndOf="@+id/arrow"
-                app:layout_constraintTop_toTopOf="@+id/textView6" />
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
             <ImageView
                 android:id="@+id/imageView10"
@@ -194,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="TextView"
+                android:text="Change plan"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView10"

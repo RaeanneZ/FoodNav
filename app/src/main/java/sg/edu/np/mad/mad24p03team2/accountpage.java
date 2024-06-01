@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,14 +67,14 @@ public class accountpage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accountpage, container, false);
-
+        TextView changePassword = view.findViewById(R.id.changePassword);
         // Find the switch by its id
         darkmodeSwitch = view.findViewById(R.id.darkmode);
 
         // Set listener for switch changes
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             darkmodeSwitch.setChecked(true);
-        } else{
+        } else {
             darkmodeSwitch.setChecked(false);
         }
         darkmodeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -86,7 +88,15 @@ public class accountpage extends Fragment {
                 }
             }
         });
-
+// Set click listener for the button
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch ChangePassword activity
+                Intent changePasswordIntent = new Intent(getActivity(), ChangePassword.class);
+                startActivity(changePasswordIntent);
+            }
+        });
         return view;
     }
 

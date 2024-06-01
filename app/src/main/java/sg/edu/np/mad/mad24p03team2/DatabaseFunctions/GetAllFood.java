@@ -70,10 +70,6 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
 
     // Ignored -------------------------------------------------------------------------------------
     @Override
-    protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        return null;
-    }
-    @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
         return null;
     }

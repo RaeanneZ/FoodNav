@@ -41,8 +41,7 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
     }
 
     @Override
-    protected DietPlanClass doInBackground(String name, String gender) {
-
+    protected String doInBackground(String... strings) {
         ResultSet resultSet = dietPlanOptDB.GetRecord(name, gender);
 
         try{
@@ -60,8 +59,32 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
             }
         } catch( Exception e){}
 
-        return dietPlan;
+        //return dietPlan;
+        return null;
     }
+
+//    @Override
+//    protected DietPlanClass doInBackground(String name, String gender) {
+//
+//        ResultSet resultSet = dietPlanOptDB.GetRecord(name, gender);
+//
+//        try{
+//            // If there is a result
+//            if(resultSet.next()){
+//                id = resultSet.getInt("DietPlanID");
+//                name = resultSet.getString("Name");
+//                reccCarbIntake = resultSet.getInt("ReccCarbIntake");
+//                reccProteinIntake = resultSet.getInt("ReccProteinIntake");
+//                reccFatsIntake = resultSet.getInt("ReccFatsIntake");
+//                gender =  resultSet.getString("Gender");
+//
+//                dietPlan = new DietPlanClass(id, name, reccCarbIntake, reccProteinIntake, reccFatsIntake, gender);
+//                isSuccess = true;
+//            }
+//        } catch( Exception e){}
+//
+//        return dietPlan;
+//    }
 
     @Override
     protected void onPostExecute(String s) {
@@ -71,11 +94,6 @@ public class GetDietPlanOption extends AsyncTaskExecutorService<String, String ,
     }
 
     // IGNORED -------------------------------------------------------------------------------------
-    @Override
-    protected String doInBackground(String... strings) {
-        return null;
-    }
-
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) { return null; }
     // IGNORED -------------------------------------------------------------------------------------

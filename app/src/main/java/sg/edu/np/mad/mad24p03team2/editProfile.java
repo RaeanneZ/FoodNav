@@ -15,14 +15,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class editProfile extends AppCompatActivity {
+public class editProfile extends AppCompatActivity implements IDBProcessListener {
+    UpdateUserProfile updateUserProfile = null;
 
     private EditText birthdateText;
     private EditText weightText;
@@ -44,6 +47,8 @@ public class editProfile extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        updateUserProfile = new UpdateUserProfile(getApplicationContext(), this);
 
         // Find Buttons from the layout
         male = findViewById(R.id.male);
@@ -140,9 +145,19 @@ public class editProfile extends AppCompatActivity {
             return;
         }
 
-        SingletonSession.getInstance().UpdateProfile(gender, birthDate, height, weight);
-
+        assert birthDate != null;
+        updateUserProfile.execute(SingletonSession.getInstance().GetAccount().getEmail(), SingletonSession.getInstance().GetAccount().getDietPlanOpt(), gender, birthDate.toString(), Float.toString(height), Float.toString(weight));
         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+
+    }
+
+    @Override
+    public void afterProcess(Boolean executeStatus) {
+
     }
 }
 

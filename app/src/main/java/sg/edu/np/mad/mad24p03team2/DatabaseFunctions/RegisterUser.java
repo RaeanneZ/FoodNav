@@ -61,10 +61,6 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String , Stri
     }
 
     // IGNORE --------------------------------------------------------------------------------------
-    @Override
-    protected ArrayList<FoodItemClass> doInBackground() {
-        return null;
-    }
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {

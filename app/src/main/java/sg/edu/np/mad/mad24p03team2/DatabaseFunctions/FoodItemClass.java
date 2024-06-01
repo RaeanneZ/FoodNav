@@ -15,6 +15,7 @@ public class FoodItemClass {
     private double fiber_g;
     private double sugar_g;
 
+    public FoodItemClass(){ }
     public FoodItemClass(int id, String name, double calories, double serving_size_g, double fat_total_g, double protein_g, double carbohydrates_total_g) {
         this.id = id;
         this.name = name;

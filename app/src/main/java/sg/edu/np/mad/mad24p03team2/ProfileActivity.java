@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
@@ -57,10 +58,12 @@ public class ProfileActivity extends AppCompatActivity  {
         });
 
         // This is to save the inputs by user to database
-        saveBtn.setOnClickListener(view -> {
+        saveBtn.setOnClickListener(v -> {
             // Put the details into an Account object from sign up page
             // JOVAN TODO: Fill in the method UpdateProfile() with required parameters
             // TO BE UNCOMMENTED: SingletonSession.getInstance().UpdateProfile();
+
+            startActivity(new Intent(ProfileActivity.this, SelectionActivity.class));
         });
     }
 }

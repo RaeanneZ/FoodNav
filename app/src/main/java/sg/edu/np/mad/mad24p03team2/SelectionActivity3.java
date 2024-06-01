@@ -1,12 +1,14 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 public class SelectionActivity3 extends AppCompatActivity implements IDBProcessListener {
@@ -27,11 +29,31 @@ public class SelectionActivity3 extends AppCompatActivity implements IDBProcessL
     public void afterProcess(Boolean executeStatus) {
         // SIAN KIM TODO: Update UI with the return values
 
-        /* DietPlanClass macroView = findViewById(R.id.macro_view);
-        macroView.setCarbsAmount("23g");
-        macroView.setProteinAmount("23g");
-        macroView.setFatAmount("23g");
-        macroView.setCaloriesAmount("505 Kcal"); */
+        // for Carbs
+        TextView carbs = findViewById(R.id.tvc1);
+        String carbsAmt = getString(R.string.carbs_amount);
+        carbs.setText(SingletonDietPlanResult.getInstance().getDietPlan().getReccCarbIntake());
+
+        // for Protein
+        TextView protein = findViewById(R.id.tvp1);
+        String proteinAmt = getString(R.string.protein_amount);
+        protein.setText(SingletonDietPlanResult.getInstance().getDietPlan().getReccProteinIntake());
+
+        // for Fats
+        TextView fats = findViewById(R.id.tvf1);
+        String fatsAmt = getString(R.string.fats_amount);
+        fats.setText(SingletonDietPlanResult.getInstance().getDietPlan().getReccFatsIntake());
+
+        // for cal
+        TextView cal = findViewById(R.id.tvk1);
+        String kCalAmt = getString(R.string.kCal_amount);
+        if (SingletonDietPlanResult.getInstance().getDietPlan().getGender() == "F") {
+            kCalAmt = String.valueOf(1200);
+        } else if (SingletonDietPlanResult.getInstance().getDietPlan().getGender() == "M") {
+            kCalAmt = String.valueOf(1800);
+
+        }
+        cal.setText(kCalAmt + "\nKcal");
     }
 
     // IGNORE --------------------------------------------------------------------------------------

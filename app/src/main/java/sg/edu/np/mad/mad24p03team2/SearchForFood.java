@@ -104,16 +104,15 @@ public class SearchForFood extends Fragment implements IDBProcessListener {
 //        }
 //
 //    }
-
-    @Override
-    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
-
-    }
-
     @Override
     public void afterProcess(Boolean executeStatus) {
         // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
         itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
         Log.d("SearchForFood", "Results: " + itemList);
+    }
+
+    @Override
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+
     }
 }

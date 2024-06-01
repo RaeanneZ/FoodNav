@@ -71,46 +71,13 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
         }
 
         SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
-        Log.d("GetFood", "Food search records = "+foodItems.size());
-
         return name;
     }
 
     @Override
     protected ArrayList<FoodItemClass> doInBackground(String name) {
-        Log.d("GETFOOD", "String");
         return null;
     }
-
-
-//    @Override
-//    protected ArrayList<FoodItemClass> doInBackground(String name) {
-//        // Check if the exact match is there
-//        ResultSet resultSet = foodDB.GetSpecificRecord(name);
-//        try {
-//            // Add the food if its not there
-//            if(!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
-//                apiHandler.fetchNutritionInfo(name, foodDB);
-//            }
-//            resultSet = foodDB.GetRecord(name);
-//            while(resultSet.next()) {
-//                foodItem = new FoodItemClass(resultSet.getInt("FoodID"), resultSet.getString("Name"), resultSet.getFloat("Calories"), resultSet.getFloat("Carbohydrates"), resultSet.getFloat("Protein"), resultSet.getFloat("Fats"), resultSet.getFloat("ServingSize"));
-//                foodItems.add(foodItem);
-//            }
-//        }
-//        catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        finally {
-//            try{
-//                if(resultSet != null) {
-//                    resultSet.close();
-//                }
-//            } catch (Exception e) { Log.d("Get Food", "Resultset unable to close"); }
-//        }
-//
-//        SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
-//    }
 
     @Override
     protected void onPostExecute(String s) {
@@ -122,7 +89,6 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
     // IGNORE --------------------------------------------------------------------------------------
     @Override
     protected DietPlanClass doInBackground(String name, String trackBloodSugar) {
-        Log.d("GETFOOD", "DietPlan");
         return null;
     }
     // IGNORE --------------------------------------------------------------------------------------

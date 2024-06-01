@@ -11,6 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recommended_macros">Recommended Macros</string>
+    <string name="lets_go">Let\'s Go!</string>
     <string name="carbs_amount">23g</string>
     <string name="protein_amount">23g</string>
     <string name="fats_amount">23g</string>

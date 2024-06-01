@@ -1,6 +1,8 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Context;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,72 +14,84 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-//public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
-//
-//    private Context context;
-//    private List<Item> items;
-//    private AdapterView.OnItemClickListener onItemClickListener;
-//
-//    public interface OnItemClickListener {
-//        void onItemClick(Item item);
-//    }
-//
-//    public void setFilteredList(List<Item> filteredList) {
-//        this.items = filteredList;
-//        notifyDataSetChanged();
-//    }
-//
-//    // I WILL FIX IT
-//    public FoodAdapter(Context context, List<Item> items, OnItemClickListener onItemClickListener){
-//        this.context = context;
-//        this.items = items;
-//        this.onItemClickListener = (AdapterView.OnItemClickListener) onItemClickListener;
-//    }
-//
-//    // I WILL FIX IT
-//    @NonNull
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(context).inflate(R.layout.custom_macro_view, parent, false);
-//        return new RecyclerView.ViewHolder(view);
-//    }
-//
-//    // I WILL FIX IT
-//    @Override
-//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        Item item = items.get(position);
-//        holder.bind(item, onItemClickListener);
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return items.size();
-//    }
-//
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        TextView nameView;
-//        TextView calNumView;
-//        TextView servingSizeView;
-//
-//        public ViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            nameView = itemView.findViewById(R.id.name);
-//            calNumView = itemView.findViewById(R.id.calNum);
-//            servingSizeView = itemView.findViewById(R.id.servingSize);
-//        }
-//
-//        public void bind(final Item item, final OnItemClickListener listener) {
-//            nameView.setText(item.getName());
-//            calNumView.setText(String.valueOf(item.getCalories())); //WHY IS THIS RED??
-//            servingSizeView.setText(String.valueOf(item.getServingSize()));
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    listener.onItemClick(item);
-//                }
-//            });
-//        }
-//    }
-//
-//}
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
+
+
+
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
+
+    private Context context;
+    private List<FoodItemClass> items;
+    private final RecyclerViewInterface recyclerViewInterface;
+
+    public void setFilteredList(List<FoodItemClass> filteredList) {
+        this.items = filteredList;
+        notifyDataSetChanged(); // Alert UI that dataset has been changed
+    }
+
+    public FoodAdapter(List<FoodItemClass> itemList, RecyclerViewInterface recyclerViewInterface) {
+        this.items = itemList;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
+
+    public FoodAdapter(Context context, List<FoodItemClass> items, RecyclerViewInterface recyclerViewInterface) {
+        this.context = context;
+        this.items = items;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
+
+    @NonNull
+    @Override
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate layout
+        LayoutInflater inflator = LayoutInflater.from(context);
+        View view = inflator.inflate(R.layout.item_view, parent, false);
+        return new FoodAdapter.FoodViewHolder(view, recyclerViewInterface);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
+        // Assigning values to the views created based on position of the recycler view
+        if(items == null || items.isEmpty()) {
+            return;
+        }
+        FoodItemClass item = items.get(position);
+        holder.nameView.setText(item.getName());
+        holder.calNumView.setText(String.valueOf(item.getCalories()));
+        holder.servingSizeView.setText(String.valueOf(item.getServing_size_g()));
+    }
+
+    @Override
+    public int getItemCount() {
+        // Total number of items to be displayed
+        return items.size();
+    }
+
+
+    public static class FoodViewHolder extends RecyclerView.ViewHolder {
+        // Grabbing the views from layout file
+        TextView nameView;
+        TextView calNumView;
+        TextView servingSizeView;
+
+        public FoodViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+            super(itemView);
+            nameView = itemView.findViewById(R.id.name);
+            calNumView = itemView.findViewById(R.id.calNum);
+            servingSizeView = itemView.findViewById(R.id.servingSize);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+

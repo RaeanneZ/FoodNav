@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,7 +88,17 @@ public class accountpage extends Fragment {
                 }
             }
         });
+        // Set click listener for the button
+        TextView editProfile = view.findViewById(R.id.editProfile);
 
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch ChangePassword activity
+                Intent changePasswordIntent = new Intent(getActivity(), editProfile.class);
+                startActivity(changePasswordIntent);
+            }
+        });
         return view;
     }
 

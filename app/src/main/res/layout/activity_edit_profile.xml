@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".editProfile">
 
     <TextView
         android:id="@+id/textView2"
@@ -31,8 +31,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@drawable/baseline_circle_24" />
 
-
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -40,11 +40,11 @@
 
         <TextView
             android:id="@+id/gender"
-            android:paddingStart="@dimen/gender_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/inter_semibold"
+            android:paddingStart="@dimen/gender_margin"
             android:text="Gender"
             android:textSize="18sp" />
 
@@ -93,14 +93,14 @@
         android:id="@+id/birthdate"
         android:layout_width="327dp"
         android:layout_height="48dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="40dp"
         android:hint="Birth Date"
         android:inputType="date"
         android:selectAllOnFocus="true"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/male_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <EditText
         android:id="@+id/weight"
@@ -155,11 +155,11 @@
         android:id="@+id/female_icon"
         android:layout_width="69dp"
         android:layout_height="72dp"
-        app:srcCompat="@drawable/female"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        android:visibility="gone" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:srcCompat="@drawable/female" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

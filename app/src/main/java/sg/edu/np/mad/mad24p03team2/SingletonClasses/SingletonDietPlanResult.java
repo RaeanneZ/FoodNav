@@ -12,6 +12,7 @@ public class SingletonDietPlanResult {
     // private constructor to prevent instantiation of the class
     private SingletonDietPlanResult() {
         dietPlan = new DietPlanClass();
+        // dietPlan = new DietPlanClass();
     }
 
     // public static method to retrieve the singleton instance

@@ -49,7 +49,7 @@ private int ns=1;
                  ns++;  // Increment the counter
                  // Update the TextView with the new value
                  nofplate.setText(ns+" Plate");
-                 N.setText(ns);
+                 N.setText(String.valueOf(ns));
              }
          });
 
@@ -59,7 +59,7 @@ private int ns=1;
                 ns--;  // Increment the counter
                 // Update the TextView with the new value
                 nofplate.setText(ns+" Plate");
-                N.setText(ns);
+                N.setText(String.valueOf(ns));
             }
         });
 

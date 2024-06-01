@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -94,6 +95,13 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
     @Override
     public void onItemClick(int itemPos) {
         // Move on to addfood page
+      switchFragment();
+    }
 
+    private void switchFragment() {
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity2) {
+            ((MainActivity2) activity).replaceFragment(new AddFood());
+        }
     }
 }

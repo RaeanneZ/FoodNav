@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
@@ -26,8 +27,7 @@ public class SelectionActivity3 extends AppCompatActivity implements IDBProcessL
     public void afterProcess(Boolean executeStatus) {
         // SIAN KIM TODO: Update UI with the return values
 
-        /* MacroView macroView = findViewById(R.id.macro_view);
-        macroView.setRecommendedMacros("Recommended Macros");
+        /* DietPlanClass macroView = findViewById(R.id.macro_view);
         macroView.setCarbsAmount("23g");
         macroView.setProteinAmount("23g");
         macroView.setFatAmount("23g");

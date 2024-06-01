@@ -19,7 +19,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
+
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
@@ -28,9 +29,9 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 
 public class Dashboard extends Fragment implements IDBProcessListener {
-
     GetMeal getMeal = null;
-    GetDietPlanOption getDietPlanOption =null;
+
+    GetDietPlanOption getDietPlanOption = null;
 
     @Nullable
     @Override

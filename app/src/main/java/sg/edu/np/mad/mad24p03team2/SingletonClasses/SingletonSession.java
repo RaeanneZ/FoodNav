@@ -36,7 +36,7 @@ public class SingletonSession {
         account.setEmail(email);
     }
 
-    public void UpdateProfile(String gender, Date birthDate, int height, float weight) {
+    public void UpdateProfile(String gender, Date birthDate, float height, float weight) {
         account.setBirthDate(birthDate);
         account.setGender(gender);
         account.setHeight(height);

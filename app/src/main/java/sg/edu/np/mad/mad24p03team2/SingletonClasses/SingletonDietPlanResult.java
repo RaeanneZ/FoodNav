@@ -31,7 +31,10 @@ public class SingletonDietPlanResult {
         return INSTANCE;
     }
 
-    public void setDietPlanClass(DietPlanClass dietPlan) {
+    public DietPlanClass getDietPlan() {
+        return dietPlan;
+    }
+    public void setDietPlan (DietPlanClass dietPlan) {
         this.dietPlan = dietPlan;
     }
 }

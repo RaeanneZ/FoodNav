@@ -38,6 +38,17 @@ This app targets male and females of age 18 - 70 who are health conscious. They 
     - To have clear and simple display to show food macronutrients
     - To be able to browse through list of food options and their calories
 
+### 3. **Existing App user - A working adult who always dine out but want to quickly get food of healthier choice**
+
+   As an existing FoodNav member, I want to be able to check what are the healthier choice of food  so that I can be health conscious despite having to dine out often. 
+   
+   **Acceptable criteria**
+   
+    - To be able to log food easily
+    - To have clear and simple display to show food macronutrients
+    - Easier way to lookup list of food calories 
+
+
 ## Design Considerations
 1. **Simple and intuitive UI/UX**
 
@@ -61,24 +72,26 @@ This app targets male and females of age 18 - 70 who are health conscious. They 
     - Display of macros of each food added
     - Tracking of users’ sugar level after each meal (Diabetic Friendly Diet Plan only)
 
-3. **Customize your Goals / Diet plan**
+2. **Customize your Goals / Diet plan**
    
-   Choose your desired diet plan and allow us to support you in making the change.
-   Other than those popular diet plans, we have identified High Cholesterol Friendly Diet,  High Blood Pressure Friendly Diet and Diabetic Friendly Diet. These are the most common long term conditions that   Singaporeans suffer from. This prototype will primarily focus on Diabetic Friendly Diet which includes:
-   
-    - Proposed target of daily intake of carbs,  proteins and fats
-    - Proposed target total calories intake
+Choose your desired diet plan and allow us to support you in making the change.
+Other than those popular diet plans, we have identified High Cholesterol Friendly Diet,  High Blood Pressure Friendly Diet and Diabetic Friendly Diet. These are the most common long term conditions that 	Singaporeans suffer from. 
+
+This prototype will primarily focus on Diabetic Friendly Diet which includes:
+
+    - Proposed target of daily intake of carbs,  proteins and fats based on gender. Diabetic Friendly Diet is low carbs(<=130g/2000kcal), low sugar(<=50g/2000kcal) and limited processed food.
+    - Proposed target total calories intake based on gender
     - Additional field to track users’ sugar level after each meal under food log
 
 
-4. **Track your progress**
+3. **Track your progress**
    
    Users can track and analyze their daily nutrition and calories intake through:
    - Dashboard, it provides a quick summary at a glance on Today progress as well as a summary view of each meal
-   - Daily Missions achievement to motivate users’ in keeping to their desired diet plan
+   - Daily Reminders to ensure users keep to their desired diet plan
 
 
-5. **Dark Mode**
+4. **Dark Mode**
 
    Users are able to switch between light and dark mode
 
@@ -86,7 +99,20 @@ This app targets male and females of age 18 - 70 who are health conscious. They 
 
 **Raeanne**
 
-Feature to allow user to use camera function to capture texts on ingredients of food, then display nutritional information of the food. 
+**Food2Nom**: To quickly choose food of lower calories, simply upload a picture of the menu. Users can either choose an existing photo from the gallery or take a photo to view food or similar food listing available in FoodNav Database, highlighting which are the healthier choices recommended based on Diet plan selected. This allows the users to get a quick peek and makes a better choice for each meal. 
+
+**Add New Food**: If user cannot find food items in the Search Food Page, they can choose to to add new food to the database. They can either manually input the values or scan the Nutrition Labels via the camera.
+Text recognition will auto input the values if detection is successful.
+
+Considerations for Diabetic Friendly Food includes:
+
+	- Amount of saturated Fats, Sodium and added sugar should be <10% per serving
+	- Other nutrients per servings should be in the range of 6% - 18%
+	- Fruits over fruit juice, 2 servings of fruits per day but no more than 1 servings each time
+	- High fiber food helps to manage blood glucose (Wholegrains, vegetables, beans and nuts)
+	- Opt for drinks with <= 25% sugar
+
+
 
 **Sian Kim**
 
@@ -155,17 +181,41 @@ Notifications are essential features that help keep users informed and engaged b
 3. Perform full application testing and troubleshooting
 4. Stage 1 Submission
 
-
 **Week 8**
-1. Prepare Slides for Week 11 Presentations
+1. Prepare Slides for Week 11 Presentations (Raeanne)
+2. Modify and refine frontend (UI) to dynamically during runtime to reflect model change (Raeanne) 
    
 **Week 9**
-   
+1. All Stage 1 functions testing and bug fix to ensure right behavior. (Raeanne)
+2. Stage 2 Food2Nom implementation (Raeanne)
+3. Design application logo and banner (Raeanne)
+
 **Week 10**
-1. Rehearse for Presentation
-2. Submission of project to Google Play for approval
+1. Rehearse for Presentation 23 June 2024
+2. Stage 2 function unit test (Raeanne)
 
 **Week 11**
+1. Rehearse for Presentation on 24th Jun 2024
+2. Stage 2 Add New Food implementation (Raeanne)
+3. Conducted application freeplay testing with invited personnel, including team members.
+4. Compile bug list. (Raeanne)
+5. Modify and resolve bugs. (Raeanne)
+6. Submit application to Google for approval on 29th June 2024.
+
+**Week 12**
+1. Update Github with new baseline for fellow members to integrate Stage 2 features. (Raeanne)
+
+**Week 13**
+1. Update Google Play Store application on 12 July 2024
+
+**Week 14**
+
+**Week 15**
+
+**Week 16**
+1. Rehearsal for Stage 2 Presentation on 29th July 2024
+2. Stage 2 Presentation on 30th July 2024
+
 
 ## Group Members Roles and Contributions
 ### Raeanne
@@ -190,33 +240,38 @@ I work with my team to brainstorm and ideate on the application features. The te
 
 During the course of development, I regularly meetup with the team members to ensure that their UI stays true to the figma prototype and to offer Frontend technical support, like, Food Search implementation and others if they have difficulty.
 
-I will also be responsible for the development of application icon and banner.
+I will also be responsible for the development of application logo icon and banner.
 
 **Database Designer/Architect**
 
 I am responsible for the design and setup of the database required for the mobile application, FoodNav. Applying knowledge from Year 1 - Database Module, I started with data modeling and created an ER Diagram (refer to Appendices below) for visual reference before the setup of MSSQL for this project. I am also responsible for the migration of local databases to MS Azure (cloud) for accessibility.
 
-**Database Developer**
+**Developer**
+For stage 2 advanced feature, I implemented Food2Nom page. I explored and incorporated Google MLKit OCR API to recognise text from photos as a key to search our food database. Extended the use of Google OCR to recognise Food Nutrition Label and process text captured to autofill 'New Food' form so that user can easily add to FoodNav Database.
 
-I am responsible for the coding of all functionality that interacts with the database. Adopting OOP, custom Event Listener and MVC software design patterns, the codes are organized in ways such that all database handling is transparent to the Activity classes. I worked closely with the team members to help them understand with psuedo codes and ease into the process of integrating to the backend. We also worked together to test and troubleshoot, ensuring the application works as designed.
+*Database*
+I am responsible for the coding of all functionality that interacts with the database. Adopting OOP, custom Event Listener and MVC software design patterns, the codes are organized in ways such that all database handling is transparent to the Activity classes. I worked closely with the team members to help them understand with psuedo codes and ease into the process of integrating to the backend.
 
+*Tester*
+I created test cases 'Stage 1 Features - Test Cases' and 'Stage 2 Features - Food2Nom and Add New Food'. 
+To officially baseline the STAGE 1 version, I compiled and resolved the list of bugs found (based on Stage 1 -Week 7 submission version), including identifying and refining incomplete features. 
+To ensure application stability, I conducted freeplay testing with families and friends, including team members before sending the application for Google approval.
 
 
 ### Sian Kim
 
 **Project Member**
 
-As a project team member, I participated in all the project discussion and contributed my ideas during the design phase. I worked with other team members to build the figma prototype to test the feasibility of the concept we had ideated. I update this GitHub documentations in areas where it is concerns my scope of work,
+As a project team member, I participated in all the project discussion and contributed my ideas during the design phase. I worked with other team members to build the figma prototype to test the feasibility of the concept we had ideated. 
 
 **Frontend Developer**
 
-I am responsible for the UI development and functionality  of:
-1. Diet Selection Page (currently only feature Diabetic Friendly Diet)
-2. Sugar tracking option page
-3. Display of suggested micronutrients and calories intake based on gender and diet plan
-4. Food Search Page - Text Input
+I am responsible for the UI development of:
+1. Diet selection page layout (currently only feature Diabetic Friendly Diet)
+2. Sugar tracking option page layout
+3. Display of suggested micronutrients and calories intake based on gender and diet plan layout
 
-I was tasked to refine the UI design of the following: Dashboard page, Log Food Product, Add Food Page. Other involvement includes testing and debugging to ensure quality and responsiveness of application.
+I was tasked  to assist other members in refining the UI layout of the following: Dashboard page, Log Food Product, Add Food Page. Other involvement includes debugging to ensure responsiveness of application.
 
 
 ### Jovan
@@ -243,15 +298,15 @@ I worked closely with the UI designer to ensure design consistency and I perform
 
 As a project team member, I participated in all the project discussion and contributed my ideas during the design phase. I worked with other team members to build the figma prototype to test the feasibility of the concept we had ideated. I updated my relevant parts in this GitHub documentation.
 
-**Developer**
+**Frontend Developer**
 
 I am responsible for the frontend UI and functionality development and testing of the following:
-1. Dashboard page
-2. Navigation bar (Componentized)
-4. Add Food Page
-5. Meal Log Page
+1. Dashboard page layout
+2. Navigation bar (Fragments)
+4. Add Food Page layout
+5. Meal Log Page layout
 
-I worked independently to resolve difficulties faced in the course of development like componentizing, while working closely with the team to troubleshoot and perform testing to ensure quality and responsiveness of application. 
+I checked with the UI designer on the layout and color scheme to ensure consistency while working independently to resolve difficulties faced in the course of UI development like componentizing. I performed testing to ensure responsiveness of application. 
 
 
 ## Appendices
@@ -260,5 +315,11 @@ I worked independently to resolve difficulties faced in the course of developmen
 [Stage 2 Figma Prototype] *(To be updated)*
 [Stage 2 Features Screenshots] *(To be updated)*
 
-### Credits/ References 
-*(To be updated)*
+## Credits
+### Raeanne
+
+General:
+
+**Run Apps on Hardware device**
+https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/
+https://developer.android.com/studio/run/device

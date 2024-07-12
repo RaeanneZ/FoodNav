@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:id="@+id/imageRLayout"
-            android:layout_width="251dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
@@ -20,6 +20,7 @@
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="@id/textInput"
+            app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="@id/textInput"
             app:layout_constraintTop_toBottomOf="@+id/textInput"
             tools:context=".MainActivity2">
@@ -28,10 +29,7 @@
                 android:id="@+id/ImageURI"
                 android:layout_width="240dp"
                 android:layout_height="240dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/image_gallery" />
 
         </RelativeLayout>
@@ -45,11 +43,13 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            tools:context=".MainActivity2">
+            tools:context=".MainActivity2"
+            tools:visibility="gone">
 
             <ScrollView
                 android:id="@+id/scrollViewConstraints"
@@ -83,7 +83,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Nuts \nPrawn"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_sugar"
                                 tools:layout_editor_absoluteX="2dp" />
@@ -92,14 +91,14 @@
                                 android:id="@+id/tvname_sugar"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Sugar"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_sugarfree"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -122,10 +121,10 @@
                                 android:layout_marginTop="2dp"
                                 android:src="@drawable/warning_sign"
                                 android:tint="@color/red"
+                                android:visibility="gone"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="UseAppTint"
-                                android:visibility="gone"/>
+                                tools:ignore="UseAppTint" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -152,7 +151,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Cheese \nMilk"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_dairy"
                                 tools:layout_editor_absoluteX="2dp" />
 
@@ -160,14 +158,14 @@
                                 android:id="@+id/tvname_dairy"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Dairy"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_Dairy"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -220,7 +218,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Nuts \nPrawn"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_gluten"
                                 tools:layout_editor_absoluteX="2dp" />
@@ -229,14 +226,14 @@
                                 android:id="@+id/tvname_gluten"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Gluten"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_glutenfree"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -296,14 +293,14 @@
                                 android:id="@+id/tvname_egg"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Egg"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_egg"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -356,7 +353,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Nuts \nPrawn"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_vegan"
                                 tools:layout_editor_absoluteX="1dp" />
@@ -365,14 +361,14 @@
                                 android:id="@+id/tvname_vegan"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Vegan"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_NotVegan"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -424,7 +420,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Nuts \nPrawn"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_vegeterian"
                                 tools:layout_editor_absoluteX="2dp" />
@@ -433,13 +428,14 @@
                                 android:id="@+id/tvname_vegeterian"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Vegeterian"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -491,7 +487,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Almond"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_Nuts" />
 
@@ -499,14 +494,14 @@
                                 android:id="@+id/tvname_Nuts"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Nuts"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_Nutsfree"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -558,7 +553,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Enadame"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_Soy" />
 
@@ -566,14 +560,14 @@
                                 android:id="@+id/tvname_Soy"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Soy"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_Soyfree"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -625,7 +619,6 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingHorizontal="15dp"
                                 android:paddingVertical="5dp"
-                                android:text="Oyster"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/tvname_Seafood" />
 
@@ -633,14 +626,14 @@
                                 android:id="@+id/tvname_Seafood"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="48dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Seafood"
                                 android:textAlignment="center"
                                 android:textColor="@color/alsoblack"
                                 android:textSize="14sp"
-                                app:layout_constraintStart_toEndOf="@+id/image_SeafoodFree"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
@@ -676,11 +669,10 @@
 
         <LinearLayout
             android:id="@+id/textInput"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -694,18 +686,18 @@
                     android:id="@+id/textViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_bold"
                     android:text="NomNotion"
                     android:textColor="@color/alsoblack"
-                    android:textSize="32sp" />
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <View
                     android:id="@+id/divider"
                     style="@style/Divider.Horizontal.Lavender"
-                    android:layout_width="350dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_width="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="30dp"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
                     app:layout_constraintHorizontal_bias="0.413"
                     app:layout_constraintStart_toStartOf="@+id/textViewTitle"
@@ -715,11 +707,13 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_regular"
                     android:text="Can't decipher the ingredients? Upload a photo of the ingredient listing and let NomNotion do the work."
                     android:textColor="@color/grey"
                     android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

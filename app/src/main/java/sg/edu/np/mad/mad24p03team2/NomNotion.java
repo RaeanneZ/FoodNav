@@ -279,7 +279,7 @@ public class NomNotion extends Fragment {
             //setIngredient listing
             String listing = "";
             for (String item : cIngredients) {
-                listing += "\n" + item;
+                listing += ", " + item;
             }
 
             switch (dc) {
@@ -287,6 +287,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivVegan.setVisibility(View.VISIBLE);
                         ivNotVegan.setVisibility(View.GONE);
+                        txtViewVegan.setText("");
                     } else {
                         ivVegan.setVisibility(View.GONE);
                         ivNotVegan.setVisibility(View.VISIBLE);
@@ -298,6 +299,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivVegeterian.setVisibility(View.VISIBLE);
                         ivNotVegeterian.setVisibility(View.GONE);
+                        txtViewVegeterian.setText("");
                     } else {
                         ivVegeterian.setVisibility(View.GONE);
                         ivNotVegeterian.setVisibility(View.VISIBLE);
@@ -309,6 +311,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivSugarFree.setVisibility(View.VISIBLE);
                         ivSugar.setVisibility(View.GONE);
+                        txtViewSugar.setText("");
                     } else {
                         ivSugarFree.setVisibility(View.GONE);
                         ivSugar.setVisibility(View.VISIBLE);
@@ -319,6 +322,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivGlutenFree.setVisibility(View.VISIBLE);
                         ivGluten.setVisibility(View.GONE);
+                        txtViewGluten.setText("");
                     } else {
                         ivGlutenFree.setVisibility(View.GONE);
                         ivGluten.setVisibility(View.VISIBLE);
@@ -330,6 +334,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivSeafoodFree.setVisibility(View.VISIBLE);
                         ivSeafood.setVisibility(View.GONE);
+                        txtViewSeafood.setText("");
                     } else {
                         ivSeafoodFree.setVisibility(View.GONE);
                         ivSeafood.setVisibility(View.VISIBLE);
@@ -341,6 +346,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivEggFree.setVisibility(View.VISIBLE);
                         ivEgg.setVisibility(View.GONE);
+                        txtViewEgg.setText("");
                     } else {
                         ivEggFree.setVisibility(View.GONE);
                         ivEgg.setVisibility(View.VISIBLE);
@@ -352,6 +358,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivNutsFree.setVisibility(View.VISIBLE);
                         ivNuts.setVisibility(View.GONE);
+                        txtViewNuts.setText("");
                     } else {
                         ivNutsFree.setVisibility(View.GONE);
                         ivNuts.setVisibility(View.VISIBLE);
@@ -363,6 +370,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivSoyFree.setVisibility(View.VISIBLE);
                         ivSoy.setVisibility(View.GONE);
+                        txtViewSoy.setText("");
                     } else {
                         ivSoyFree.setVisibility(View.GONE);
                         ivSoy.setVisibility(View.VISIBLE);
@@ -374,6 +382,7 @@ public class NomNotion extends Fragment {
                     if (cIngredients.isEmpty()) {
                         ivDiaryFree.setVisibility(View.VISIBLE);
                         ivDairy.setVisibility(View.GONE);
+                        txtViewDairy.setText("");
                     } else {
                         ivDiaryFree.setVisibility(View.GONE);
                         ivDairy.setVisibility(View.VISIBLE);

@@ -1,6 +1,8 @@
 package sg.edu.np.mad.mad24p03team2.DatabaseFunctions;
 
 import android.content.Context;
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +48,7 @@ public class DietConstraintDB extends AbstractDBProcess {
     public boolean UpdateRecord(int accountID, ArrayList<String> constraints) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
-
+        Log.d("DietConstraintDB", "Update Record Function");
         try {
             //check if there's record
             resultSet = GetRecord(accountID);
@@ -60,14 +62,16 @@ public class DietConstraintDB extends AbstractDBProcess {
                     constraints.remove(existConstraint);
                     break;
                 } else {
-                    // If diet contraint found in database is no longer found in the array list,
+                    // If diet constraint found in database is no longer found in the array list,
                     // Delete record of a specific diet constraint that was saved previously
                     DeleteRecord(accountID, existConstraint);
                 }
             }
-
+            Log.d("DietConstraintDB", "Constraint Size: " + constraints.size());
             for (String constraint : constraints) {
-                String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES ('" + accountID + "','" + constraint + "')";
+                Log.d("DietConstraintDB", "Account ID: " + accountID);
+                Log.d("DietConstraintDB", "Constraint: " + constraint);
+                String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES (" + accountID + ",'" + constraint + "')";
                 stmt = dbCon.createStatement();
                 stmt.executeUpdate(sql);
             }

@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 
@@ -39,11 +40,6 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_diet_constraint);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
 
         cbVegan =findViewById(R.id.checkBoxVegan);
@@ -91,6 +87,12 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
             newPref.add(SingletonDietConstraints.DIET_CONSTRAINTS.DAIRY_FREE.name().toLowerCase());
         if(cbVegan.isChecked())
             newPref.add(SingletonDietConstraints.DIET_CONSTRAINTS.VEGAN.name().toLowerCase());
+
+
+        Log.d("DietConstraintActivity", "User diet pref = ");
+
+        for(String c : newPref)
+            Log.d("DietConstraintActivity", "Pref = "+c);
 
         return newPref;
     }

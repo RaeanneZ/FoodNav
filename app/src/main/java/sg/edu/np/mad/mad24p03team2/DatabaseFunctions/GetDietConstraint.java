@@ -51,11 +51,10 @@ public class GetDietConstraint extends AsyncTaskExecutorService<String, String ,
 
         try {
             //no constraint
-            if (!dietTypeResultSet.isBeforeFirst() && dietTypeResultSet.getRow() == 0) {
+            if (dietTypeResultSet == null) {
                 SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
                 return "";
             }
-
             // If there are any diet constraints
             while (dietTypeResultSet.next()) {
                 try{
@@ -65,13 +64,7 @@ public class GetDietConstraint extends AsyncTaskExecutorService<String, String ,
                 catch (Exception e) {
                     Log.d("GetDietConstraint: ", e.getMessage());
                 }
-                finally {
-                    if(dietTypeResultSet != null) {
-                        dietTypeResultSet.close();
-                    }
-                }
             }
-
             // Save db return for global access
             SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
             isSuccess = true;

@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="Diet Constraints"
+                android:text="Dietary Profile"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView11"
@@ -245,18 +245,22 @@
                 android:text="Dark mode"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                tools:visibility="gone" />
 
             <View
                 android:id="@+id/divider_lavender_4"
                 style="@style/Divider.Horizontal.Lavender"
                 android:layout_width="0dp"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/divider_lavender_2"
                 app:layout_constraintStart_toStartOf="@id/divider_lavender_2"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:visibility="gone" />
 
             <Button
                 android:id="@+id/logoutButton"
@@ -280,19 +284,23 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/baseline_dark_mode_24"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/settings"
                 app:layout_constraintHorizontal_bias="0.131"
                 app:layout_constraintStart_toStartOf="@+id/settings"
-                app:layout_constraintTop_toBottomOf="@id/divider_lavender_2" />
+                app:layout_constraintTop_toBottomOf="@id/divider_lavender_2"
+                tools:visibility="gone" />
 
             <Switch
                 android:id="@+id/darkmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintEnd_toEndOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@id/divider_lavender_2"
-                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                tools:visibility="gone" />
 
             <ImageView
                 android:id="@+id/male_icon"

@@ -88,17 +88,14 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
         if(cbVegan.isChecked())
             newPref.add(SingletonDietConstraints.DIET_CONSTRAINTS.VEGAN.name().toLowerCase());
 
-
-        Log.d("DietConstraintActivity", "User diet pref = ");
-
-        for(String c : newPref)
-            Log.d("DietConstraintActivity", "Pref = "+c);
-
         return newPref;
     }
 
     private void updateDietPreferences(ArrayList<SingletonDietConstraints.DIET_CONSTRAINTS> dietProfile){
+        Log.d("DietConstraintActivity", "dietProfile size = "+ dietProfile.size());
+
         for(SingletonDietConstraints.DIET_CONSTRAINTS constraint : dietProfile) {
+            Log.d("DietConstraintActivity", "****diet constraint = "+constraint.name());
             switch (constraint) {
                 case VEGAN:
                     cbVegan.setChecked(true);

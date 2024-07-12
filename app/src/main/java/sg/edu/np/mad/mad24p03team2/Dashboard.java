@@ -62,6 +62,8 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     ProgressBar cbar;
     TextView calProgressText;
 
+    GetDietConstraint getDietConstraint;
+
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
 
     boolean setupProgressBarMax = false;
@@ -75,8 +77,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         getDietPlanOption = new GetDietPlanOption(requireActivity().getApplicationContext(), this);
 
         //Grab user diet Constraints and store in SingletonDietConstraints
-        GetDietConstraint getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
-        getDietConstraint.execute(Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -122,6 +123,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         getMeal.execute("Breakfast", acctId);
         getMeal.execute("Lunch", acctId);
         getMeal.execute("Dinner", acctId);
+
+        //update dietPreference
+        getDietConstraint.execute(acctId);
     }
 
     private void updateBreakfastCard(MealClass meal) {

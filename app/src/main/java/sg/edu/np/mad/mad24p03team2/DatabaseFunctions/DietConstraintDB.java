@@ -29,7 +29,7 @@ public class DietConstraintDB extends AbstractDBProcess {
 
     public ResultSet GetRecord(int accountID) {
         String sql = "SELECT * FROM DietConstraint WHERE AccID = " + accountID;
-
+        Log.d("DIETCONSTRAINTDB", "ACCOUNT ID: " + accountID);
         try {
             stmt = dbCon.createStatement();
             return stmt.executeQuery(sql);
@@ -48,7 +48,7 @@ public class DietConstraintDB extends AbstractDBProcess {
     public boolean UpdateRecord(int accountID, ArrayList<String> constraints) throws SQLException {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
-        Log.d("DietConstraintDB", "Update Record Function");
+
         try {
             //check if there's record
             resultSet = GetRecord(accountID);
@@ -67,10 +67,8 @@ public class DietConstraintDB extends AbstractDBProcess {
                     DeleteRecord(accountID, existConstraint);
                 }
             }
-            Log.d("DietConstraintDB", "Constraint Size: " + constraints.size());
+
             for (String constraint : constraints) {
-                Log.d("DietConstraintDB", "Account ID: " + accountID);
-                Log.d("DietConstraintDB", "Constraint: " + constraint);
                 String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES (" + accountID + ",'" + constraint + "')";
                 stmt = dbCon.createStatement();
                 stmt.executeUpdate(sql);

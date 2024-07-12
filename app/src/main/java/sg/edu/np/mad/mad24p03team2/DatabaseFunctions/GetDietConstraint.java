@@ -65,6 +65,8 @@ public class GetDietConstraint extends AsyncTaskExecutorService<String, String ,
                     Log.d("GetDietConstraint: ", e.getMessage());
                 }
             }
+
+            Log.d("GetDietConstraint", "dietPRef found in database, size = "+dietContraintList.size());
             // Save db return for global access
             SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
             isSuccess = true;

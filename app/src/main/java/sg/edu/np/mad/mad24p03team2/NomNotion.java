@@ -279,7 +279,7 @@ public class NomNotion extends Fragment {
             //setIngredient listing
             String listing = "";
             for (String item : cIngredients) {
-                listing += ", " + item;
+                listing += item +", ";
             }
 
             switch (dc) {
@@ -317,6 +317,7 @@ public class NomNotion extends Fragment {
                         ivSugar.setVisibility(View.VISIBLE);
                         txtViewSugar.setText(listing);
                     }
+                    cvSugar.setVisibility(View.VISIBLE);
                     break;
                 case GLUTEN_FREE:
                     if (cIngredients.isEmpty()) {

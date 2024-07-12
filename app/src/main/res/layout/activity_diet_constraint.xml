@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/textViewTitle"
@@ -46,7 +47,6 @@
                     style="@style/Divider.Horizontal.Lavender"
                     android:layout_width="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="30dp"
                     app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
                     app:layout_constraintHorizontal_bias="0.413"
                     app:layout_constraintStart_toStartOf="@+id/textViewTitle"
@@ -56,11 +56,15 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/inter_regular"
                     android:text="Indicate your dietary preferences so we can highlight food ingredients you might want to avoid in NomNotion"
                     android:textColor="@color/grey"
                     android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,14 +95,16 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Dairy-Free" />
+                    android:text="Dairy-Free"
+                    android:textSize="16sp"/>
 
                 <CheckBox
                     android:id="@+id/checkBoxGluten"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Gluten-Free" />
+                    android:text="Gluten-Free"
+                    android:textSize="16sp"/>
 
 
             </LinearLayout>
@@ -115,14 +121,16 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nut-Free" />
+                    android:text="Nut-Free"
+                    android:textSize="16sp"/>
 
                 <CheckBox
                     android:id="@+id/checkBoxSoy"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Soy-Free" />
+                    android:text="Soy-Free"
+                    android:textSize="16sp"/>
 
 
             </LinearLayout>
@@ -139,14 +147,16 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Sugar-Free" />
+                    android:text="Sugar-Free"
+                    android:textSize="16sp"/>
 
                 <CheckBox
                     android:id="@+id/checkBoxEgg"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Eggless" />
+                    android:text="Eggless"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -162,14 +172,16 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Vegan" />
+                    android:text="Vegan"
+                    android:textSize="16sp"/>
 
                 <CheckBox
                     android:id="@+id/checkBoxVegeterian"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Vegeterian" />
+                    android:text="Vegeterian"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -185,7 +197,8 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="No Seafood" />
+                    android:text="No Seafood"
+                    android:textSize="16sp"/>
 
 
             </LinearLayout>
@@ -196,7 +209,7 @@
             android:id="@+id/saveBtn"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="140dp"
             android:background="@color/lavender"
             android:fontFamily="@font/inter_semibold"
             android:text="Save"

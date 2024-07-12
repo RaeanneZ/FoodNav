@@ -60,6 +60,10 @@ public class MainActivity2 extends AppCompatActivity {
                 replaceFragment(new FoodToNom(), "food2Nom");
                 return true;
             }
+            if(itemId == R.id.nomNotion){
+                replaceFragment(new NomNotion(), "nomNotion");
+                return true;
+            }
             return false; // Indicate that the event was not handled
         });
 

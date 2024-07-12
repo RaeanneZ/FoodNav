@@ -21,6 +21,7 @@ import java.util.Calendar;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietConstraint;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
@@ -70,10 +71,12 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("Dashboard", "***************Dashboard*********");
-
         getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
         getDietPlanOption = new GetDietPlanOption(requireActivity().getApplicationContext(), this);
+
+        //Grab user diet Constraints and store in SingletonDietConstraints
+        GetDietConstraint getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
+        getDietConstraint.execute(Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);

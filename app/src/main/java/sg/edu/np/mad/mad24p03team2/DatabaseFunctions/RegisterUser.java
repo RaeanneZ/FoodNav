@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.GlobalUtil;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSignUp;
 
@@ -27,9 +28,10 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
     //DietPlanDB
     DietPlanOptDB dietPlanOptDB = null;
 
-    //GetDietPlanOpt Funciton
+    //GetDietPlanOpt Function
     GetDietPlanOption getDietPlanOption = null;
 
+    UpdateDietConstraints updateDietConstraints = null;
     private ArrayList<IDBProcessListener> listeners = new ArrayList<IDBProcessListener>();
 
 
@@ -39,6 +41,8 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
         this.securityInfoDB = new SecurityInfoDB(appContext);
         this.dietPlanOptDB = new DietPlanOptDB(appContext);
         this.getDietPlanOption = new GetDietPlanOption(appContext);
+        this.updateDietConstraints = new UpdateDietConstraints(appContext);
+
         this.dbListeners = new ArrayList<IDBProcessListener>();
     }
 
@@ -58,15 +62,15 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
         try {
             //Login Info Table
             LoginInfoClass loginInfo = SingletonSignUp.getInstance().getLoginInfo();
-            Log.d(TAG, "Setup login acct" );
             isSuccess = loginInfoDB.CreateRecord(loginInfo.getEmail(), loginInfo.getPassword());
             if (!isSuccess) {
                 return z = "Login Database Creation Fail";
             }
             //security Table
             SecurityInfoClass securityInfo = SingletonSignUp.getInstance().getSecurityInfo();
-            Log.d(TAG, "setup security acct" );
-            isSuccess = securityInfoDB.CreateRecord(securityInfo.getEmail(), securityInfo.getQuestion(), securityInfo.getAnswer());
+            isSuccess = securityInfoDB.CreateRecord(securityInfo.getEmail(),
+                    securityInfo.getQuestion(), securityInfo.getAnswer());
+
             if (!isSuccess) {
                 loginInfoDB.DeleteLoginRecord(loginInfo.getEmail());
                 return z = "Security Setup Fail";
@@ -74,7 +78,6 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
 
             //profile table
             AccountClass acctInfo = SingletonSignUp.getInstance().getAccount();
-            Log.d(TAG, "setup account info" );
             isSuccess = accountDB.CreateRecord(acctInfo.getName(), acctInfo.getEmail());
             if (!isSuccess) {
                 securityInfoDB.DeleteSecurityInfo(loginInfo.getEmail());
@@ -82,7 +85,6 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
                 return z = "Profile Setup Fail";
             }
 
-            Log.d(TAG, "Update account info" );
             isSuccess = accountDB.UpdateRecord(acctInfo.getEmail(),
                     acctInfo.getGender(),
                     GlobalUtil.DateFormatter.format(acctInfo.getBirthDate()),
@@ -96,14 +98,15 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
                 return z = "Profile Update Fail";
             }
 
-            Log.d(TAG, "GetRecordId" );
             //update current SingletonSession userInfo - signup successful
             ResultSet resultSet = accountDB.GetRecordID(acctInfo.getEmail());
             if(resultSet.next())
                 acctInfo.setId(resultSet.getInt("AccID"));
-
-            Log.d(TAG, "Setup SingletonSession" );
             SingletonSession.getInstance().setAccount(acctInfo);
+
+            //by default - set diet constraint to be sugar free (diabetic friendly diet plan)
+            SingletonDietConstraints.getInstance().setDietProfile("SUGAR_FREE");
+            updateDietConstraints.execute(Integer.toString(acctInfo.getId()));
 
         } catch (Exception e) {
             z = e.getMessage();

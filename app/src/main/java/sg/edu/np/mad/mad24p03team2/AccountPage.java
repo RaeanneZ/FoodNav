@@ -43,7 +43,6 @@ public class AccountPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("AccountPage", "***************Account Page*********");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accountpage, container, false);
 
@@ -58,7 +57,9 @@ public class AccountPage extends Fragment {
         logoutBtn.setOnClickListener(v -> {
 
             //Logout - remove shared preferences
-            EncryptedSharedPreferences sharedPreferences = GlobalUtil.getEncryptedSharedPreference(getActivity().getApplicationContext());
+            EncryptedSharedPreferences sharedPreferences =
+                    GlobalUtil.getEncryptedSharedPreference(getActivity().getApplicationContext());
+
             if(sharedPreferences != null){
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_KEY, "").apply();
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_PSWD, "").apply();
@@ -87,32 +88,38 @@ public class AccountPage extends Fragment {
             }
         });
 
-        // Set click listener for the button
+
         TextView editProfile = view.findViewById(R.id.editProfile);
         String username = SingletonSession.getInstance().GetAccount().getName();
         TextView tempName = view.findViewById(R.id.tempName);
         tempName.setText(username);
 
-        changePassword.setOnClickListener(v -> {
-            // Launch ChangePassword activity
-            loadChangePasswordActivity();
-        });
+        // Set click listener for the buttons
+        changePassword.setOnClickListener(v -> loadChangePasswordActivity());
 
         ImageView passwordArrow = view.findViewById(R.id.imageView9);
         passwordArrow.setOnClickListener(v -> loadChangePasswordActivity());
 
-        editProfile.setOnClickListener(v -> {
-            // Launch EditProfile activity
-            loadEditProfileActivity();
-        });
+        editProfile.setOnClickListener(v -> loadEditProfileActivity());
 
         ImageView profileArrow = view.findViewById(R.id.arrow);
         profileArrow.setOnClickListener(v -> loadEditProfileActivity());
+
+        TextView setDietConstraint = view.findViewById(R.id.dietPref);
+        setDietConstraint.setOnClickListener(v-> loadDietConstraintActivity());
+
+        ImageView dietArrow = view.findViewById(R.id.arrowDiet);
+        dietArrow.setOnClickListener(v->loadDietConstraintActivity());
 
         // Populate profile details including profile picture
         populateProfileDetails();
 
         return view;
+    }
+
+    private void loadDietConstraintActivity(){
+        Intent dietConstraintsIntent = new Intent(getActivity(), DietConstraintActivity.class);
+        startActivity(dietConstraintsIntent);
     }
 
     private void loadEditProfileActivity(){
@@ -150,12 +157,10 @@ public class AccountPage extends Fragment {
     // Define methods to update UI elements based on theme (dark/light)
     private void updateUiForDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        Log.d("Dark Mode", "Dark mode activated");
     }
 
     private void updateUiForLightMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        Log.d("Light Mode", "Light mode activated");
     }
 
 }

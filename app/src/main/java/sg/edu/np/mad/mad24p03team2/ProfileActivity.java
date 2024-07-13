@@ -107,7 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(v-> {
             try {
                 updateProfile();
-                Intent intent = new Intent(ProfileActivity.this, SelectionActivity.class); //MainActivity2.class);
+                Intent intent = new Intent(ProfileActivity.this, SelectionActivity.class);
                 startActivity(intent);
                 finish();
             } catch (NumberFormatException e) {

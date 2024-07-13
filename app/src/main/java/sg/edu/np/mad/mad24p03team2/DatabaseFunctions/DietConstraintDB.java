@@ -49,25 +49,29 @@ public class DietConstraintDB extends AbstractDBProcess {
         Boolean isSuccess = false;
         ResultSet resultSet = null;
 
+        Log.d("DietConstraintDB", "Update Diet Profile in DB for user ="+accountID);
         try {
             //check if there's record
             resultSet = GetRecord(accountID);
             String existConstraint="";
             while (resultSet.next()) {
+                Log.d("DietConstraintDB", "User has existing diet constraints");
                 // If there is record
                 // Get the diet type
                 existConstraint = resultSet.getString("DietType");
-                // Remove all diet constraints that are in the database
+                // Remove all diet constraints from new list that are already in the database
+                // no need to recreate
                 if(constraints.contains(existConstraint)) {
                     constraints.remove(existConstraint);
                     break;
                 } else {
-                    // If diet constraint found in database is no longer found in the array list,
+                    // If diet constraint found in database is no longer found in the new list,
                     // Delete record of a specific diet constraint that was saved previously
                     DeleteRecord(accountID, existConstraint);
                 }
             }
 
+            Log.d("DietConstraintDB", "Insert New Diet Pref to DB");
             for (String constraint : constraints) {
                 String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES (" + accountID + ",'" + constraint + "')";
                 stmt = dbCon.createStatement();
@@ -88,6 +92,7 @@ public class DietConstraintDB extends AbstractDBProcess {
     public boolean DeleteRecord(int acctID, String constraint) throws SQLException {
         boolean isUpdateSuccessful = false;
         String sql = null;
+        Log.d("DietConstraintDB", "*** Delete Diet Pref to DB");
 
         try {
             sql = "DELETE FROM DietConstraint WHERE AccID = " + acctID + " AND DietType = '"+ constraint +"'";

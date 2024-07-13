@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 
 /**

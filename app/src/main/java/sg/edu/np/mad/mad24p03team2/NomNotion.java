@@ -15,8 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -30,7 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.TranslatorOptions;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 
@@ -39,6 +41,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.google.mlkit.nl.translate.Translator;
+
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
 
 /**
@@ -46,7 +50,7 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
  */
 public class NomNotion extends Fragment {
 
-    private static final String TAG = "FoodToNom";
+    private static final String TAG = "NomNotion";
 
     private Uri imageUri = null;
     private Button cameraIButton;
@@ -99,11 +103,12 @@ public class NomNotion extends Fragment {
     ImageView ivVegeterian;
     ImageView ivNotVegeterian;
 
-
+    Translator translatorKorean = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        initTranslatorPack();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nom_notion, container, false);
     }
@@ -176,6 +181,26 @@ public class NomNotion extends Fragment {
         galleryIButton.setOnClickListener(v -> pickImageGallery());
     }
 
+    private void initTranslatorPack(){
+        TranslatorOptions option = new TranslatorOptions.Builder()
+                .setSourceLanguage(TranslateLanguage.KOREAN)
+                .setTargetLanguage(TranslateLanguage.ENGLISH)
+                .build();
+        translatorKorean = Translation.getClient(option);
+
+        translatorKorean.downloadModelIfNeeded().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Downloaded korean translator pack successfully");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Fail to download korean translator pack");
+            }
+        });
+    }
+
     private void pickImageCamera() {
 
         Log.d(TAG, "Pick Image Camera");
@@ -243,9 +268,7 @@ public class NomNotion extends Fragment {
             Task<Text> textTaskResult = GlobalUtil.MLTextRecognizer.process(inputImage).addOnSuccessListener(
                             text -> {
                                 //food names in DB are all in lowerCase
-                                processIdentifiedText(text.getText().toLowerCase());
-                                svConstraints.setVisibility(View.VISIBLE);
-                                //update card visibility
+                                translateKRToEN(text.getText().toLowerCase());
                             })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -260,6 +283,30 @@ public class NomNotion extends Fragment {
             //Exception occured while preparing InputImage, dismiss dialog and print reason in Toast
             Toast.makeText(getActivity(), "Failed to prepared image due to " + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void translateKRToEN(String detectedText){
+        Log.d(TAG, "Recognised Text = "+detectedText);
+
+        if(translatorKorean == null){
+            Log.d(TAG,"Korean Translator is null");
+        }else{
+            Task<String> result = translatorKorean.translate(detectedText).addOnSuccessListener(new OnSuccessListener<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    Log.d(TAG,"Translated text = "+s);
+                    processIdentifiedText(s);
+                    svConstraints.setVisibility(View.VISIBLE);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "Fail to translate text due to: "+e.getMessage());
+                    Toast.makeText(getActivity(), "Fail to translate recognized text", Toast.LENGTH_SHORT).show();
+                    svConstraints.setVisibility(View.GONE);
+                }
+            });
         }
     }
 

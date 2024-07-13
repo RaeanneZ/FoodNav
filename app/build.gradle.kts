@@ -68,4 +68,7 @@ dependencies {
 
     //MLKit Unbundled : Models are downloaded and managed via Google Play Services.
     implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
+    //text recognition for Korean and English characters
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.0")
+    implementation("com.google.mlkit:translate:17.0.2")
 }

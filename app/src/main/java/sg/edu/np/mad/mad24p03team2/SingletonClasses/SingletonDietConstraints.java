@@ -46,7 +46,7 @@ public class SingletonDietConstraints {
         Collections.addAll(this.allSugar, "syrup", "sugar", "dextrose", "caramel", "malt", "molasses",
                 "sucrose", "lactose", "glucose", "fructose", "dextran", "dextrin", "ethyl maltol", "maltose",
                 "treacle", "maltodextrin", "diatase", "sorbitol", "galactose", "concentrate", "honey",
-                "agava nectar", "juice", "florida crystal", "rapadura", "sucanat", "maltose", "d-ribose");
+                "agava nectar", "juice", "florida crystal", "rapadura", "sucanat", "maltose", "d-ribose", "saccharide");
 
         Collections.addAll(this.allGluten, "wheat", "bran", "couscous", "durum",
                 "einkorn", "farina", "matzoh", "seitan", "spelt", "malt", "semolina", "starch", "pasta",
@@ -103,6 +103,8 @@ public class SingletonDietConstraints {
     }
 
     public void setDietProfile(String... preferences){
+        //clear previous settting
+        userDietPref.clear();
 
         //call by DB and store the diet preference
         for(String pref : preferences){
@@ -124,6 +126,9 @@ public class SingletonDietConstraints {
     }
 
     public void setDietProfile(ArrayList<String> preference){
+        //clear previous setting
+        userDietPref.clear();
+
         for(String pref: preference){
             userDietPref.add(DIET_CONSTRAINTS.valueOf(pref.toUpperCase()));
         }
@@ -138,12 +143,6 @@ public class SingletonDietConstraints {
             returnList = SingletonDietConstraints.getInstance().checkDietConstraint(ingredients, constraint);
             resultMap.putIfAbsent(constraint, returnList);
         }
-
-        //for demo purpose, even if user did not set any prefs or did not select sugar free,
-        //i will still show sugar detection because this is a diabetic friendly diet plan
-        //if(userDietPref.isEmpty() || (!userDietPref.contains(DIET_CONSTRAINTS.SUGAR_FREE))){
-           // userDietPref.add(DIET_CONSTRAINTS.SUGAR_FREE);
-        //}
 
         return resultMap;
     }

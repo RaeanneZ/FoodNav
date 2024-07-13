@@ -8,18 +8,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import android.provider.MediaStore;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,13 +17,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
-import com.google.mlkit.vision.text.TextRecognition;
-import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,7 +76,7 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
         return inflater.inflate(R.layout.fragment_input_new_food, container, false);
     }
 
-    private void initTextScan(){
+    private void initTextScan() {
 
         organisedText = new ArrayList<LineItem>();
         filteredInfo = new HashMap<String, LineItem>();
@@ -266,10 +259,10 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
                 value = extractValue(lineSubstring);
 
                 trimmedValue = value;
-                if(value.contains("g")){
-                    trimmedValue = value.substring(0,value.indexOf('g'));
+                if (value.contains("g")) {
+                    trimmedValue = value.substring(0, value.indexOf('g'));
                 } else if (value.contains("kcal")) {
-                    trimmedValue = value.substring(0,value.indexOf("kcal"));
+                    trimmedValue = value.substring(0, value.indexOf("kcal"));
                 }
 
                 // Log.d(TAG, "Extracted Value = "+value);
@@ -292,22 +285,23 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
         }
     }
 
-    private String extractValue(String searchString){
+    private String extractValue(String searchString) {
         //Keyword value1 value2; find value2
         String value = " ";
         Scanner scan = new Scanner(searchString);
-        for(int i=0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             try {
                 value = scan.next();
                 Log.d(TAG, "Scan NextLine = " + value);
-            }catch(Exception e){
-                Log.d(TAG,"Error in reading value : "+e.getMessage());
+            } catch (Exception e) {
+                Log.d(TAG, "Error in reading value : " + e.getMessage());
             }
         }
 
         scan.close();
         return value;
     }
+
     private boolean checkIfNumeric(String sNum) {
         try {
             double v = Double.parseDouble(sNum);
@@ -385,18 +379,13 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
     }
 
     @Override
-    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
-    }
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {}
 
     @Override
-    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-
-    }
+    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {}
 
     @Override
-    public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
-
-    }
+    public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {}
 
 
     class LineItem {

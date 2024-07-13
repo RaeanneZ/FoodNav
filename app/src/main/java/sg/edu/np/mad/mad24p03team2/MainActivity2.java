@@ -80,6 +80,12 @@ public class MainActivity2 extends AppCompatActivity {
     public void replaceFragment(Fragment fragment, String fragName) {
         // Get the fragment manager to handle fragment transactions
         FragmentManager fragmentManager = getSupportFragmentManager();
+        // Get current fragment
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.container2);
+        // Check if the current fragment is different from the target fragment
+        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
+            return; // Do nothing if the current fragment is the same as the target fragment
+        }
         // Begin a new fragment transaction
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // Replace the current fragment in the container with the new fragment
@@ -109,6 +115,8 @@ public class MainActivity2 extends AppCompatActivity {
                     bottomNavigationView.setSelectedItemId(R.id.account);
                 } else if (f.getClass().getSimpleName().contains("FoodToNom") && selItemID!=R.id.food2Nom) {
                     bottomNavigationView.setSelectedItemId(R.id.food2Nom);
+                } else if (f.getClass().getSimpleName().contains("NomNotion") && selItemID != R.id.nomNotion) {
+                    bottomNavigationView.setSelectedItemId(R.id.nomNotion);
                 }
             }
 

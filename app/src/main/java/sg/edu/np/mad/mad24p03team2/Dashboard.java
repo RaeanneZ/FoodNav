@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +64,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     ProgressBar cbar;
     TextView calProgressText;
 
+    // For sharing feature
+    private Button btnShare;
+
     GetDietConstraint getDietConstraint;
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
@@ -107,6 +112,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
 
+        btnShare = view.findViewById(R.id.btnShare);
         return view;
 
     }
@@ -126,6 +132,14 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
         //update dietPreference
         getDietConstraint.execute(acctId);
+
+        //share pop up when share button clicked
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareProgress();
+            }
+        });
     }
 
     private void updateBreakfastCard(MealClass meal) {
@@ -180,6 +194,30 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         int calLeft = cbar.getMax() - (int) tCal;
         calProgressText.setText(String.valueOf(calLeft));
     }
+
+    private void shareProgress() {
+        int maxCal = cbar.getMax();
+        float tCal = Float.parseFloat((String) calBox.getText()) +
+                Float.parseFloat((String) bcalBox.getText()) +
+                Float.parseFloat((String) dcalBox.getText());
+        int calLeft = (int) tCal - maxCal;
+
+        String shareBody;
+
+        if (calLeft < 0) {
+            shareBody = "I've managed to keep my daily calorie intake to " + maxCal + " kcal and have " + (calLeft*-1) + " kcal left for the day. Check out my progress on FoodNav today!";
+        } else {
+            shareBody = "I've exceeded my daily calorie intake by " + calLeft + " kcal, having consumed " + tCal + " kcal. Check out my progress on FoodNav today! ";
+        }
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My Progress on FoodNav");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {

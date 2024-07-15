@@ -32,6 +32,7 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
+public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface  {
 public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface, IMealRecyclerViewInterface {
     GetFood getFood = null;
     GetAllFood getAllFood = null;
@@ -110,14 +111,20 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
         String mealName = recognizedText.toLowerCase(Locale.ROOT);
 
+        // Filtering logic here to find the meal name
+        // Run through the recognized text to find matching food item names in DB
+        if (itemList == null || itemList.isEmpty()) {
         if (itemListInDB == null || itemListInDB.isEmpty()) {
             Log.d("Food2Nom", "Fail to access Food DB");
             return;
         }
 
+        ArrayList<FoodItemClass> filteredList = new ArrayList<>();
         boolean mealFound = false;
+        for (FoodItemClass fItem : itemList) {
         for (FoodItemClass fItem : itemListInDB) {
             if (mealName.contains(fItem.getName().toLowerCase(Locale.ROOT))) {
+                // List to display food item and calories
                 filteredList.add(fItem);
                 mealFound = true;
             }
@@ -137,15 +144,19 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
             }
 
         } else {
+            // Show a message to the user
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Meal not found, would you like to add a new meal?")
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            FragmentActivity activity = getActivity();
-                            if (activity instanceof MainActivity2) {
-                                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");
-                            }
+                            // Navigate to another fragment
+                            Fragment fragment = new InputNewFood();
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.relativeLayout, fragment)
+                                    .addToBackStack(null)
+                                    .commit();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

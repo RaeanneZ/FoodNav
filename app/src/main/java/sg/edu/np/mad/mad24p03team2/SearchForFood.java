@@ -46,6 +46,9 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
 
     private Button newFoodBtn;
 
+    // For voice feature
+    private Button btnSpeak;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,6 +82,14 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             FragmentActivity activity = getActivity();
             if (activity instanceof MainActivity2) {
                 ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");
+            }
+        });
+
+        btnSpeak = view.findViewById(R.id.btnSpeak);
+        btnSpeak.setOnClickListener(v -> {
+            FragmentActivity activity = getActivity();
+            if (activity instanceof MainActivity2) {
+                ((MainActivity2) activity).replaceFragment(new SpeechToText(), "speechToText");
             }
         });
 

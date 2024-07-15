@@ -94,6 +94,8 @@ public class AddFood extends Fragment implements IDBProcessListener{
             }
         });
 
+
+
         //update UI on foodselected
         foodName.setText(foodItemSelected.getName().toUpperCase());
         nofServing.setText(String.valueOf(ns));
@@ -109,6 +111,7 @@ public class AddFood extends Fragment implements IDBProcessListener{
         });
         return view;// Return the inflated view
     }
+
 
     private void updateMacro(int serving){
 

@@ -235,7 +235,15 @@
                         android:id="@+id/btnShare"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Share with friends" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/lavender"
+                        android:drawableRight="@drawable/baseline_share_24"
+                        android:drawablePadding="30dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        android:text="Share" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

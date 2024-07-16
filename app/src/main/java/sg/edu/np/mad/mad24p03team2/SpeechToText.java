@@ -34,7 +34,7 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface  {
     GetFood getFood = null;
     GetAllFood getAllFood = null;
-    private ArrayList<FoodItemClass> itemList = null;
+    private ArrayList<FoodItemClass> itemListInDB = null;
 
     // For voice input display
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
@@ -60,13 +60,13 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        itemList = new ArrayList<FoodItemClass>();
+        itemListInDB = new ArrayList<FoodItemClass>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
         getAllFood.execute();
 
         if (recyclerView!= null) {
-            foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, false);
+            foodAdapter = new FoodAdapter(getView().getContext(), itemListInDB, this, false);
             recyclerView.setAdapter(foodAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         } else {
@@ -107,14 +107,14 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
         // Filtering logic here to find the meal name
         // Run through the recognized text to find matching food item names in DB
-        if (itemList == null || itemList.isEmpty()) {
+        if (itemListInDB == null || itemListInDB.isEmpty()) {
             Log.d("Food2Nom", "Fail to access Food DB");
             return;
         }
 
         ArrayList<FoodItemClass> filteredList = new ArrayList<>();
         boolean mealFound = false;
-        for (FoodItemClass fItem : itemList) {
+        for (FoodItemClass fItem : itemListInDB) {
             if (mealName.contains(fItem.getName().toLowerCase(Locale.ROOT))) {
                 // List to display food item and calories
                 filteredList.add(fItem);
@@ -138,13 +138,10 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Navigate to another fragment
-                            Fragment fragment = new InputNewFood();
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.relativeLayout, fragment)
-                                    .addToBackStack(null)
-                                    .commit();
+                            FragmentActivity activity = getActivity();
+                            if (activity instanceof MainActivity2) {
+                                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");
+                            }
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -159,22 +156,24 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-        itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
-        if (itemList != null) {
+        itemListInDB = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        if (itemListInDB != null) {
             Log.d("Food2Nom", "Food DB fetched successfully");
         } else {
             Log.d("Food2Nom", "Food DB fetch failed");
         }
 
-        foodAdapter.setFilteredList(itemList);
+        foodAdapter.setFilteredList(itemListInDB);
     }
 
     @Override
     public void onItemClick(int itemPos) {
-        //grab user selection
-        FoodItemClass foodItemSelected = itemList.get(itemPos);
-        // Move on to addfood page
-        switchFragment(foodItemSelected);
+        if (itemPos != RecyclerView.NO_POSITION) {
+            FoodItemClass item = itemListInDB.get(itemPos);
+            String mealName = item.getName();
+            // Move on to addfood page
+            switchFragment(item);
+        }
     }
 
     private void switchFragment(FoodItemClass foodItemSelected) {
@@ -192,5 +191,4 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
     }
-
 }

@@ -70,9 +70,22 @@
                     android:layout_alignBottom="@+id/searchView"
                     android:layout_alignTop="@+id/searchView"/>
 
+                <Button
+                    android:id="@+id/btnSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/baseline_mic_24"
+                    android:drawableTint="@color/lavender"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="@color/lavender"
+                    android:layout_toRightOf="@id/cameraIButton"
+                    android:layout_alignBottom="@+id/cameraIButton"
+                    android:layout_alignTop="@+id/cameraIButton"/>
+
                 <SearchView
                     android:id="@+id/searchView"
-                    android:layout_width="300sp"
+                    android:layout_width="250sp"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="15dp"
                     android:layout_marginHorizontal="5dp"
@@ -82,13 +95,6 @@
                     android:tooltipText="Enter food name in full or partial" />
 
             </RelativeLayout>
-
-
-            <Button
-                android:id="@+id/btnSpeak"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Input Meal by Voice" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

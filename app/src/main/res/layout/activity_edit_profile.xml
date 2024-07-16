@@ -38,7 +38,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_bold"
         android:text="Profile"
-        android:textColor="@color/black"
+        android:textColor="@color/alsoblack"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -128,6 +128,7 @@
             android:hint=" Height"
             android:inputType="numberDecimal"
             android:selectAllOnFocus="true"
+            android:textColor="@color/alsoblack"
             android:textSize="20sp"
             android:tooltipText="Enter Height (cm)"
             android:maxLines="1"/>
@@ -164,6 +165,7 @@
             android:layout_height="wrap_content"
             android:hint=" Weight"
             android:inputType="numberDecimal"
+            android:textColor="@color/alsoblack"
             android:selectAllOnFocus="true"
             android:textSize="20sp"
             android:maxLines="1"/>

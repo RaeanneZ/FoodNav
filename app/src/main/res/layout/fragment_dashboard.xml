@@ -70,16 +70,16 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/linearLayoutMealCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutTitle">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <!-- Pie Chart and Text -->
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutCircularProgressBar"
                     android:layout_width="0dp"
@@ -140,112 +140,97 @@
                     app:layout_constraintStart_toStartOf="@+id/RelativeLayoutCircularProgressBar"
                     app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutCircularProgressBar" />
 
-                <!-- Progress Bars and Button -->
                 <LinearLayout
                     android:id="@+id/linearLayoutMacroBars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/RelativeLayoutCircularProgressBar"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toEndOf="@+id/RelativeLayoutCircularProgressBar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="NotSibling">
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/tvCarbs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Carbs"
+                            android:textColor="@color/green"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvSugar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:orientation="vertical">
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Sugar"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/tvCarbs"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:fontFamily="@font/inter_regular"
-                                android:text="Carbs"
-                                android:textColor="@color/green"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/tvSugar"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:fontFamily="@font/inter_regular"
-                                android:text="Sugar"
-                                android:textColor="@color/red"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/tvFats"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:fontFamily="@font/inter_regular"
-                                android:text="Fats"
-                                android:textColor="@color/pink"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/tvFats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ProgressBar
-                                android:id="@+id/progressBarcarbs"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="113dp"
-                                android:layout_height="15dp"
-                                android:layout_marginTop="25dp"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/custom_progress_bar_green"
-                                android:progressTint="@color/green" />
-
-                            <ProgressBar
-                                android:id="@+id/progressBarSugar"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="113dp"
-                                android:layout_height="15dp"
-                                android:layout_marginTop="27dp"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/custom_progress_bar_red"
-                                android:progressTint="@color/red" />
-
-                            <ProgressBar
-                                android:id="@+id/progressBarfats"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="113dp"
-                                android:layout_height="15dp"
-                                android:layout_marginTop="25dp"
-                                android:maxHeight="16dip"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/custom_progress_bar_pink"
-                                android:progressTint="@color/pink" />
-                        </LinearLayout>
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Fats"
+                            android:textColor="@color/pink"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnShare"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/lavender"
-                        android:drawableRight="@drawable/baseline_share_24"
-                        android:drawablePadding="30dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="10dp"
-                        android:text="Share" />
+                        android:orientation="vertical">
+
+                        <ProgressBar
+                            android:id="@+id/progressBarcarbs"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="113dp"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="25dp"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/custom_progress_bar_green"
+                            android:progressTint="@color/green" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBarSugar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="113dp"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="27dp"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/custom_progress_bar_red"
+                            android:progressTint="@color/red" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBarfats"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="113dp"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="25dp"
+                            android:maxHeight="16dip"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/custom_progress_bar_pink"
+                            android:progressTint="@color/pink" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </RelativeLayout>
 
 
@@ -831,6 +816,23 @@
             </HorizontalScrollView>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/lavender"
+            android:drawableRight="@drawable/baseline_share_24"
+            android:drawablePadding="30dp"
+            android:fontFamily="@font/inter_semibold"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:text="Share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutMealCard" />
 
         <LinearLayout
             android:id="@+id/linearLayoutMission"

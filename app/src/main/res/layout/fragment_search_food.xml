@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
                 android:text="Lunch"
-                android:textColor="@color/alsoblack"
+                android:textColor="@color/black"
                 android:textSize="30sp" />
 
             <TextView

@@ -80,7 +80,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_bold"
                     android:text="Food2Nom"
-                    android:textColor="@color/alsoblack"
+                    android:textColor="@color/black"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent" />
 

@@ -59,7 +59,7 @@
                 android:layout_marginBottom="7dp"
                 android:fontFamily="@font/inter_regular"
                 android:text="1"
-                android:textColor="@color/black"
+                android:textColor="@color/alsoblack"
                 android:textSize="12sp"
                 android:visibility="visible" />
 
@@ -72,7 +72,7 @@
                 android:layout_marginBottom="7dp"
                 android:fontFamily="@font/inter_regular"
                 android:text=" serving"
-                android:textColor="@color/black"
+                android:textColor="@color/alsoblack"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -90,7 +90,7 @@
             android:contextClickable="false"
             android:fontFamily="@font/inter_semibold"
             android:text="Fried Bee Hoon, Plain"
-            android:textColor="@color/black"
+            android:textColor="@color/alsoblack"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"

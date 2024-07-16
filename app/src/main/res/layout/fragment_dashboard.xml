@@ -364,13 +364,14 @@
                                         android:layout_height="wrap_content"
                                         android:text="0"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.5"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        tools:textColor="@color/full_white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -398,6 +399,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -432,6 +434,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -548,13 +551,14 @@
                                         android:layout_height="wrap_content"
                                         android:text="0"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.5"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        tools:textColor="@color/full_white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -582,6 +586,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -616,6 +621,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -673,7 +679,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="0"
-                                android:textColor="@color/black"
+                                android:textColor="@color/alsoblack"
                                 android:textSize="17sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -691,7 +697,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/inter_regular"
                                 android:text="Kcal"
-                                android:textColor="@color/black"
+                                android:textColor="@color/alsoblack"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/imagefd_d"
@@ -705,7 +711,7 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/inter_semibold"
                                 android:text="Dinner"
-                                android:textColor="@color/black"
+                                android:textColor="@color/alsoblack"
                                 android:textSize="17sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imagefd_d" />
@@ -732,13 +738,14 @@
                                         android:layout_height="wrap_content"
                                         android:text="0"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.5"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        tools:textColor="@color/full_white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -766,6 +773,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -800,6 +808,7 @@
                                         android:text="0"
                                         android:textColor="@color/white"
                                         android:textSize="10sp"
+                                        android:fontFamily="@font/inter_regular"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -847,6 +856,9 @@
                     android:layout_marginBottom="48dp"
                     android:text="Record blood sugar level after each meal"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/inter_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -861,6 +873,9 @@
                     android:layout_marginEnd="42dp"
                     android:text="Choose No or Low sugar option"
                     android:textSize="14sp"
+                    android:buttonTint="@color/black"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_regular"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvdMissions" />

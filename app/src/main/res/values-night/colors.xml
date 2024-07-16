@@ -5,6 +5,7 @@
     <color name="greyblack">#EFEFEF</color>
     <color name="grey">#B0B0B0</color>
     <color name="white">#272330</color>
+    <color name="full_white">#FFFFFFFF</color>
     <color name="lavender">#D6C2E7</color>
     <color name="eggplant">#CABAD8</color>
     <color name="beige">#F7E9DE</color>

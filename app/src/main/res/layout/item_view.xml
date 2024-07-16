@@ -44,7 +44,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Fried Bee Hoon, Plain"
-        android:textColor="@color/black"
+        android:textColor="@color/alsoblack"
         android:textSize="15sp">
 
     </TextView>
@@ -83,7 +83,7 @@
         android:layout_toEndOf="@+id/cal"
         android:fontFamily="@font/inter_regular"
         android:text="100"
-        android:textColor="@color/black"
+        android:textColor="@color/alsoblack"
         android:textSize="12sp"></TextView>
 
     <TextView
@@ -94,7 +94,7 @@
         android:layout_toEndOf="@+id/servingSize"
         android:fontFamily="@font/inter_regular"
         android:text="g"
-        android:textColor="@color/black"
+        android:textColor="@color/alsoblack"
         android:textSize="12sp"></TextView>
 
 

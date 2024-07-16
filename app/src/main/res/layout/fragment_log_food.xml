@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabBackground="@color/beige"
-            app:tabIndicatorColor="#4F364B">
+            app:tabIndicatorColor="@color/eggplant">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"

@@ -25,13 +25,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IMealRecyclerViewInterface;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
-public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface  {
+public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface, IMealRecyclerViewInterface {
     GetFood getFood = null;
     GetAllFood getAllFood = null;
     private ArrayList<FoodItemClass> itemListInDB = null;
@@ -42,6 +43,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
     private RecyclerView recyclerView;
     private FoodAdapter foodAdapter;
+    private IMealRecyclerViewInterface mealRecyclerViewInterface;
 
     @Nullable
     @Override
@@ -138,6 +140,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            // Move to input new food page
                             FragmentActivity activity = getActivity();
                             if (activity instanceof MainActivity2) {
                                 ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");

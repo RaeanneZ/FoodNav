@@ -85,6 +85,7 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
                 return z = "Profile Setup Fail";
             }
 
+            Log.d("RegisterUser", "TrackBloodSugar = "+acctInfo.getTrackBloodSugar());
             isSuccess = accountDB.UpdateRecord(acctInfo.getEmail(),
                     acctInfo.getGender(),
                     GlobalUtil.DateFormatter.format(acctInfo.getBirthDate()),

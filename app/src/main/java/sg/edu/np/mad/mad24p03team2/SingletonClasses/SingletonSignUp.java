@@ -118,8 +118,8 @@ public class SingletonSignUp {
         account.setGender(gender);
         account.setHeight(height);
         account.setWeight(weight);
-        Log.d("SingletonSignUp", "UpdateProfile ="+ GlobalUtil.DateFormatter.format(birthDate)+" / "
-                +gender+"/"+height+"/"+weight);
+        // Log.d("SingletonSignUp", "UpdateProfile ="+ GlobalUtil.DateFormatter.format(birthDate)+" / "
+        //         +gender+"/"+height+"/"+weight);
     }
 
     public void setBloodTrackingOpt(boolean option){

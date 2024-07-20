@@ -53,11 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         // Find Buttons from the layout
         male = findViewById(R.id.male);
@@ -98,6 +93,10 @@ public class ProfileActivity extends AppCompatActivity {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             birthdateText.setText(GlobalUtil.formatBirthDatesForUIDisplay(dayOfMonth, month+1, year));
+                            //update to the already selected time and date
+                            calYear = year;
+                            calMonth = month;
+                            calDay=dayOfMonth;
                         }
                     }, calYear, calMonth, calDay);
             datePickerDialog.show();
@@ -109,7 +108,6 @@ public class ProfileActivity extends AppCompatActivity {
                 updateProfile();
                 Intent intent = new Intent(ProfileActivity.this, SelectionActivity.class);
                 startActivity(intent);
-                finish();
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Invalid number format", Toast.LENGTH_SHORT).show();

@@ -183,7 +183,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         if (activity instanceof MainActivity2) {
             // Replace the current fragment with the SearchForFood fragment
             ((MainActivity2) activity).
-                    replaceFragment(new SearchForFood(), "searchForFood");
+                    replaceFragment(new SearchForFood(), "searchForFood", true);
         }
     }
     private void updateUI(){

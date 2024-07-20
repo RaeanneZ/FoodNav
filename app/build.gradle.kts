@@ -68,4 +68,10 @@ dependencies {
 
     //MLKit Unbundled : Models are downloaded and managed via Google Play Services.
     implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
+
+    //implementation ("androidx.core:core-ktx:1.3.2")
+    implementation ("com.google.android.material:material:1.2.1")
+    implementation ("androidx.appcompat:appcompat:1.2.0")
+    implementation ("androidx.core:core-ktx:1.6.0")
+    implementation ("com.google.android.material:material:1.4.0")
 }

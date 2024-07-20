@@ -87,10 +87,6 @@ public class MainActivity2 extends AppCompatActivity {
             return false; // Indicate that the event was not handled
         });
 
-        int q=1;
-        if(q==1){
-            makeNotification();
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -186,39 +182,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    public void makeNotification() {
-        String chanelID = "CHANNEL_ID_NOTIFICATION";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), chanelID);
-        builder.setSmallIcon(R.drawable.baseline_notifications_active_24)
-                .setContentTitle("warr")
-                .setContentText("hfhf")
-                .setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("data", "Some value to be passed here");
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
-                0, intent, PendingIntent.FLAG_MUTABLE);
-        builder.setContentIntent(pendingIntent);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel =
-                    notificationManager.getNotificationChannel(chanelID);
-            if (notificationChannel == null) {
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                notificationChannel = new NotificationChannel(chanelID,
-                        "jhjkhdjk", importance);
-                notificationChannel.setLightColor(android.R.color.darker_gray);
-                notificationChannel.enableVibration(true);
-                notificationManager.createNotificationChannel(notificationChannel);
-
-            }
-        }
-        notificationManager.notify(0, builder.build());
-    }
 
     public void registerCallback() {
 

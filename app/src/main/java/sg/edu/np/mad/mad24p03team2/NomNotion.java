@@ -452,6 +452,7 @@ public class NomNotion extends Fragment {
             cvSeafood.setVisibility(visibility);
             cvVegan.setVisibility(visibility);
             cvVegeterian.setVisibility(visibility);
+            cvSugar.setVisibility(visibility);
     }
 
     private void pickImageGallery() {

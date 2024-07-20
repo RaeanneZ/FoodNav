@@ -36,7 +36,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         registerCallback();
         // Set default fragment to Dashboard on activity launch
-        replaceFragment(new Dashboard(), "dashboard");
+        replaceFragment(new Dashboard(), "dashboard", false);
         // Get reference to the BottomNavigationView from the layout
         bottomNavigationView = findViewById(R.id.nav);
         // Set listener for bottom navigation item selection
@@ -45,23 +45,23 @@ public class MainActivity2 extends AppCompatActivity {
             int itemId = menuItem.getItemId();
             // Replace the fragment based on the selected menu item
             if (itemId == R.id.dashboard) {
-                replaceFragment(new Dashboard(), "dashboard");
+                replaceFragment(new Dashboard(), "dashboard", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.logfood) {
-                replaceFragment(new LogFoodProduct(), "logfood");
+                replaceFragment(new LogFoodProduct(), "logfood", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.account) {
-                replaceFragment(new AccountPage(), "account");
+                replaceFragment(new AccountPage(), "account", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.food2Nom) {
-                replaceFragment(new FoodToNom(), "food2Nom");
+                replaceFragment(new FoodToNom(), "food2Nom", false);
                 return true;
             }
             if(itemId == R.id.nomNotion){
-                replaceFragment(new NomNotion(), "nomNotion");
+                replaceFragment(new NomNotion(), "nomNotion", false);
                 return true;
             }
             return false; // Indicate that the event was not handled
@@ -77,7 +77,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     // Method to replace the current fragment with a new one
-    public void replaceFragment(Fragment fragment, String fragName) {
+    public void replaceFragment(Fragment fragment, String fragName, boolean pushToStack) {
         // Get the fragment manager to handle fragment transactions
         FragmentManager fragmentManager = getSupportFragmentManager();
         // Get current fragment
@@ -91,7 +91,10 @@ public class MainActivity2 extends AppCompatActivity {
         // Replace the current fragment in the container with the new fragment
         fragmentTransaction.replace(R.id.container2, fragment);
         // Manually adding previous fragment to history stack
-        fragmentTransaction.addToBackStack(fragName);
+        if(pushToStack) {
+            // Manually adding previous fragment to history stack
+            fragmentTransaction.addToBackStack(fragName);
+        }
         // Commit the transaction to make the change
         fragmentTransaction.commit();
     }

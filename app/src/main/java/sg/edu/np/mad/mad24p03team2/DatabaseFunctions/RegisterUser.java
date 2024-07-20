@@ -105,7 +105,6 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
             SingletonSession.getInstance().setAccount(acctInfo);
 
             //by default - set diet constraint to be sugar free (diabetic friendly diet plan)
-            SingletonDietConstraints.getInstance().setDietProfile("SUGAR_FREE");
             updateDietConstraints.execute(Integer.toString(acctInfo.getId()));
 
         } catch (Exception e) {
@@ -117,7 +116,7 @@ public class RegisterUser extends AsyncTaskExecutorService<String, String, Strin
     @Override
     protected void onPostExecute(String s) {
         for (IDBProcessListener listener : listeners) {
-            listener.afterProcess(isSuccess, RegisterUser.class);
+            listener.afterProcess(isSuccess, s, RegisterUser.class);
         }
     }
 

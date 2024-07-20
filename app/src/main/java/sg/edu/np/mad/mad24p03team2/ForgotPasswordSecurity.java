@@ -56,6 +56,7 @@ public class ForgotPasswordSecurity extends AppCompatActivity {
                 if(answerString.compareToIgnoreCase(securityInfo.getAnswer())==0) {
                     Intent resetPasswordIntent = new Intent(ForgotPasswordSecurity.this, ResetPassword.class);
                     startActivity(resetPasswordIntent);
+                    finish();
                 }
             }
         });

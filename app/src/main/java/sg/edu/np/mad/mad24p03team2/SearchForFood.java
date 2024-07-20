@@ -38,7 +38,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
     GetFood getFood = null;
     GetAllFood getAllFood = null;
     private RecyclerView recyclerView;
-    private List<FoodItemClass> itemList;
+    private ArrayList<FoodItemClass> itemList;
     private FoodAdapter foodAdapter;
     private SearchView searchView;
 
@@ -63,7 +63,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         itemList = new ArrayList<FoodItemClass>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
-        foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, false);
+        foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, true);
 
         getAllFood.execute(); // This is to get all food in database
 
@@ -81,7 +81,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         newFoodBtn.setOnClickListener(v -> {
             FragmentActivity activity = getActivity();
             if (activity instanceof MainActivity2) {
-                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");
+                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", true);
             }
         });
 
@@ -101,6 +101,9 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             // 1. User enter query text, send the text to search the db
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty())
+                    return false;
+
                 getFood.execute(newText); // This is to get from search query, Result get from Singleton in afterProcess
                 return true;
             }
@@ -127,7 +130,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         FragmentActivity activity = getActivity();
         if (activity instanceof MainActivity2) {
             SingletonFoodSearchResult.getInstance().setSelectedFoodFromSearchResult(foodItemSelected);
-            ((MainActivity2) activity).replaceFragment(new AddFood(), "addFood");
+            ((MainActivity2) activity).replaceFragment(new AddFood(), "addFood", true);
         }
     }
 

@@ -19,12 +19,9 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.setup_selectplan);
 
         ImageView imageView = findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SelectionActivity.this, SelectionActivity2.class);
-                startActivity(intent);
-            }
+        imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(SelectionActivity.this, DietConstraintSetup.class);
+            startActivity(intent);
         });
     }
 }

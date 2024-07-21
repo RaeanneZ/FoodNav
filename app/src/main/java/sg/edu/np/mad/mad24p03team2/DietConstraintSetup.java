@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -32,6 +33,11 @@ public class DietConstraintSetup extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_diet_constraint_setup);
 
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
 
         cbVegan = findViewById(R.id.checkBoxVegan);
         cbVegeterian= findViewById(R.id.checkBoxVegeterian);
@@ -49,6 +55,7 @@ public class DietConstraintSetup extends AppCompatActivity {
 
             Intent login = new Intent(DietConstraintSetup.this, SelectionActivity2.class);
             startActivity(login);
+            finish();
         });
     }
 

@@ -3,6 +3,7 @@ package sg.edu.np.mad.mad24p03team2;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -30,6 +31,12 @@ public class MainActivity2 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         // Set the content view to the specified layout
         setContentView(R.layout.activity_main2);
+
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
 
         registerCallback();
         // Set default fragment to Dashboard on activity launch

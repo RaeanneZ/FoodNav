@@ -80,6 +80,10 @@ public class SingletonTodayMeal {
         //if not found, return new obj class
         return new MealClass(mealName);
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }
 
 

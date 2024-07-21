@@ -151,6 +151,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         addFoodBtn.setOnClickListener(v -> switchFragment());
 
         //read Model and update UI
+        Log.d("LogMealAndBSugarPane", "getMeal for mealName="+mealName);
         getMeal.execute(mealName,
                 Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
 
@@ -183,7 +184,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         if (activity instanceof MainActivity2) {
             // Replace the current fragment with the SearchForFood fragment
             ((MainActivity2) activity).
-                    replaceFragment(new SearchForFood(), "searchForFood", true);
+                    replaceFragment(new SearchForFood(), "searchForFood", false);
         }
     }
     private void updateUI(){

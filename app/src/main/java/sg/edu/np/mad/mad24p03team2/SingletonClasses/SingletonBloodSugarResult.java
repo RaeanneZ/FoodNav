@@ -55,4 +55,8 @@ public class SingletonBloodSugarResult {
         //new records
         bloodSugarArrayList.add(bloodSugarObject);
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

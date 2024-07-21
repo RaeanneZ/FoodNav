@@ -2,7 +2,6 @@ package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.SecurityInfoClass;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSecurityInfoResult;
@@ -41,32 +37,24 @@ public class ForgotPswdSecurityActivity extends AppCompatActivity {
         resetPswdBtn = findViewById(R.id.resetPswdBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
 
-        resetPswdBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        resetPswdBtn.setOnClickListener(v -> {
 
-                String answerString = editTxtAnswer.getText().toString();
-                // Check if all fields are filled
-                if (answerString.isEmpty()) {
-                    Toast.makeText(ForgotPswdSecurityActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(answerString.compareToIgnoreCase(securityInfo.getAnswer())==0) {
-                    Intent resetPasswordIntent = new Intent(ForgotPswdSecurityActivity.this, ResetPasswordActivity.class);
-                    startActivity(resetPasswordIntent);
-                    finish();
-                } else {
-                    Toast.makeText(ForgotPswdSecurityActivity.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
-                }
+            String answerString = editTxtAnswer.getText().toString();
+            // Check if all fields are filled
+            if (answerString.isEmpty()) {
+                Toast.makeText(ForgotPswdSecurityActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            if(answerString.compareToIgnoreCase(securityInfo.getAnswer())==0) {
+                Intent resetPasswordIntent = new Intent(ForgotPswdSecurityActivity.this, ResetPasswordActivity.class);
+                startActivity(resetPasswordIntent);
                 finish();
+            } else {
+                Toast.makeText(ForgotPswdSecurityActivity.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
             }
         });
+
+        cancelBtn.setOnClickListener(v -> finish());
     }
 }

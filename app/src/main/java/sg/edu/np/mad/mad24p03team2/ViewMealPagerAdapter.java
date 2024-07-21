@@ -58,4 +58,6 @@ public class ViewMealPagerAdapter extends FragmentStateAdapter {
         //return number of tabs
         return 3;
     }
+
+
 }

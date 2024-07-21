@@ -78,11 +78,12 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         //Grab user diet Constraints and store in SingletonDietConstraints
         getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
 
+
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {} //do nothing
         });
-
+        
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);

@@ -12,6 +12,10 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
+/*
+ * LogoutAnimate
+ * To display Lottie animation to send off user
+ */
 public class LogoutAnimate extends AppCompatActivity {
 
     TextView textViewMsg;

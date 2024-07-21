@@ -41,4 +41,8 @@ public class SingletonSecurityInfoResult {
     public SecurityInfoClass getSecurityInfo(){
         return securityInfoObj;
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

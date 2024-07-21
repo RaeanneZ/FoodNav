@@ -203,7 +203,6 @@ public class NomNotion extends Fragment {
 
     private void pickImageCamera() {
 
-        Log.d(TAG, "Pick Image Camera");
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Sample Title");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Sample Description");
@@ -323,10 +322,16 @@ public class NomNotion extends Fragment {
         for (SingletonDietConstraints.DIET_CONSTRAINTS dc : dietConstraintTypes) {
             ArrayList<String> cIngredients = dietConstraintItems.get(dc);
 
+            if(cIngredients == null)
+                break; //move on to the next dc
+
             //setIngredient listing
             String listing = "";
             for (String item : cIngredients) {
-                listing += item +", ";
+                if(listing.isEmpty())
+                    listing += item;
+                else
+                    listing += ", "+ item ;
             }
 
             switch (dc) {

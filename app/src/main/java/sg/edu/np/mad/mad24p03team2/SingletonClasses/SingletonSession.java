@@ -76,4 +76,8 @@ public class SingletonSession {
     public AccountClass GetAccount() {
         return account;
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

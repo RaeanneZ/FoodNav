@@ -12,6 +12,10 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
+/*
+* LoginAnimate
+* To display Lottie animation to welcome user
+*/
 public class LoginAnimate extends AppCompatActivity {
 
     TextView textViewMsg;
@@ -28,14 +32,11 @@ public class LoginAnimate extends AppCompatActivity {
 
         textViewMsg.animate().translationY(-700).setDuration(500).setStartDelay(0);
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //moving on to next page
-                Intent login = new Intent(LoginAnimate.this, MainActivity2.class);
-                startActivity(login);
-                finish();  //offload login page
-            }
-        },2000); //delay 1 seconds
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            //moving on to next page
+            Intent login = new Intent(LoginAnimate.this, MainActivity2.class);
+            startActivity(login);
+            finish();  //offload login page
+        },2000); //delay 2 seconds
     }
 }

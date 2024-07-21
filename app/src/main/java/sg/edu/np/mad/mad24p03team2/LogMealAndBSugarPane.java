@@ -151,6 +151,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         addFoodBtn.setOnClickListener(v -> switchFragment());
 
         //read Model and update UI
+        Log.d("LogMealAndBSugarPane", "getMeal for mealName="+mealName);
         getMeal.execute(mealName,
                 Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
 

@@ -22,7 +22,14 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonBloodSugarResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSecurityInfoResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSignUp;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 /**
  * accountPage
@@ -65,12 +72,16 @@ public class AccountPage extends Fragment {
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_PSWD, "").apply();
             }
 
+            //Destroy all Singleton
+            DestroyAllSingleton();
+
             //This is to reset activity stack, ensure no past activities history
             Intent intent = new Intent(getActivity(), LogoutAnimate.class);
             startActivity(intent);
             getActivity().finishAffinity();
 
         });
+
 
         // Set listener for switch changes
       /*  if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
@@ -152,6 +163,17 @@ public class AccountPage extends Fragment {
             maleIconView.setVisibility(View.GONE);
             femaleIconView.setVisibility(View.GONE);
         }
+    }
+
+    public void DestroyAllSingleton(){
+        SingletonTodayMeal.getInstance().onDestroy();
+        SingletonBloodSugarResult.getInstance().onDestroy();
+        SingletonDietConstraints.getInstance().onDestroy();
+        SingletonFoodSearchResult.getInstance().onDestroy();
+        SingletonSecurityInfoResult.getInstance().onDestroy();
+        SingletonSession.getInstance().onDestroy();
+        SingletonDietPlanResult.getInstance().onDestroy();
+        SingletonSignUp.getInstance().onDestroy();
     }
 
     // Define methods to update UI elements based on theme (dark/light)

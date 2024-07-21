@@ -710,7 +710,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_regular"
-                    android:text="Can't decipher the ingredients? Upload a photo of the ingredient listing and let NomNotion do the work."
+                    android:text="Can't decipher the ingredients? Upload a photo of the product ingredients and let NomNotion do the work.\n**English and Korean supported**"
                     android:textColor="@color/grey"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"

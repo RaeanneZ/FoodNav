@@ -65,7 +65,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
         foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, true);
 
-        getAllFood.execute(); // This is to get all food in database
+        getAllFood.execute(); // This is to get all food in database and save in SingletonFood
 
         mealTitle = view.findViewById(R.id.textView3);
         mealTitle.setText(SingletonFoodSearchResult.getInstance().getCurrentMeal());
@@ -85,6 +85,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             }
         });
 
+        // make sure to unsubscribe the subscription.
         btnSpeak = view.findViewById(R.id.btnSpeak);
         btnSpeak.setOnClickListener(v -> {
             FragmentActivity activity = getActivity();
@@ -102,20 +103,45 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty())
-                    return false;
+                    getAllFood.execute();
+                else
+                    getFood.execute(newText); // This is to get from search query, Result get from Singleton in afterProcess
 
-                getFood.execute(newText); // This is to get from search query, Result get from Singleton in afterProcess
                 return true;
             }
         });
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        searchView.setOnQueryTextListener(null);
+    }
+
+    @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
         // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
-
-        itemList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
-        foodAdapter.setFilteredList(itemList);
+        if(executeStatus) {
+            itemList.clear();
+            if (returnClass.isInstance(getAllFood)) {
+                ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+                for (FoodItemClass fitem : allFoodList) {
+                    if (itemList.size() <= 10) {  //add the top 10 recommended item
+                        if (fitem.isRecommended()) {
+                            itemList.add(fitem);
+                        }
+                    }
+                }
+            } else {
+                ArrayList<FoodItemClass> searchedFoodList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+                for (FoodItemClass fitem : searchedFoodList) {
+                    if (itemList.size() <= 10) {  //add the top 10 found items
+                        itemList.add(fitem);
+                    }
+                }
+            }
+            foodAdapter.setFilteredList(itemList);
+        }
     }
 
     @Override

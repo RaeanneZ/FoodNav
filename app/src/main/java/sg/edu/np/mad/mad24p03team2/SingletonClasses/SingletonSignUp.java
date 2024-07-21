@@ -143,4 +143,8 @@ public class SingletonSignUp {
         this.dietPlan = dietPlan;
     }
 
+    public void onDestroy(){
+        INSTANCE = null;
+    }
+
 }

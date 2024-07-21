@@ -1,12 +1,9 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,13 +14,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Objects;
-
 /**
  * MainActivity2
  * UI-Activity Main page to display all the different fragments after user login,
  */
 public class MainActivity2 extends AppCompatActivity {
+
+
 
     private BottomNavigationView bottomNavigationView;
 
@@ -60,7 +57,7 @@ public class MainActivity2 extends AppCompatActivity {
                 replaceFragment(new FoodToNom(), "food2Nom", false);
                 return true;
             }
-            if(itemId == R.id.nomNotion){
+            if (itemId == R.id.nomNotion) {
                 replaceFragment(new NomNotion(), "nomNotion", false);
                 return true;
             }
@@ -73,6 +70,17 @@ public class MainActivity2 extends AppCompatActivity {
             return insets;
         });
 
+
+    }
+
+    public void removeFragment(Fragment fragment) {
+
+        FragmentManager manager = getSupportFragmentManager();
+
+        FragmentTransaction trans = manager.beginTransaction();
+        trans.remove(fragment);
+        trans.commit();
+        manager.popBackStack();
 
     }
 
@@ -91,7 +99,7 @@ public class MainActivity2 extends AppCompatActivity {
         // Replace the current fragment in the container with the new fragment
         fragmentTransaction.replace(R.id.container2, fragment);
         // Manually adding previous fragment to history stack
-        if(pushToStack) {
+        if (pushToStack) {
             // Manually adding previous fragment to history stack
             fragmentTransaction.addToBackStack(fragName);
         }
@@ -112,11 +120,11 @@ public class MainActivity2 extends AppCompatActivity {
                 int selItemID = bottomNavigationView.getSelectedItemId();
                 if (f.getClass().getSimpleName().contains("Dashboard") && selItemID != R.id.dashboard) {
                     bottomNavigationView.setSelectedItemId(R.id.dashboard);
-                } else if (f.getClass().getSimpleName().contains("LogFoodProduct") && selItemID != R.id.logfood){
+                } else if (f.getClass().getSimpleName().contains("LogFoodProduct") && selItemID != R.id.logfood) {
                     bottomNavigationView.setSelectedItemId(R.id.logfood);
                 } else if (f.getClass().getSimpleName().contains("AccountPage") && selItemID != R.id.account) {
                     bottomNavigationView.setSelectedItemId(R.id.account);
-                } else if (f.getClass().getSimpleName().contains("FoodToNom") && selItemID!=R.id.food2Nom) {
+                } else if (f.getClass().getSimpleName().contains("FoodToNom") && selItemID != R.id.food2Nom) {
                     bottomNavigationView.setSelectedItemId(R.id.food2Nom);
                 } else if (f.getClass().getSimpleName().contains("NomNotion") && selItemID != R.id.nomNotion) {
                     bottomNavigationView.setSelectedItemId(R.id.nomNotion);

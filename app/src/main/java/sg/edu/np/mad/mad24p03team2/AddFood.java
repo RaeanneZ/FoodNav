@@ -3,6 +3,9 @@ package sg.edu.np.mad.mad24p03team2;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,8 +107,13 @@ public class AddFood extends Fragment implements IDBProcessListener{
         addFoodButton.setOnClickListener(v -> {
             // Execute the updateMeal task with the mealName, quantity
             updateMeal.execute(SingletonFoodSearchResult.getInstance().getCurrentMeal(), String.valueOf(ns));
-            // Switch to the SearchForFood fragment
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+
+            //remove 'this' from frag-stack
+            FragmentActivity activity = getActivity();
+            if (activity instanceof MainActivity2) {
+                ((MainActivity2) activity).removeFragment(this);
+            }
+
         });
         return view;// Return the inflated view
     }

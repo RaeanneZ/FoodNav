@@ -109,18 +109,10 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
 
             // Grab current user profile and store into SingletonSession
             runOnUiThread(() -> getCurrentUserProfile.execute(email));
-            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-            //give time for the app to grab user profile
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //moving on to next page
-                    Intent login = new Intent(LoginActivity.this, MainActivity2.class);
-                    startActivity(login);
-                    finish();  //offload login page
-                }
-            },1000); //delay 2 seconds
+             Intent loginAnimate = new Intent(LoginActivity.this, LoginAnimate.class);
+             startActivity(loginAnimate);
+             finish();  //offload login page
         }
     }
 
@@ -130,6 +122,5 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
 
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends
-            AsyncTaskExecutorService> returnClass) {
-    }
+            AsyncTaskExecutorService> returnClass) {}
 }

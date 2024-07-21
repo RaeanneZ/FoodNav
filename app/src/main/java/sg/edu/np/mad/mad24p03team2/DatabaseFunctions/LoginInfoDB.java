@@ -125,7 +125,6 @@ public class LoginInfoDB extends AbstractDBProcess{
             if (!resultSet.isBeforeFirst() && resultSet.getRow() == 0){
                 // Account is not created
                 isExist = false;
-                Log.d("In ValidateRecord","Record doesnt exist");
             }
             else {
                 resultSet.next();
@@ -168,7 +167,7 @@ public class LoginInfoDB extends AbstractDBProcess{
             else {
                 resultSet.next();
                 isExist = true; //user record exist
-                isExist = true;
+                isValid = true;
             }
 
         } catch(Exception e) {

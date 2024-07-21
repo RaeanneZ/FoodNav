@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -141,14 +142,24 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
                     fats.isEmpty() || calories.isEmpty() || name.isEmpty() || serving.isEmpty()) {
                 Toast.makeText(this.getContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
             } else {
-                //TODO : save data to database
                 createFoodRecord.execute(sugar, protein, carbs, fats, calories, name.toLowerCase(), serving);
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+
+                //remove 'this' from frag-stack
+                FragmentActivity activity = getActivity();
+                if (activity instanceof MainActivity2) {
+                    ((MainActivity2) activity).removeFragment(this);
+                }
             }
         });
 
+        FragmentActivity factivity = getActivity();
         cancelBtn = view.findViewById(R.id.cancelBtn);
-        cancelBtn.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+        cancelBtn.setOnClickListener(v -> {
+                //remove 'this' from frag-stack
+            if (factivity instanceof MainActivity2) {
+                ((MainActivity2) factivity).removeFragment(this);
+            }
+        });
 
         cameraIButton = view.findViewById(R.id.cameraIButton);
         cameraIButton.setOnClickListener(v -> {
@@ -232,7 +243,6 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             //hide result pane
-                            Log.d(TAG, "Failed to recognise text due to " + e.getMessage());
                             Toast.makeText(getActivity(), "Failed to recognise text due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });

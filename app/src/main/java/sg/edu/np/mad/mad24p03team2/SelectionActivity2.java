@@ -1,24 +1,16 @@
 package sg.edu.np.mad.mad24p03team2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginInfoClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.RegisterUser;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.SaveSecurityInfo;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.SecurityInfoClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
-import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSignUp;
 
 /**
@@ -62,7 +54,10 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
     public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {}
 
     @Override
-    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
+    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {}
+
+    @Override
+    public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
         if (executeStatus) {
             runOnUiThread(() -> completeSignUpProcess());
         } else {
@@ -70,7 +65,4 @@ public class SelectionActivity2 extends AppCompatActivity implements IDBProcessL
             runOnUiThread(() -> finishAffinity());
         }
     }
-
-    @Override
-    public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {}
 }

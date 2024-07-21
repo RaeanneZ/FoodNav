@@ -13,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.security.crypto.EncryptedSharedPreferences;
@@ -21,7 +22,14 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonBloodSugarResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSecurityInfoResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSignUp;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 /**
  * accountPage
@@ -29,7 +37,7 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
  */
 public class AccountPage extends Fragment {
 
-    private Switch darkmodeSwitch;
+    //private Switch darkmodeSwitch;
     private ImageView maleIconView;
     private ImageView femaleIconView;
     private Button logoutBtn;
@@ -45,11 +53,10 @@ public class AccountPage extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accountpage, container, false);
-
         TextView changePassword = view.findViewById(R.id.changePassword);
 
         // Find the switch by its id
-        darkmodeSwitch = view.findViewById(R.id.darkmode);
+        //darkmodeSwitch = view.findViewById(R.id.darkmode);
         maleIconView = view.findViewById(R.id.male_icon);
         femaleIconView = view.findViewById(R.id.female_icon);
         logoutBtn = view.findViewById(R.id.logoutButton);
@@ -60,20 +67,24 @@ public class AccountPage extends Fragment {
             EncryptedSharedPreferences sharedPreferences =
                     GlobalUtil.getEncryptedSharedPreference(getActivity().getApplicationContext());
 
-            if(sharedPreferences != null){
+            if (sharedPreferences != null) {
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_KEY, "").apply();
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_PSWD, "").apply();
             }
 
+            //Destroy all Singleton
+            DestroyAllSingleton();
+
             //This is to reset activity stack, ensure no past activities history
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), LogoutAnimate.class);
             startActivity(intent);
             getActivity().finishAffinity();
 
         });
 
+
         // Set listener for switch changes
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+      /*  if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             darkmodeSwitch.setChecked(true);
         } else{
             darkmodeSwitch.setChecked(false);
@@ -86,7 +97,7 @@ public class AccountPage extends Fragment {
                 // Update UI for Light Mode
                 updateUiForLightMode();
             }
-        });
+        });*/
 
 
         TextView editProfile = view.findViewById(R.id.editProfile);
@@ -106,10 +117,10 @@ public class AccountPage extends Fragment {
         profileArrow.setOnClickListener(v -> loadEditProfileActivity());
 
         TextView setDietConstraint = view.findViewById(R.id.dietPref);
-        setDietConstraint.setOnClickListener(v-> loadDietConstraintActivity());
+        setDietConstraint.setOnClickListener(v -> loadDietConstraintActivity());
 
         ImageView dietArrow = view.findViewById(R.id.arrowDiet);
-        dietArrow.setOnClickListener(v->loadDietConstraintActivity());
+        dietArrow.setOnClickListener(v -> loadDietConstraintActivity());
 
         // Populate profile details including profile picture
         populateProfileDetails();
@@ -117,17 +128,17 @@ public class AccountPage extends Fragment {
         return view;
     }
 
-    private void loadDietConstraintActivity(){
+    private void loadDietConstraintActivity() {
         Intent dietConstraintsIntent = new Intent(getActivity(), DietConstraintActivity.class);
         startActivity(dietConstraintsIntent);
     }
 
-    private void loadEditProfileActivity(){
+    private void loadEditProfileActivity() {
         Intent editProfileIntent = new Intent(getActivity(), EditProfile.class);
         startActivity(editProfileIntent);
     }
 
-    private void loadChangePasswordActivity(){
+    private void loadChangePasswordActivity() {
         Intent changePasswordIntent = new Intent(getActivity(), ChangePassword.class);
         startActivity(changePasswordIntent);
     }
@@ -154,13 +165,24 @@ public class AccountPage extends Fragment {
         }
     }
 
-    // Define methods to update UI elements based on theme (dark/light)
-    private void updateUiForDarkMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    public void DestroyAllSingleton(){
+        SingletonTodayMeal.getInstance().onDestroy();
+        SingletonBloodSugarResult.getInstance().onDestroy();
+        SingletonDietConstraints.getInstance().onDestroy();
+        SingletonFoodSearchResult.getInstance().onDestroy();
+        SingletonSecurityInfoResult.getInstance().onDestroy();
+        SingletonSession.getInstance().onDestroy();
+        SingletonDietPlanResult.getInstance().onDestroy();
+        SingletonSignUp.getInstance().onDestroy();
     }
 
-    private void updateUiForLightMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    }
+    // Define methods to update UI elements based on theme (dark/light)
+    //private void updateUiForDarkMode() {
+    //    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    // }
+
+    // private void updateUiForLightMode() {
+    //     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    // }
 
 }

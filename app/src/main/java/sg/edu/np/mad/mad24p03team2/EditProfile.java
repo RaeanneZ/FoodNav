@@ -121,8 +121,13 @@ public class EditProfile extends AppCompatActivity implements IDBProcessListener
             day = cal.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(EditProfile.this,
-                    (view, year, month, dayOfMonth) ->
-                            birthdateText.setText(GlobalUtil.formatBirthDatesForUIDisplay(dayOfMonth, month+1, year)), year, mth, day);
+                    (view, year, month, dayOfMonth) ->{
+                            birthdateText.setText(GlobalUtil.formatBirthDatesForUIDisplay(dayOfMonth, month+1, year));
+                            this.year = year;
+                            this.mth = month;
+                            this.day = day;
+
+                    }, year, mth, day);
             datePickerDialog.show();
         });
     }

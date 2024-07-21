@@ -72,7 +72,7 @@ public class SecuritySetupActivity extends AppCompatActivity {
             //move to next page
             Intent login = new Intent(SecuritySetupActivity.this, ProfileActivity.class);
             startActivity(login);
-            this.finish();  //offload login page
+
         });
     }
 }

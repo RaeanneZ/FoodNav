@@ -76,6 +76,7 @@
         android:layout_marginTop="150dp"
         android:background="@color/lavender"
         android:fontFamily="@font/inter_semibold"
+        android:inputType="text"
         android:text="Next"
         app:layout_constraintEnd_toEndOf="@+id/securityTextInputLayout"
         app:layout_constraintHorizontal_bias="0.512"

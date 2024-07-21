@@ -39,5 +39,7 @@ public class SingletonDietPlanResult {
         this.dietPlan = dietPlan;
     }
 
-
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

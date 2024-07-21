@@ -62,4 +62,8 @@ public class SingletonFoodSearchResult {
     public String getCurrentMeal(){
         return this.mealName;
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

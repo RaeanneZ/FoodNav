@@ -97,8 +97,6 @@ public class AddFood extends Fragment implements IDBProcessListener{
             }
         });
 
-
-
         //update UI on foodselected
         foodName.setText(foodItemSelected.getName().toUpperCase());
         nofServing.setText(String.valueOf(ns));
@@ -110,16 +108,18 @@ public class AddFood extends Fragment implements IDBProcessListener{
             // Execute the updateMeal task with the mealName, quantity
             updateMeal.execute(SingletonFoodSearchResult.getInstance().getCurrentMeal(), String.valueOf(ns));
 
-            //remove 'this' from frag-stack
-            FragmentActivity activity = getActivity();
-            if (activity instanceof MainActivity2) {
-                ((MainActivity2) activity).removeFragment(this);
-            }
-
+            returnToPreviousPage();
         });
         return view;// Return the inflated view
     }
 
+    private void returnToPreviousPage(){
+        //remove 'this' from frag-stack
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity2) {
+            ((MainActivity2) activity).removeFragment(this);
+        }
+    }
 
     private void updateMacro(int serving){
 

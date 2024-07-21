@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -53,6 +54,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
+
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
 
         // Find Buttons from the layout
         male = findViewById(R.id.male);
@@ -108,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
                 updateProfile();
                 Intent intent = new Intent(ProfileActivity.this, SelectionActivity.class);
                 startActivity(intent);
+                finish();
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Invalid number format", Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
@@ -32,6 +33,12 @@ public class SelectionActivity3 extends AppCompatActivity implements IDBProcessL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setup_option_lsugar2);
         getDietPlanOption = new GetDietPlanOption(getApplicationContext(), this);
+
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
 
         carbs = findViewById(R.id.tvc1);
         sugar = findViewById(R.id.tvp1);

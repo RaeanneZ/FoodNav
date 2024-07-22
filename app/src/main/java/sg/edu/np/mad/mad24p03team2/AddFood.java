@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
@@ -46,6 +49,8 @@ public class AddFood extends Fragment implements IDBProcessListener{
 
     //currently selectedFood
     FoodItemClass foodItemSelected;
+    String foodPortion = "";
+    private final NumberFormat numberFormatter = new DecimalFormat("0.0");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,11 +77,14 @@ public class AddFood extends Fragment implements IDBProcessListener{
 
         cancelButton.setOnClickListener(v -> { returnToPreviousPage(); });
 
+
         // Set click listener for the add button to increment the plate count
         addn.setOnClickListener(v -> {
             ns++;  // Increment the counter
+
             // Update the TextView with the new value
-            servingSize.setText(ns+" Plate");
+            foodPortion = String.valueOf(numberFormatter.format(foodItemSelected.getServing_size_g()*ns));
+            servingSize.setText(foodPortion);
             nofServing.setText(String.valueOf(ns));
             updateMacro(ns);
         });
@@ -87,7 +95,8 @@ public class AddFood extends Fragment implements IDBProcessListener{
             if(ns > 1) {
                 ns--;  // decrement the counter
                 // Update the TextView with the new value
-                servingSize.setText(ns + " Plate");
+                foodPortion = String.valueOf(numberFormatter.format(foodItemSelected.getServing_size_g()*ns));
+                servingSize.setText(foodPortion);
                 nofServing.setText(String.valueOf(ns));
                 updateMacro(ns);
             }

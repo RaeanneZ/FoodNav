@@ -36,6 +36,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
     GetFood getFood = null;
     GetAllFood getAllFood = null;
     private ArrayList<FoodItemClass> itemListInDB = null;
+    ArrayList<FoodItemClass> filteredList = new ArrayList<>();
 
     // For voice input display
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
@@ -67,7 +68,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
         getAllFood.execute();
 
-        if (recyclerView!= null) {
+        if (recyclerView != null) {
             foodAdapter = new FoodAdapter(getView().getContext(), itemListInDB, this, false);
             recyclerView.setAdapter(foodAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -76,12 +77,11 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         }
     }
 
-
     private void startSpeechToText() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak the meal name");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your meal name here");
 
         try {
             startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
@@ -105,28 +105,31 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
     }
 
     private void filterMealName(String recognizedText) {
+        // Clear the filtered list before processing the new input
+        filteredList.clear();
+
         String mealName = recognizedText.toLowerCase(Locale.ROOT);
 
-        // Filtering logic here to find the meal name
-        // Run through the recognized text to find matching food item names in DB
         if (itemListInDB == null || itemListInDB.isEmpty()) {
             Log.d("Food2Nom", "Fail to access Food DB");
             return;
         }
 
-        ArrayList<FoodItemClass> filteredList = new ArrayList<>();
         boolean mealFound = false;
         for (FoodItemClass fItem : itemListInDB) {
             if (mealName.contains(fItem.getName().toLowerCase(Locale.ROOT))) {
-                // List to display food item and calories
                 filteredList.add(fItem);
                 mealFound = true;
             }
         }
 
+        Log.d("Food2Nom", "ItemListInDB: " + itemListInDB.toString());
+        Log.d("Food2Nom", "FilteredList: " + filteredList.toString());
+
         if (mealFound) {
             foodAdapter.setFilteredList(filteredList);
 
+            // Shows the filtered recycler view if found
             if (!filteredList.isEmpty()) {
                 recyclerView.setVisibility(View.VISIBLE);
             } else {
@@ -134,13 +137,11 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
             }
 
         } else {
-            // Show a message to the user
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Meal not found, would you like to add a new meal?")
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Move to input new food page
                             FragmentActivity activity = getActivity();
                             if (activity instanceof MainActivity2) {
                                 ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood");
@@ -166,15 +167,15 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
             Log.d("Food2Nom", "Food DB fetch failed");
         }
 
+        Log.d("Food2Nom", "ItemListInDB after fetch: " + itemListInDB.toString());
         foodAdapter.setFilteredList(itemListInDB);
     }
 
     @Override
     public void onItemClick(int itemPos) {
         if (itemPos != RecyclerView.NO_POSITION) {
-            FoodItemClass item = itemListInDB.get(itemPos);
+            FoodItemClass item = filteredList.get(itemPos);
             String mealName = item.getName();
-            // Move on to addfood page
             switchFragment(item);
         }
     }

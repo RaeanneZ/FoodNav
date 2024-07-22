@@ -32,7 +32,6 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
-public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface  {
 public class SpeechToText extends Fragment implements IDBProcessListener, RecyclerViewInterface, IMealRecyclerViewInterface {
     GetFood getFood = null;
     GetAllFood getAllFood = null;
@@ -78,6 +77,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         }
     }
 
+
     private void startSpeechToText() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -111,20 +111,14 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
         String mealName = recognizedText.toLowerCase(Locale.ROOT);
 
-        // Filtering logic here to find the meal name
-        // Run through the recognized text to find matching food item names in DB
-        if (itemList == null || itemList.isEmpty()) {
         if (itemListInDB == null || itemListInDB.isEmpty()) {
             Log.d("Food2Nom", "Fail to access Food DB");
             return;
         }
 
-        ArrayList<FoodItemClass> filteredList = new ArrayList<>();
         boolean mealFound = false;
-        for (FoodItemClass fItem : itemList) {
         for (FoodItemClass fItem : itemListInDB) {
             if (mealName.contains(fItem.getName().toLowerCase(Locale.ROOT))) {
-                // List to display food item and calories
                 filteredList.add(fItem);
                 mealFound = true;
             }
@@ -144,7 +138,6 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
             }
 
         } else {
-            // Show a message to the user
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Meal not found, would you like to add a new meal?")
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -187,6 +180,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         if (itemPos != RecyclerView.NO_POSITION) {
             FoodItemClass item = filteredList.get(itemPos);
             String mealName = item.getName();
+            // Move on to addfood page
             switchFragment(item);
         }
     }

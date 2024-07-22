@@ -1,22 +1,37 @@
 package sg.edu.np.mad.mad24p03team2;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -29,13 +44,6 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
-/**
- * Dashboard
- * UI-Fragment to display summary of current user's Food Journal
- * Display includes, progress bar to summaries total intake of macros and calories balance based
- * on all food logged today
- * Summary of each meal presented in card-form
- */
 public class Dashboard extends Fragment implements IDBProcessListener {
     GetMeal getMeal = null;
     GetDietPlanOption getDietPlanOption = null;
@@ -84,7 +92,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
         title = view.findViewById(R.id.tvdate);
 
-        String todayDate = "Today, "+sdf.format(Calendar.getInstance().getTime());
+        String todayDate = "Today, " + sdf.format(Calendar.getInstance().getTime());
         title.setText(todayDate);
         sugarBox = view.findViewById(R.id.tvp1);
         carbsBox = view.findViewById(R.id.tvc1);
@@ -107,8 +115,61 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
 
-        return view;
+        Button shareButton = view.findViewById(R.id.share_button);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareImage();
+            }
+        });
 
+        return view;
+    }
+
+    private void shareImage() {
+        View view = getView().findViewById(R.id.constraintLayout); // Adjust this to the correct view id
+        if (view != null) {
+            Bitmap bitmap = getBitmapFromView(view);
+
+            // Save bitmap to file
+            File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image.png");
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+
+                // Get the URI of the image
+                Uri uri = FileProvider.getUriForFile(requireActivity(), "sg.edu.np.mad.mad24p03team2.provider", file);
+
+                // Create the share intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                // Ensure Instagram or other apps can read the file
+                List<ResolveInfo> resInfoList = requireContext().getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo : resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+                startActivity(Intent.createChooser(shareIntent, "Share to"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Failed to share image", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "View not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Bitmap getBitmapFromView(View view) {
+        // Ensure the view has the correct background color
+        view.setBackgroundColor(getResources().getColor(android.R.color.white));
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     @Override
@@ -129,48 +190,46 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     }
 
     private void updateBreakfastCard(MealClass meal) {
-
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        bsugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        bcarbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        bfatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        bcalBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        bsugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        bcarbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        bfatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        bcalBox.setText(String.format("%.1f", mMacros.gettCalories()));
     }
 
     private void updateLunchCard(MealClass meal) {
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        sugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        carbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        fatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        calBox.setText(String.format("%.1f",mMacros.gettCalories()));
-
-     }
+        sugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        carbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        fatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        calBox.setText(String.format("%.1f", mMacros.gettCalories()));
+    }
 
     private void updateDinnerCard(MealClass meal) {
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        dSugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        dcarbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        dfatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        dcalBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        dSugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        dcarbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        dfatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        dcalBox.setText(String.format("%.1f", mMacros.gettCalories()));
     }
 
     private void updateTodayMacros() {
         //calculate total of 3 meals macros for the day
-        float tSugar = Float.parseFloat((String) sugarBox.getText()) +
-                Float.parseFloat((String) bsugarBox.getText()) +
-                Float.parseFloat((String) dSugarBox.getText());
+        float tSugar = Float.parseFloat(sugarBox.getText().toString()) +
+                Float.parseFloat(bsugarBox.getText().toString()) +
+                Float.parseFloat(dSugarBox.getText().toString());
 
-        float tFats = Float.parseFloat((String) fatsBox.getText()) +
-                Float.parseFloat((String) bfatsBox.getText()) +
-                Float.parseFloat((String) dfatsBox.getText());
+        float tFats = Float.parseFloat(fatsBox.getText().toString()) +
+                Float.parseFloat(bfatsBox.getText().toString()) +
+                Float.parseFloat(dfatsBox.getText().toString());
 
-        float tCarbs = Float.parseFloat((String) carbsBox.getText()) +
-                Float.parseFloat((String) bcarbsBox.getText()) +
-                Float.parseFloat((String) dcarbsBox.getText());
+        float tCarbs = Float.parseFloat(carbsBox.getText().toString()) +
+                Float.parseFloat(bcarbsBox.getText().toString()) +
+                Float.parseFloat(dcarbsBox.getText().toString());
 
-        float tCal = Float.parseFloat((String) calBox.getText()) +
-                Float.parseFloat((String) bcalBox.getText()) +
-                Float.parseFloat((String) dcalBox.getText());
+        float tCal = Float.parseFloat(calBox.getText().toString()) +
+                Float.parseFloat(bcalBox.getText().toString()) +
+                Float.parseFloat(dcalBox.getText().toString());
 
         carbBar.setProgress((int) tCarbs);
         fatBar.setProgress((int) tFats);
@@ -183,9 +242,8 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-
         if (executeStatus) {
-             if(returnClass.isInstance(getDietPlanOption)) {
+            if (returnClass.isInstance(getDietPlanOption)) {
                 //to ensure max setup only done once when view is created
                 if (!setupProgressBarMax) {
                     DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
@@ -218,24 +276,25 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
-        if(executeStatus){
-            if(returnClass.isInstance(getMeal)){
-                if(msg.compareToIgnoreCase("breakfast")==0){
+        if (executeStatus) {
+            if (returnClass.isInstance(getMeal)) {
+                if (msg.compareToIgnoreCase("breakfast") == 0) {
                     updateBreakfastCard(SingletonTodayMeal.getInstance().GetMeal("Breakfast"));
-                }else if(msg.compareToIgnoreCase("lunch") == 0){
+                } else if (msg.compareToIgnoreCase("lunch") == 0) {
                     updateLunchCard(SingletonTodayMeal.getInstance().GetMeal("Lunch"));
-                }else{
+                } else {
                     updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
                 }
 
                 updateTodayMacros();
             }
-        }else {
+        } else {
             // Handle failure
-            Log.d("Dashboard::afterProcess","Fail to load meal details");
+            Log.d("Dashboard::afterProcess", "Fail to load meal details");
         }
     }
 
     @Override
-    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {}
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+    }
 }

@@ -5,9 +5,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -153,7 +150,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                     requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 }
 
-                startActivity(Intent.createChooser(shareIntent, "Share to"));
+                shareIntent.setPackage("com.instagram.android");
+                shareIntent.putExtra("Instagram_story", uri);
+                startActivity(shareIntent);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getContext(), "Failed to share image", Toast.LENGTH_SHORT).show();

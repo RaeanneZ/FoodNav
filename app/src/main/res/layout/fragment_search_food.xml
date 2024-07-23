@@ -97,12 +97,6 @@
             </RelativeLayout>
 
 
-            <Button
-                android:id="@+id/btnSpeak"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Input Meal by Voice" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

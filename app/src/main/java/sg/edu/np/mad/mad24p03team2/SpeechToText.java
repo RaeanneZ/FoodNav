@@ -189,7 +189,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         FragmentActivity activity = getActivity();
         if (activity instanceof MainActivity2) {
             SingletonFoodSearchResult.getInstance().setSelectedFoodFromSearchResult(foodItemSelected);
-            ((MainActivity2) activity).replaceFragment(new AddFood(), "addFood");
+            ((MainActivity2) activity).replaceFragment(new AddFood(), "addFood", true);
         }
     }
 

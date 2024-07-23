@@ -3,12 +3,18 @@ package sg.edu.np.mad.mad24p03team2;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -43,6 +49,8 @@ public class AddFood extends Fragment implements IDBProcessListener{
 
     //currently selectedFood
     FoodItemClass foodItemSelected;
+    String foodPortion = "";
+    private final NumberFormat numberFormatter = new DecimalFormat("0.0");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,17 +75,16 @@ public class AddFood extends Fragment implements IDBProcessListener{
         fats = view.findViewById(R.id.tvf1);
         calories = view.findViewById(R.id.tvk1);
 
-
-        cancelButton.setOnClickListener(v -> {
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
-        });
+        cancelButton.setOnClickListener(v -> { returnToPreviousPage(); });
 
 
         // Set click listener for the add button to increment the plate count
         addn.setOnClickListener(v -> {
             ns++;  // Increment the counter
+
             // Update the TextView with the new value
-            servingSize.setText(ns+" Plate");
+            foodPortion = String.valueOf(numberFormatter.format(foodItemSelected.getServing_size_g()*ns));
+            servingSize.setText(foodPortion);
             nofServing.setText(String.valueOf(ns));
             updateMacro(ns);
         });
@@ -88,7 +95,8 @@ public class AddFood extends Fragment implements IDBProcessListener{
             if(ns > 1) {
                 ns--;  // decrement the counter
                 // Update the TextView with the new value
-                servingSize.setText(ns + " Plate");
+                foodPortion = String.valueOf(numberFormatter.format(foodItemSelected.getServing_size_g()*ns));
+                servingSize.setText(foodPortion);
                 nofServing.setText(String.valueOf(ns));
                 updateMacro(ns);
             }
@@ -104,10 +112,18 @@ public class AddFood extends Fragment implements IDBProcessListener{
         addFoodButton.setOnClickListener(v -> {
             // Execute the updateMeal task with the mealName, quantity
             updateMeal.execute(SingletonFoodSearchResult.getInstance().getCurrentMeal(), String.valueOf(ns));
-            // Switch to the SearchForFood fragment
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+
+            returnToPreviousPage();
         });
         return view;// Return the inflated view
+    }
+
+    private void returnToPreviousPage(){
+        //remove 'this' from frag-stack
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity2) {
+            ((MainActivity2) activity).removeFragment(this);
+        }
     }
 
     private void updateMacro(int serving){

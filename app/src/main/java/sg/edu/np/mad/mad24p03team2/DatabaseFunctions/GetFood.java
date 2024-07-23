@@ -88,6 +88,7 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
         }
 
         SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
+        isSuccess = true;
         return name;
     }
 

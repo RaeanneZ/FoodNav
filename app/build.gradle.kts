@@ -62,6 +62,8 @@ dependencies {
     //library to take care of UI interactions
     //implementation ("com.jakewharton.rxbinding:rxbinding:0.4.0")
 
+    //for animation
+    implementation ("com.airbnb.android:lottie:6.4.1")
 
     //to encrypt info stored in shared preference
     implementation ("androidx.security:security-crypto:1.0.0-alpha02")

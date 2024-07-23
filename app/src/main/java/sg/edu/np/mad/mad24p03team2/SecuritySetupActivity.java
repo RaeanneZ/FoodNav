@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
@@ -32,6 +33,12 @@ public class SecuritySetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_security_setup);
+
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
 
         securityAns = findViewById(R.id.securityAnswer);
 
@@ -72,7 +79,8 @@ public class SecuritySetupActivity extends AppCompatActivity {
             //move to next page
             Intent login = new Intent(SecuritySetupActivity.this, ProfileActivity.class);
             startActivity(login);
-            this.finish();  //offload login page
+            finish();
+
         });
     }
 }

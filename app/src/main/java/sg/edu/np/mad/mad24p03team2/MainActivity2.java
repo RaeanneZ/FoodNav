@@ -1,12 +1,10 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,13 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Objects;
-
 /**
  * MainActivity2
  * UI-Activity Main page to display all the different fragments after user login,
  */
 public class MainActivity2 extends AppCompatActivity {
+
+
 
     private BottomNavigationView bottomNavigationView;
 
@@ -34,9 +32,15 @@ public class MainActivity2 extends AppCompatActivity {
         // Set the content view to the specified layout
         setContentView(R.layout.activity_main2);
 
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
+        });
+
         registerCallback();
         // Set default fragment to Dashboard on activity launch
-        replaceFragment(new Dashboard(), "dashboard");
+        replaceFragment(new Dashboard(), "dashboard", false);
         // Get reference to the BottomNavigationView from the layout
         bottomNavigationView = findViewById(R.id.nav);
         // Set listener for bottom navigation item selection
@@ -45,23 +49,23 @@ public class MainActivity2 extends AppCompatActivity {
             int itemId = menuItem.getItemId();
             // Replace the fragment based on the selected menu item
             if (itemId == R.id.dashboard) {
-                replaceFragment(new Dashboard(), "dashboard");
+                replaceFragment(new Dashboard(), "dashboard", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.logfood) {
-                replaceFragment(new LogFoodProduct(), "logfood");
+                replaceFragment(new LogFoodProduct(), "logfood", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.account) {
-                replaceFragment(new AccountPage(), "account");
+                replaceFragment(new AccountPage(), "account", false);
                 return true;// Indicate that the event was handled
             }
             if (itemId == R.id.food2Nom) {
-                replaceFragment(new FoodToNom(), "food2Nom");
+                replaceFragment(new FoodToNom(), "food2Nom", false);
                 return true;
             }
-            if(itemId == R.id.nomNotion){
-                replaceFragment(new NomNotion(), "nomNotion");
+            if (itemId == R.id.nomNotion) {
+                replaceFragment(new NomNotion(), "nomNotion", false);
                 return true;
             }
             return false; // Indicate that the event was not handled
@@ -76,8 +80,19 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+    public void removeFragment(Fragment fragment) {
+
+        FragmentManager manager = getSupportFragmentManager();
+
+        FragmentTransaction trans = manager.beginTransaction();
+        trans.remove(fragment);
+        trans.commit();
+        manager.popBackStack();
+
+    }
+
     // Method to replace the current fragment with a new one
-    public void replaceFragment(Fragment fragment, String fragName) {
+    public void replaceFragment(Fragment fragment, String fragName, boolean pushToStack) {
         // Get the fragment manager to handle fragment transactions
         FragmentManager fragmentManager = getSupportFragmentManager();
         // Get current fragment
@@ -91,7 +106,10 @@ public class MainActivity2 extends AppCompatActivity {
         // Replace the current fragment in the container with the new fragment
         fragmentTransaction.replace(R.id.container2, fragment);
         // Manually adding previous fragment to history stack
-        fragmentTransaction.addToBackStack(fragName);
+        if (pushToStack) {
+            // Manually adding previous fragment to history stack
+            fragmentTransaction.addToBackStack(fragName);
+        }
         // Commit the transaction to make the change
         fragmentTransaction.commit();
     }
@@ -109,11 +127,11 @@ public class MainActivity2 extends AppCompatActivity {
                 int selItemID = bottomNavigationView.getSelectedItemId();
                 if (f.getClass().getSimpleName().contains("Dashboard") && selItemID != R.id.dashboard) {
                     bottomNavigationView.setSelectedItemId(R.id.dashboard);
-                } else if (f.getClass().getSimpleName().contains("LogFoodProduct") && selItemID != R.id.logfood){
+                } else if (f.getClass().getSimpleName().contains("LogFoodProduct") && selItemID != R.id.logfood) {
                     bottomNavigationView.setSelectedItemId(R.id.logfood);
                 } else if (f.getClass().getSimpleName().contains("AccountPage") && selItemID != R.id.account) {
                     bottomNavigationView.setSelectedItemId(R.id.account);
-                } else if (f.getClass().getSimpleName().contains("FoodToNom") && selItemID!=R.id.food2Nom) {
+                } else if (f.getClass().getSimpleName().contains("FoodToNom") && selItemID != R.id.food2Nom) {
                     bottomNavigationView.setSelectedItemId(R.id.food2Nom);
                 } else if (f.getClass().getSimpleName().contains("NomNotion") && selItemID != R.id.nomNotion) {
                     bottomNavigationView.setSelectedItemId(R.id.nomNotion);

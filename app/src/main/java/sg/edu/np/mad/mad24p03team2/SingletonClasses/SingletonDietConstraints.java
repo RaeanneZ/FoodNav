@@ -188,4 +188,8 @@ public class SingletonDietConstraints {
         }
         return returnList;
     }
+
+    public void onDestroy(){
+        INSTANCE = null;
+    }
 }

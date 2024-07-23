@@ -38,6 +38,16 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <activity
+            android:name=".LogoutAnimate"
+            android:exported="false" />
+        <activity
+            android:name=".LoginAnimate"
+            android:exported="false" />
+        <activity
+            android:name=".DietConstraintSetup"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name=".DietConstraintActivity"
             android:exported="false" />
         <activity

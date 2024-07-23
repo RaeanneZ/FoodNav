@@ -54,38 +54,38 @@ public class GetMeal extends AsyncTaskExecutorService<String, String , String> {
 
         try {
             mealClass = new MealClass(mealName);
-            //if theres is food item
-            while (mealResultSet.next()) {
-                try{
-                    mealClass.setId(mealResultSet.getInt("MealID"));
-                    // Get the foodData from Meal data
-                    foodResultSet =  foodDB.GetRecordById(mealResultSet.getInt("FoodID"));
-                    if (foodResultSet.next()) {
-                        // Change it into an object
-                        // int id, String name, double calories, double serving_size_g, double fat_total_g, double protein_g, double carbohydrates_total_g)
-                        foodItem = new FoodItemClass(foodResultSet.getInt("FoodID"),
-                                foodResultSet.getString("Name"),
-                                foodResultSet.getDouble("Calories"),
-                                foodResultSet.getDouble("ServingSize"),
-                                foodResultSet.getDouble("Fats"),
-                                foodResultSet.getDouble("Sugar"),
-                                foodResultSet.getDouble("Carbohydrates"),
-                                foodResultSet.getString("Recommend"));
 
-                        mealClass.getSelectedFoodList().put(foodItem, mealResultSet.getInt("Quantity"));
-                    }
+            if(mealResultSet != null) {
+                //if theres is food item
+                while (mealResultSet.next()) {
+                    try {
+                        mealClass.setId(mealResultSet.getInt("MealID"));
+                        // Get the foodData from Meal data
+                        foodResultSet = foodDB.GetRecordById(mealResultSet.getInt("FoodID"));
+                        if (foodResultSet.next()) {
+                            // Change it into an object
+                            // int id, String name, double calories, double serving_size_g, double fat_total_g, double protein_g, double carbohydrates_total_g)
+                            foodItem = new FoodItemClass(foodResultSet.getInt("FoodID"),
+                                    foodResultSet.getString("Name"),
+                                    foodResultSet.getDouble("Calories"),
+                                    foodResultSet.getDouble("ServingSize"),
+                                    foodResultSet.getDouble("Fats"),
+                                    foodResultSet.getDouble("Sugar"),
+                                    foodResultSet.getDouble("Carbohydrates"),
+                                    foodResultSet.getString("Recommend"));
 
-                }
-                catch (Exception e) {
-                    Log.d("GetMeal: Food", e.getMessage());
-                }
-                finally {
-                    if(foodResultSet != null) {
-                        foodResultSet.close();
+                            mealClass.getSelectedFoodList().put(foodItem, mealResultSet.getInt("Quantity"));
+                        }
+
+                    } catch (Exception e) {
+                        Log.d("GetMeal: Food", e.getMessage());
+                    } finally {
+                        if (foodResultSet != null) {
+                            foodResultSet.close();
+                        }
                     }
                 }
             }
-
             // Save db return for global access
             SingletonTodayMeal.getInstance().AddMeal(mealClass);
             isSuccess = true;

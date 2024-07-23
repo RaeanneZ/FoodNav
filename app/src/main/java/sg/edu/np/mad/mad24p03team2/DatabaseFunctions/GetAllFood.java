@@ -46,30 +46,33 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
     @Override
     protected String doInBackground(String... strings) {
         ResultSet resultSet = foodDB.GetAllRecord();
-        try {
-            while (resultSet.next()) {
-                foodItem = new FoodItemClass(resultSet.getInt("FoodID"),
-                        resultSet.getString("Name"),
-                        resultSet.getFloat("Calories"),
-                        resultSet.getFloat("ServingSize"),
-                        resultSet.getFloat("Fats"),
-                        resultSet.getFloat("Sugar"),
-                        resultSet.getFloat("Carbohydrates"),
-                        resultSet.getString("Recommend"));
-                foodItems.add(foodItem);
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            try{
-                if(resultSet != null) {
-                    resultSet.close();
+        if(resultSet!=null) {
+            try {
+                while (resultSet.next()) {
+                    foodItem = new FoodItemClass(resultSet.getInt("FoodID"),
+                            resultSet.getString("Name"),
+                            resultSet.getFloat("Calories"),
+                            resultSet.getFloat("ServingSize"),
+                            resultSet.getFloat("Fats"),
+                            resultSet.getFloat("Sugar"),
+                            resultSet.getFloat("Carbohydrates"),
+                            resultSet.getString("Recommend"));
+                    foodItems.add(foodItem);
                 }
-            } catch (Exception e) { Log.d("Get Food", "Resultset unable to close"); }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                try {
+                    if (resultSet != null) {
+                        resultSet.close();
+                    }
+                } catch (Exception e) {
+                    Log.d("Get Food", "Resultset unable to close");
+                }
+            }
+            SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
+            isSuccess = true;
         }
-        SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
         return "";
     }
 

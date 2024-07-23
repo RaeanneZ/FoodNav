@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -84,17 +83,16 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
                 ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", true);
             }
         });
-
-        // make sure to unsubscribe the subscription.
+      
         btnSpeak = view.findViewById(R.id.btnSpeak);
         btnSpeak.setOnClickListener(v -> {
             FragmentActivity activity = getActivity();
             if (activity instanceof MainActivity2) {
-                ((MainActivity2) activity).replaceFragment(new SpeechToText(), "speechToText");
+                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", false);
             }
         });
 
-// make sure to unsubscribe the subscription.
+        // make sure to unsubscribe the subscription.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {return false;}

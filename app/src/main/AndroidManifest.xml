@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -25,6 +29,25 @@
         android:theme="@style/Theme.MAD24P03Team2"
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="sg.edu.np.mad.mad24p03team2.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name=".LogoutAnimate"
+            android:exported="false" />
+        <activity
+            android:name=".LoginAnimate"
+            android:exported="false" />
+        <activity
+            android:name=".DietConstraintSetup"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".LogoutAnimate"
             android:exported="false" />

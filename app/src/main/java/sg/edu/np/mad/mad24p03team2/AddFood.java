@@ -75,10 +75,7 @@ public class AddFood extends Fragment implements IDBProcessListener{
         fats = view.findViewById(R.id.tvf1);
         calories = view.findViewById(R.id.tvk1);
 
-
-        cancelButton.setOnClickListener(v -> {
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
-        });
+        cancelButton.setOnClickListener(v -> { returnToPreviousPage(); });
 
 
 

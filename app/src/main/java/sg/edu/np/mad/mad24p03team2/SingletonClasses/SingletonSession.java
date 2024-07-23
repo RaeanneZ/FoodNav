@@ -1,10 +1,8 @@
 package sg.edu.np.mad.mad24p03team2.SingletonClasses;
 
-import android.accounts.Account;
-
 import java.util.Date;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 
 /**
  * SingletonSession
@@ -46,7 +44,7 @@ public class SingletonSession {
         account.setEmail(email);
     }
 
-    public void setAccount(AccountClass acctInfo){
+    public void setAccount(AccountClass acctInfo) {
         this.account = acctInfo;
     }
 
@@ -64,8 +62,7 @@ public class SingletonSession {
         SetBloodSugarTracking(toTrackBloodSugar);
     }
 
-
-        public void SetBloodSugarTracking(Boolean toTrack) {
+    public void SetBloodSugarTracking(Boolean toTrack) {
         account.setTrackBloodSugar(toTrack);
     }
 
@@ -77,7 +74,7 @@ public class SingletonSession {
         return account;
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         INSTANCE = null;
     }
 }

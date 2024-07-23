@@ -21,7 +21,6 @@ public class LoginUser extends AsyncTaskExecutorService<String, String , String>
     Integer isValidIdx = 0;
     Integer isExistIdx = 1;
 
-
     // Login Data Class
     LoginInfoDB loginInfoDB = null;
 

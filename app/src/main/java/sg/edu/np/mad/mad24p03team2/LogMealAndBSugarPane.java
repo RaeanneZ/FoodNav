@@ -29,8 +29,6 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IMealRecyclerViewInterfac
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.BloodSugarClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetTodayBloodSugarByMeal;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateBloodSugar;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateMeal;
@@ -59,11 +57,11 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     MealFoodAdapter mealFoodAdapter;
     RecyclerView recyclerView;
 
-    GetTodayBloodSugarByMeal getTodayBloodSugarByMeal;
+    //GetTodayBloodSugarByMeal getTodayBloodSugarByMeal;
     UpdateBloodSugar updateBloodSugar;
 
     //Model access
-    GetMeal getMeal = null;
+    //GetMeal getMeal = null;
     UpdateMeal updateMeal = null;// Initialize UpdateMeal object
 
     //To differentiate which meal is this pane setup for
@@ -88,7 +86,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
+       // getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
         // Initialize UpdateMeal object with application context and current fragment
         updateMeal = new UpdateMeal(requireContext().getApplicationContext(), this);
 
@@ -99,7 +97,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
             //ensure the softkeyboard doesn't change components layout when shown
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-            getTodayBloodSugarByMeal = new GetTodayBloodSugarByMeal(requireActivity().getApplicationContext(), this);
+          //  getTodayBloodSugarByMeal = new GetTodayBloodSugarByMeal(requireActivity().getApplicationContext(), this);
             updateBloodSugar = new UpdateBloodSugar(requireActivity().getApplicationContext(), this);
         }
         // Inflate the layout for this fragment
@@ -152,12 +150,13 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
         //read Model and update UI
         Log.d("LogMealAndBSugarPane", "getMeal for mealName="+mealName);
-        getMeal.execute(mealName,
-                Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
-
-        if(toTrackBloodSugar) {
-            getTodayBloodSugarByMeal.execute(mealName);
-        }
+       // getMeal.execute(mealName,
+       //         Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        updateUI();
+        updateSugarReading();
+        //if(toTrackBloodSugar) {
+        //    getTodayBloodSugarByMeal.execute(mealName);
+        //}
     }
 
     private TextWatcher getTextWatcher(){
@@ -232,11 +231,10 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         if(executeStatus) {
             if(msg.compareToIgnoreCase(this.mealName)== 0) {
                 //return result from Meal-Model
-                if(returnClass.isInstance(getMeal) || returnClass.isInstance(updateMeal)) {
+                if(returnClass.isInstance(updateMeal)) { //returnClass.isInstance(getMeal)
                     updateUI();
 
-                }else if(returnClass.isInstance(getTodayBloodSugarByMeal) ||
-                        returnClass.isInstance(updateBloodSugar)){
+                }else if(returnClass.isInstance(updateBloodSugar)){ //returnClass.isInstance(getTodayBloodSugarByMeal)
                     //return result from BloodSugar-Model
                     updateSugarReading();
                 }

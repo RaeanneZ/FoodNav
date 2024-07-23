@@ -78,6 +78,7 @@ public class AddFood extends Fragment implements IDBProcessListener{
         cancelButton.setOnClickListener(v -> { returnToPreviousPage(); });
 
 
+
         // Set click listener for the add button to increment the plate count
         addn.setOnClickListener(v -> {
             ns++;  // Increment the counter

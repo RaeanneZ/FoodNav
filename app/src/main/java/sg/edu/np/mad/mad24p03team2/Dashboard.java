@@ -1,7 +1,6 @@
 package sg.edu.np.mad.mad24p03team2;
 
 
-import android.os.Bundle;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -10,14 +9,6 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +17,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -42,17 +32,13 @@ import java.util.List;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietConstraint;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
-import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 public class Dashboard extends Fragment implements IDBProcessListener {
-    GetMeal getMeal = null;
-    GetDietPlanOption getDietPlanOption = null;
+    //GetMeal getMeal = null;
+    //GetDietPlanOption getDietPlanOption = null;
 
     TextView title;
     TextView sugarBox;
@@ -76,7 +62,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     ProgressBar cbar;
     TextView calProgressText;
 
-    GetDietConstraint getDietConstraint;
+    //GetDietConstraint getDietConstraint;
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
 
@@ -87,11 +73,11 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
-        getDietPlanOption = new GetDietPlanOption(requireActivity().getApplicationContext(), this);
+        // getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
+        // getDietPlanOption = new GetDietPlanOption(requireActivity().getApplicationContext(), this);
 
         //Grab user diet Constraints and store in SingletonDietConstraints
-        getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
+        //  getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -184,17 +170,47 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //to ensure max setup only done once when view is created
+        if (!setupProgressBarMax) {
+            DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
+            if (dietPlan != null) {
+                carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
+                fatBar.setMax(dietPlan.getReccFatsIntake() + 10);
+                sugarBar.setMax(dietPlan.getReccSugarIntake() + 10);
+
+                int calories = dietPlan.getReccCaloriesIntake();
+                cbar.setMax(calories);
+                calProgressText.setText(String.valueOf(calories));
+
+                //setupcomplete
+                setupProgressBarMax = true;
+
+            } else {
+                //hardcode value if Model is not ready
+                carbBar.setMax(200);
+                fatBar.setMax(200);
+                sugarBar.setMax(200);
+                cbar.setMax(1550);
+            }
+        }
+
+        updateBreakfastCard(SingletonTodayMeal.getInstance().GetMeal("Breakfast"));
+        updateLunchCard(SingletonTodayMeal.getInstance().GetMeal("Lunch"));
+        updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
+        updateTodayMacros();
+
+
         //grab diet plan ; hardcoded plan name because this is the only option for now
-        getDietPlanOption.execute("Diabetic Friendly", SingletonSession.getInstance().GetAccount().getGender());
+        // getDietPlanOption.execute("Diabetic Friendly", SingletonSession.getInstance().GetAccount().getGender());
 
         //get details from model to display
-        String acctId = Integer.toString(SingletonSession.getInstance().GetAccount().getId());
-        getMeal.execute("Breakfast", acctId);
-        getMeal.execute("Lunch", acctId);
-        getMeal.execute("Dinner", acctId);
+        //String acctId = Integer.toString(SingletonSession.getInstance().GetAccount().getId());
+        /// getMeal.execute("Breakfast", acctId);
+        // getMeal.execute("Lunch", acctId);
+        // getMeal.execute("Dinner", acctId);
 
         //update dietPreference
-        getDietConstraint.execute(acctId);
+        // getDietConstraint.execute(acctId);
     }
 
     private void updateBreakfastCard(MealClass meal) {
@@ -250,6 +266,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
+       /*
         if (executeStatus) {
             if (returnClass.isInstance(getDietPlanOption)) {
                 //to ensure max setup only done once when view is created
@@ -280,10 +297,13 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             // Handle failure
             Toast.makeText(getContext(), "Failed to fetch meal data", Toast.LENGTH_SHORT).show();
         }
+
+        */
     }
 
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
+       /*
         if (executeStatus) {
             if (returnClass.isInstance(getMeal)) {
                 if (msg.compareToIgnoreCase("breakfast") == 0) {
@@ -300,6 +320,8 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             // Handle failure
             Log.d("Dashboard::afterProcess", "Fail to load meal details");
         }
+
+        */
     }
 
     @Override

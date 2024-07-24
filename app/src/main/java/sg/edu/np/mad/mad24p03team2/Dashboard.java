@@ -1,6 +1,15 @@
 package sg.edu.np.mad.mad24p03team2;
 
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,15 +17,20 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.os.Environment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import androidx.core.app.NotificationCompat;
+
+import android.os.SystemClock;
+
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +50,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
+
+import java.util.Date;
+
 import java.util.List;
+
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -80,7 +101,20 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
 
+    public static final String CHANNEL_ID = "daily_notification_channel";
+
+    public static  int  Carb=0;
+    public static int Fat=0;
+    public static  int sugarn=0;
+    public static int Cal=0;
+    public static int CalLeft=0;
+
+    public static int Rcarb=0;
+    public static int Rfat=0;
+    public static int Rsugar=0;
+    public static int Rcal=0;
     boolean setupProgressBarMax = false;
+
 
     @Nullable
     @Override
@@ -120,6 +154,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         fatBar = view.findViewById(R.id.progressBarfats);
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
+
+        scheduleDailyNotification();
+
 
         Button shareButton = view.findViewById(R.id.share_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +283,123 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         cbar.setProgress((int) tCal);
         int calLeft = cbar.getMax() - (int) tCal;
         calProgressText.setText(String.valueOf(calLeft));
+
+
+        Log.d("Data", "Data received from fragment: " + (int)tCarbs);
+        Carb=(int)tCarbs;
+        Fat=(int) tFats;
+        sugarn=(int) tSugar;
+        Cal=(int) tCal;
+
+        CalLeft= (int) (Rcal-tCal);
+
+    }
+
+
+    public void makeNotification() {
+        String channelID = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channelID)
+                .setSmallIcon(R.drawable.baseline_notifications_active_24)
+                .setContentTitle("Loading")
+                .setContentText("Please wait while we load the content...")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setOngoing(true)  // Keep the notification visible until loading is complete
+                .setProgress(0, 0, true);  // Indeterminate progress bar
+
+// Create an Intent to open an activity
+        Intent intent = new Intent(getContext(), PopupActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // Ensure activity is not recreated
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+// Create notification channel if necessary
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelID);
+            if (notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(channelID, "Channel Name", importance);
+                notificationChannel.setLightColor(android.R.color.darker_gray);
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+
+// Issue the initial loading notification
+        notificationManager.notify(0, builder.build());
+
+// Simulate loading process in a separate thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Simulate loading process (e.g., network request or background task)
+                    Thread.sleep(5000);  // Simulate 5 seconds of loading
+
+                    // After loading is complete, update the notification
+                    NotificationCompat.Builder updatedBuilder = new NotificationCompat.Builder(getContext(), channelID)
+                            .setSmallIcon(R.drawable.baseline_notifications_active_24)
+                            .setContentTitle("Warning")
+                            .setContentText("You have used over half of your daily limit.")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setProgress(0, 0, false)  // Remove the progress bar
+                            .setOngoing(false)  // Allow user interaction
+                            .setContentIntent(pendingIntent)  // Set the same PendingIntent
+                            .setAutoCancel(true);  // Dismiss the notification when clicked
+
+                    // Create an Intent for the dismiss action
+                    Intent dismissIntent = new Intent(getContext(), NotificationDismissedReceiver.class);
+                    PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(getContext(),
+                            1, dismissIntent, PendingIntent.FLAG_MUTABLE);
+
+                    // Add the dismiss action to the updated notification
+                    updatedBuilder.addAction(R.drawable.baseline_disabled_by_default_24, "Dismiss", dismissPendingIntent);
+
+                    // Notify with the updated content
+                    notificationManager.notify(0, updatedBuilder.build());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+    }
+
+    private void scheduleDailyNotification() {
+        Context context = getContext();
+        if (context == null) return;
+
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 15); // Set the time you want the notification to be triggered
+        calendar.set(Calendar.MINUTE, 51);     // 26 minutes past the hour
+        calendar.set(Calendar.SECOND, 0);      // Optional: Set seconds to zero if you want
+
+       if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Move to the next day
+           Log.d("Data", "rrr" );
+        }
+
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+            );
+        }
     }
 
     @Override
@@ -256,13 +410,61 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                 if (!setupProgressBarMax) {
                     DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
                     if (dietPlan != null) {
-                        carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
+                       /* carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
                         fatBar.setMax(dietPlan.getReccFatsIntake() + 10);
                         sugarBar.setMax(dietPlan.getReccSugarIntake() + 10);
 
                         int calories = dietPlan.getReccCaloriesIntake();
                         cbar.setMax(calories);
-                        calProgressText.setText(String.valueOf(calories));
+                        calProgressText.setText(String.valueOf(calories));*/
+                        Date dateString = SingletonSession.getInstance().GetAccount().getBirthDate();
+                        LocalDate birthDate = dateString.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate currentDate = LocalDate.now();
+
+                        Period period = Period.between(birthDate, currentDate);
+                        int years = period.getYears();
+                        float Height = SingletonSession.getInstance().GetAccount().getHeight();
+                        float Weight = SingletonSession.getInstance().GetAccount().getWeight();
+                        String Gender = SingletonSession.getInstance().GetAccount().getGender();
+                        double rfat = 0;
+                        double rcarb = 0;
+                        double rpro = 0;
+                        double rsugar = 0;
+                        Log.d("Data", Gender);
+                        if (Gender.equals("F")) {
+                            double BMR = (10 * Weight) + (6.25 * Height) - (5 * years) - 161;
+                            double TDEE = BMR * 1.55;
+                            rcarb = (TDEE * 0.5) / 4;
+                            rfat = (TDEE * 0.3) / 9;
+                            rpro = (TDEE * 0.2) / 4;
+                            rsugar = (TDEE * 0.1) / 4;
+                            Rcal = (int) BMR;
+                            Rfat = (int) rfat;
+                            Rcarb = (int) rcarb;
+                            Rsugar = (int) rsugar;
+                            carbBar.setMax(Rcarb);
+                            fatBar.setMax(Rfat);
+                            sugarBar.setMax(Rsugar);
+                            cbar.setMax(Rcal);
+                            calProgressText.setText(String.valueOf(Rcal));
+
+                        } else {
+                            double BMR = (10 * Weight) + (6.25 * Height) - (5 * years) + 5;
+                            double TDEE = BMR * 1.55;
+                            rcarb = (TDEE * 0.5) / 4;
+                            rfat = (TDEE * 0.3) / 9;
+                            rpro = (TDEE * 0.2) / 4;
+                            rsugar = (TDEE * 0.1) / 4;
+                            Rcal = (int) BMR;
+                            Rfat = (int) rfat;
+                            Rcarb = (int) rcarb;
+                            Rsugar = (int) rsugar;
+                            carbBar.setMax(Rcarb);
+                            fatBar.setMax(Rfat);
+                            sugarBar.setMax(Rsugar);
+                            cbar.setMax(Rcal);
+                            calProgressText.setText(String.valueOf(Rcal));
+                        }
 
                         //setupcomplete
                         setupProgressBarMax = true;
@@ -294,7 +496,16 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                     updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
                 }
 
+
                 updateTodayMacros();
+                double c=Rcarb*0.75;
+                double s =Rsugar*0.75;
+                double f =Rfat*0.75;
+                double kcal=Rcal*0.75;
+                if (Carb>=c || sugarn>=s|| Fat>=f||Cal>=kcal){
+                    makeNotification();
+                }
+
             }
         } else {
             // Handle failure

@@ -16,6 +16,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".ApplicationSetUp.StartUp"
@@ -60,6 +61,9 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".DietConstraintActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".DisclaimerActivity"
@@ -134,9 +138,20 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+
+        <receiver
+            android:name=".NotificationReceiver"
+            android:exported="true" />
+
+        <activity android:name=".PopupActivity" />
+        <receiver android:name=".NotificationDismissedReceiver" />
+        <receiver android:name=".NotificationDismissedReceiver2" />
+
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr, ocr_korean" />
+
     </application>
 
 </manifest>

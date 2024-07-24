@@ -25,7 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -79,6 +83,11 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     public static  int sugarn=0;
     public static int Cal=0;
     public static int CalLeft=0;
+
+    public static int Rcarb=0;
+    public static int Rfat=0;
+    public static int Rsugar=0;
+    public static int Rcal=0;
     boolean setupProgressBarMax = false;
 
 
@@ -119,7 +128,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         fatBar = view.findViewById(R.id.progressBarfats);
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
-
+        scheduleDailyNotification();
         return view;
 
     }
@@ -190,14 +199,14 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         int calLeft = cbar.getMax() - (int) tCal;
         calProgressText.setText(String.valueOf(calLeft));
 
-        Intent data = new Intent(getActivity(), MainActivity2.class);
-        data.putExtra("n",(int)tCal);
+
         Log.d("Data", "Data received from fragment: " + (int)tCarbs);
         Carb=(int)tCarbs;
         Fat=(int) tFats;
         sugarn=(int) tSugar;
         Cal=(int) tCal;
-        CalLeft=calLeft;
+
+        CalLeft= (int) (Rcal-tCal);
 
     }
 
@@ -247,8 +256,8 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                     // After loading is complete, update the notification
                     NotificationCompat.Builder updatedBuilder = new NotificationCompat.Builder(getContext(), channelID)
                             .setSmallIcon(R.drawable.baseline_notifications_active_24)
-                            .setContentTitle("Content Loaded")
-                            .setContentText("Click to view the content")
+                            .setContentTitle("Warning")
+                            .setContentText("You have used over half of your daily limit.")
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setProgress(0, 0, false)  // Remove the progress bar
                             .setOngoing(false)  // Allow user interaction
@@ -256,7 +265,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                             .setAutoCancel(true);  // Dismiss the notification when clicked
 
                     // Create an Intent for the dismiss action
-                    Intent dismissIntent = new Intent(getContext(), DismissReceiver.class);
+                    Intent dismissIntent = new Intent(getContext(), NotificationDismissedReceiver.class);
                     PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(getContext(),
                             1, dismissIntent, PendingIntent.FLAG_MUTABLE);
 
@@ -289,8 +298,8 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18); // Set the time you want the notification to be triggered
-        calendar.set(Calendar.MINUTE, 55);     // 26 minutes past the hour
+        calendar.set(Calendar.HOUR_OF_DAY, 15); // Set the time you want the notification to be triggered
+        calendar.set(Calendar.MINUTE, 51);     // 26 minutes past the hour
         calendar.set(Calendar.SECOND, 0);      // Optional: Set seconds to zero if you want
 
        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
@@ -317,13 +326,61 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                 if (!setupProgressBarMax) {
                     DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
                     if (dietPlan != null) {
-                        carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
+                       /* carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
                         fatBar.setMax(dietPlan.getReccFatsIntake() + 10);
                         sugarBar.setMax(dietPlan.getReccSugarIntake() + 10);
 
                         int calories = dietPlan.getReccCaloriesIntake();
                         cbar.setMax(calories);
-                        calProgressText.setText(String.valueOf(calories));
+                        calProgressText.setText(String.valueOf(calories));*/
+                        Date dateString = SingletonSession.getInstance().GetAccount().getBirthDate();
+                        LocalDate birthDate = dateString.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate currentDate = LocalDate.now();
+
+                        Period period = Period.between(birthDate, currentDate);
+                        int years = period.getYears();
+                        float Height = SingletonSession.getInstance().GetAccount().getHeight();
+                        float Weight = SingletonSession.getInstance().GetAccount().getWeight();
+                        String Gender = SingletonSession.getInstance().GetAccount().getGender();
+                        double rfat = 0;
+                        double rcarb = 0;
+                        double rpro = 0;
+                        double rsugar = 0;
+                        Log.d("Data", Gender);
+                        if (Gender.equals("F")) {
+                            double BMR = (10 * Weight) + (6.25 * Height) - (5 * years) - 161;
+                            double TDEE = BMR * 1.55;
+                            rcarb = (TDEE * 0.5) / 4;
+                            rfat = (TDEE * 0.3) / 9;
+                            rpro = (TDEE * 0.2) / 4;
+                            rsugar = (TDEE * 0.1) / 4;
+                            Rcal = (int) BMR;
+                            Rfat = (int) rfat;
+                            Rcarb = (int) rcarb;
+                            Rsugar = (int) rsugar;
+                            carbBar.setMax(Rcarb);
+                            fatBar.setMax(Rfat);
+                            sugarBar.setMax(Rsugar);
+                            cbar.setMax(Rcal);
+                            calProgressText.setText(String.valueOf(Rcal));
+
+                        } else {
+                            double BMR = (10 * Weight) + (6.25 * Height) - (5 * years) + 5;
+                            double TDEE = BMR * 1.55;
+                            rcarb = (TDEE * 0.5) / 4;
+                            rfat = (TDEE * 0.3) / 9;
+                            rpro = (TDEE * 0.2) / 4;
+                            rsugar = (TDEE * 0.1) / 4;
+                            Rcal = (int) BMR;
+                            Rfat = (int) rfat;
+                            Rcarb = (int) rcarb;
+                            Rsugar = (int) rsugar;
+                            carbBar.setMax(Rcarb);
+                            fatBar.setMax(Rfat);
+                            sugarBar.setMax(Rsugar);
+                            cbar.setMax(Rcal);
+                            calProgressText.setText(String.valueOf(Rcal));
+                        }
 
                         //setupcomplete
                         setupProgressBarMax = true;
@@ -355,9 +412,13 @@ public class Dashboard extends Fragment implements IDBProcessListener {
                     updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
                 }
 
-                scheduleDailyNotification();
+
                 updateTodayMacros();
-                if (Carb==0){
+                double c=Rcarb*0.75;
+                double s =Rsugar*0.75;
+                double f =Rfat*0.75;
+                double kcal=Rcal*0.75;
+                if (Carb>=c || sugarn>=s|| Fat>=f||Cal>=kcal){
                     makeNotification();
                 }
 

@@ -16,13 +16,12 @@ public class PopupActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(this)
                 .setTitle("Open Website")
-                .setMessage("Do you want to see the popup screen?")
+                .setMessage("Tap 'Yes' to view HealthHub's content on eating healthy.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Open website
-                        Intent browserIntent = new Intent(PopupActivity.this,WebViewActivity.class);
-                        browserIntent.putExtra("url", "https://www.healthhub.sg/live-healthy/cut-100-calories-from-each-meal-every-day--without-going-hungry");
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.healthhub.sg/live-healthy/cut-100-calories-from-each-meal-every-day--without-going-hungry"));
                         startActivity(browserIntent);
                         finish();
                     }

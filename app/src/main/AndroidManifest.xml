@@ -107,7 +107,8 @@
             android:exported="true" />
 
         <activity android:name=".PopupActivity" />
-        <receiver android:name=".DismissReceiver" />
+        <receiver android:name=".NotificationDismissedReceiver" />
+        <receiver android:name=".NotificationDismissedReceiver2" />
     </application>
 
 </manifest>

@@ -5,11 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class DismissReceiver extends BroadcastReceiver {
+public class NotificationDismissedReceiver2 extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(0); // Cancels the notification with ID 0
+        notificationManager.cancel(1); // Cancels the notification with ID 1
+
     }
 }

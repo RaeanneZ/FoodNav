@@ -37,7 +37,7 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+//import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
     private Uri imageUri = null;
 
     //TextRecogniser
-    private TextRecognizer textRecognizer;
+   // private TextRecognizer textRecognizer;
 
     private RecyclerView recyclerView;
     private FoodAdapter foodAdapter;
@@ -89,7 +89,7 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
         Log.d("Food2Nom", "OnViewCreated!");
         super.onViewCreated(view, savedInstanceState);
 
-        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        //textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
         foodAdapter = new FoodAdapter(getView().getContext(), itemListInDB, this, true);
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -182,7 +182,7 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
         try {
             //prepare image for engine
             InputImage inputImage = InputImage.fromFilePath(getContext(), imageUri);
-            Task<Text> textTaskResult = textRecognizer.process(inputImage).addOnSuccessListener(
+            Task<Text> textTaskResult = GlobalUtil.MLTextRecognizer.process(inputImage).addOnSuccessListener(
                             text -> {
                                 Log.d(TAG, "Success in recognising text");
                                 //process recognised-text; map it to the food DB

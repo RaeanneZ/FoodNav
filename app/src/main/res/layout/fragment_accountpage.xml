@@ -24,8 +24,8 @@
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/inter_extrabold"
                 android:text="My Account"
-                android:textColor="@color/black"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="38sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -48,8 +48,8 @@
                 android:id="@+id/tempName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_semibold"
                 android:layout_marginLeft="40dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="tempName"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -64,8 +64,8 @@
                 android:id="@+id/divider"
                 style="@style/Divider.Horizontal.Lavender"
                 android:layout_width="0dp"
-                android:layout_marginTop="28dp"
                 android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.413"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +75,8 @@
                 android:id="@+id/planName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="Diabetic Friendly Plan"
                 android:textColor="@color/greyblack"
@@ -143,6 +143,52 @@
                 app:layout_constraintStart_toStartOf="@id/settings"
                 app:layout_constraintTop_toBottomOf="@+id/editProfile" />
 
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/baseline_food_bank_24"
+                app:layout_constraintEnd_toEndOf="@+id/settings"
+                app:layout_constraintHorizontal_bias="0.022"
+                app:layout_constraintStart_toStartOf="@+id/settings"
+                app:layout_constraintTop_toBottomOf="@+id/divider_lavender" />
+
+            <TextView
+                android:id="@+id/dietPref"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Dietary Profile"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                app:layout_constraintStart_toEndOf="@+id/imageView11"
+                app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+            <ImageView
+                android:id="@+id/arrowDiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/baseline_chevron_right_24"
+                app:layout_constraintBottom_toBottomOf="@+id/dietPref"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dietPref" />
+
+            <View
+                android:id="@+id/divider_lavender_3"
+                style="@style/Divider.Horizontal.Lavender"
+                android:layout_width="0dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/divider_lavender"
+                app:layout_constraintHorizontal_bias="0.44"
+                app:layout_constraintStart_toStartOf="@+id/divider_lavender"
+                app:layout_constraintTop_toBottomOf="@+id/dietPref" />
+
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="38dp"
@@ -153,7 +199,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/settings"
                 app:layout_constraintHorizontal_bias="0.022"
                 app:layout_constraintStart_toStartOf="@+id/settings"
-                app:layout_constraintTop_toBottomOf="@+id/divider_lavender" />
+                app:layout_constraintTop_toBottomOf="@+id/divider_lavender_3" />
 
             <TextView
                 android:id="@+id/changePassword"
@@ -182,10 +228,11 @@
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_chevron_right_24"
                 android:clickable="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/baseline_chevron_right_24"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-                app:layout_constraintEnd_toEndOf="@+id/arrow"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/arrow"
                 app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
@@ -198,24 +245,28 @@
                 android:text="Dark mode"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                tools:visibility="gone" />
 
             <View
                 android:id="@+id/divider_lavender_4"
                 style="@style/Divider.Horizontal.Lavender"
                 android:layout_width="0dp"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/divider_lavender_2"
                 app:layout_constraintStart_toStartOf="@id/divider_lavender_2"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:visibility="gone" />
 
             <Button
                 android:id="@+id/logoutButton"
                 android:layout_width="315dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="98dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/lavender"
                 android:fontFamily="@font/inter_semibold"
@@ -233,19 +284,23 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/baseline_dark_mode_24"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/settings"
                 app:layout_constraintHorizontal_bias="0.131"
                 app:layout_constraintStart_toStartOf="@+id/settings"
-                app:layout_constraintTop_toBottomOf="@id/divider_lavender_2" />
+                app:layout_constraintTop_toBottomOf="@id/divider_lavender_2"
+                tools:visibility="gone" />
 
             <Switch
                 android:id="@+id/darkmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintEnd_toEndOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@id/divider_lavender_2"
-                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                tools:visibility="gone" />
 
             <ImageView
                 android:id="@+id/male_icon"

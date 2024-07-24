@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.HashMap;
 
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
 
@@ -22,9 +25,16 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
  */
 public class LogFoodProduct extends Fragment {
 
-    TabLayout tabLayout;
-    ViewPager2 viewPager2;
-    ViewMealPagerAdapter mealPagerAdapter;
+    public static final HashMap<Integer, String> MealIndex = new HashMap<Integer, String>();
+    static{
+        MealIndex.put(0, "Breakfast");
+        MealIndex.put(1, "Lunch");
+        MealIndex.put(2, "Dinner");
+    }
+
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager2;
+    private ViewMealPagerAdapter mealPagerAdapter;
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -35,9 +45,6 @@ public class LogFoodProduct extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("LogFoodProduct", "***************LOG FOOD PRODUCT*********");
-
-
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager2= view.findViewById(R.id.viewPager2);
         mealPagerAdapter = new ViewMealPagerAdapter( this, view.getContext());
@@ -47,10 +54,9 @@ public class LogFoodProduct extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                //update viewPager so the right fragment is displayed
-                viewPager2.setCurrentItem(tab.getPosition());
                 SingletonFoodSearchResult.getInstance().setCurrentMeal(tab.getText().toString());
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
 
@@ -58,14 +64,10 @@ public class LogFoodProduct extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-       //ensure the right tab is highlighted when page changed via swipe
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
-            }
-        });
+        //to bind tabLayout and viewpager2 together so both component are in sync
+        new TabLayoutMediator(tabLayout, viewPager2,
+                (tab, position) -> tab.setText(MealIndex.get(position))
+        ).attach();
     }
 
     @Override

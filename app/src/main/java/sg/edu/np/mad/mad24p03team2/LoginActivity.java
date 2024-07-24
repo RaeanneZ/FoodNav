@@ -2,6 +2,8 @@ package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -65,7 +67,11 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         loginBtn.setOnClickListener(v -> {
             email = emailComponent.getText().toString();
             password = passwordComponent.getText().toString();
-            loginUser.execute(email, password);
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please fill in the fields", Toast.LENGTH_SHORT).show();
+            } else {
+                loginUser.execute(email, password);
+            }
         });
 
         cancelBtn.setOnClickListener(v -> {
@@ -87,14 +93,10 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
         // User Login process will return 2 boolean flag to indicate whether its wrong username or
         // wrong password that caused LOGIN UNSUCCESSFUL
         // Please update your UI here
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Please fill in the fields", Toast.LENGTH_SHORT).show();
-
-        } else if (!isValidPwd || !isValidUser) {
-            Toast.makeText(LoginActivity.this, "Incorrect email or password entered.", Toast.LENGTH_SHORT).show();
-        }
-        //successfully login
-        else {
+         if(!isValidPwd ||!isValidUser) {
+             Toast.makeText(LoginActivity.this, "Incorrect email or password entered.", Toast.LENGTH_SHORT).show();
+             //successfully login
+         }else {
             //write to sharedpref if RememberMe is checked
             if (remMeCheckBox.isChecked()) {
                 EncryptedSharedPreferences sharedPreferences = GlobalUtil.getEncryptedSharedPreference(getApplicationContext());
@@ -108,10 +110,9 @@ public class LoginActivity extends AppCompatActivity implements IDBProcessListen
             // Grab current user profile and store into SingletonSession
             runOnUiThread(() -> getCurrentUserProfile.execute(email));
 
-            //moving on to next page
-            Intent login = new Intent(LoginActivity.this, MainActivity2.class);
-            startActivity(login);
-            this.finish();  //offload login page
+             Intent loginAnimate = new Intent(LoginActivity.this, LoginAnimate.class);
+             startActivity(loginAnimate);
+             finish();  //offload login page
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -47,6 +48,12 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        //this is to disable backButton
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {} //do nothing
         });
 
         nameComponent = findViewById(R.id.Name);
@@ -104,6 +111,7 @@ public class SignupActivity extends AppCompatActivity implements IDBProcessListe
         // Navigate to ProfileActivity
         Intent profileIntent = new Intent(SignupActivity.this, SecuritySetupActivity.class);
         startActivity(profileIntent);
+        finish();
     }
 
     @Override

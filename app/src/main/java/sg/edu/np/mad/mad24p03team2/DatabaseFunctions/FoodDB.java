@@ -90,7 +90,6 @@ public class FoodDB extends AbstractDBProcess {
 
         try{
             // Check if record is already inside LoginInfo
-            Log.d("CreateRecord", "Connection = " +dbCon);
             stmt = dbCon.createStatement();
             stmt.executeUpdate(sql);
             isSuccess = true;

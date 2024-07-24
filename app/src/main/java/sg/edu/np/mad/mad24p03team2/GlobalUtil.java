@@ -11,7 +11,7 @@ import androidx.security.crypto.MasterKeys;
 
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import java.util.Locale;
 import java.util.Set;
@@ -32,7 +32,8 @@ public class GlobalUtil {
     public static final String SHARED_PREFS_LOGIN_KEY = "LoginName";
     public static final String SHARED_PREFS_LOGIN_PSWD = "LoginPswd";
 
-    public static TextRecognizer MLTextRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+    //public static TextRecognizer MLTextRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+    public static TextRecognizer MLTextRecognizer = TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
 
     public static SimpleDateFormat DateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     public static SimpleDateFormat UIDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());

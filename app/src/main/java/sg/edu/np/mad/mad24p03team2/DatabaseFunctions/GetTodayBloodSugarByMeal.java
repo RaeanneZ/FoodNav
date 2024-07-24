@@ -46,8 +46,7 @@ public class GetTodayBloodSugarByMeal extends AsyncTaskExecutorService<String, S
                 SingletonSession.getInstance().GetAccount().getId(), mealName);
         try {
             // Return empty String if there is no results
-            if(!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
-
+            if(resultSet == null || (!resultSet.isBeforeFirst() && resultSet.getRow() == 0)) {
                 Log.d("GetTodayBloodSugarByMeal","No record of Blood Sugar recorded for "+mealName);
                 isSuccess = true;
 

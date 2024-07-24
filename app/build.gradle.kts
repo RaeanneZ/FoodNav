@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -48,11 +47,12 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0") // for recycler view
     testImplementation("junit:junit:4+")
     implementation("net.sourceforge.jtds:jtds:1.3.1") //net.sourceforge.jtds:jtds:1.3.1
     implementation("com.android.volley:volley:1.2.1") //com.android.volley:volley:1.2.1
-
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.10.1") //com.fasterxml.jackson.core:jackson-databind:2.10.1
 
     implementation ("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
@@ -62,6 +62,8 @@ dependencies {
     //library to take care of UI interactions
     //implementation ("com.jakewharton.rxbinding:rxbinding:0.4.0")
 
+    //for animation
+    implementation ("com.airbnb.android:lottie:6.4.1")
 
     //to encrypt info stored in shared preference
     implementation ("androidx.security:security-crypto:1.0.0-alpha02")
@@ -69,9 +71,15 @@ dependencies {
     //MLKit Unbundled : Models are downloaded and managed via Google Play Services.
     implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
 
+
     //implementation ("androidx.core:core-ktx:1.3.2")
     implementation ("com.google.android.material:material:1.2.1")
     implementation ("androidx.appcompat:appcompat:1.2.0")
     implementation ("androidx.core:core-ktx:1.6.0")
     implementation ("com.google.android.material:material:1.4.0")
+
+    //text recognition for Korean and English characters
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.0")
+    implementation("com.google.mlkit:translate:17.0.2")
+
 }

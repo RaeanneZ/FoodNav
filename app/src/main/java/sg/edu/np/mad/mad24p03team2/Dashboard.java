@@ -24,6 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.datatransport.runtime.scheduling.jobscheduling.SchedulerConfig;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -117,7 +120,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
 
-        Button shareButton = view.findViewById(R.id.share_button);
+        FloatingActionButton shareButton = view.findViewById(R.id.share_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

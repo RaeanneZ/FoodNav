@@ -161,8 +161,6 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         FloatingActionButton shareButton = view.findViewById(R.id.share_button);
         scheduleDailyNotification();
 
-
-        Button shareButton = view.findViewById(R.id.share_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -143,13 +143,10 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Navigate to another fragment
-                            Fragment fragment = new InputNewFood();
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.relativeLayout, fragment)
-                                    .addToBackStack(null)
-                                    .commit();
+                            FragmentActivity activity = getActivity();
+                            if (activity instanceof MainActivity2) {
+                                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", false);
+                            }
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

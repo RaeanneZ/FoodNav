@@ -58,22 +58,23 @@ public class GetFood extends AsyncTaskExecutorService<String, String , String> {
             }
 
              */
-
             foodItems.clear();
             resultSet = foodDB.GetRecord(name);
-            while(resultSet.next()) {
+            if(resultSet != null) {
+                while (resultSet.next()) {
 
-                Log.d("GetFood","Result Found!");
-                foodItem = new FoodItemClass(resultSet.getInt("FoodID"),
-                        resultSet.getString("Name"),
-                        resultSet.getFloat("Calories"),
-                        resultSet.getFloat("ServingSize"),
-                        resultSet.getFloat("Fats"),
-                        resultSet.getFloat("Sugar"),
-                        resultSet.getFloat("Carbohydrates"),
-                        resultSet.getString("Recommend")
-                );
-                foodItems.add(foodItem);
+                    Log.d("GetFood", "Result Found!");
+                    foodItem = new FoodItemClass(resultSet.getInt("FoodID"),
+                            resultSet.getString("Name"),
+                            resultSet.getFloat("Calories"),
+                            resultSet.getFloat("ServingSize"),
+                            resultSet.getFloat("Fats"),
+                            resultSet.getFloat("Sugar"),
+                            resultSet.getFloat("Carbohydrates"),
+                            resultSet.getString("Recommend")
+                    );
+                    foodItems.add(foodItem);
+                }
             }
         }
         catch (SQLException e) {

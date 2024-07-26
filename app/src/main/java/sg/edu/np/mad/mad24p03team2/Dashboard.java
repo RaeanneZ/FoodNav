@@ -144,11 +144,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         calBtn.setOnClickListener(v -> datePickerDialog.show());
 
         //Jovan shared button
-
         FloatingActionButton shareButton = view.findViewById(R.id.share_button);
-       // scheduleDailyNotification();
-
-
         shareButton.setOnClickListener(v -> shareImage());
 
         return view;

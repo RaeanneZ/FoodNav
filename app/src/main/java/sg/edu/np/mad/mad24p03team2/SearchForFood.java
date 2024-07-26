@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetFood;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonFoodSearchResult;
+
 interface RecyclerViewInterface {
 
     void onItemClick(int itemPos);
@@ -62,17 +64,22 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
 
         itemList = new ArrayList<>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
-        getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
-        foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, true);
+        foodAdapter = new FoodAdapter(requireContext(), itemList, this, true);
 
-        getAllFood.execute(); // This is to get all food in database and save in SingletonFood
+        if(SingletonFoodSearchResult.getInstance().getCompleteFoodItemList().isEmpty()) {
+            Log.d("SearchForFood","CompleteFoodItem List is empty, getAllFood from db");
+            getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
+            getAllFood.execute(); // This is to get all food in database and save in SingletonFood
+        }else{
+            updateCompleteFoodList();
+        }
 
         mealTitle = view.findViewById(R.id.textView3);
         mealTitle.setText(SingletonFoodSearchResult.getInstance().getCurrentMeal());
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(foodAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus(); // Remove cursor from search bar
@@ -119,8 +126,9 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
     }
 
     public void updateCompleteFoodList(){
+
         itemList.clear();
-        ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList(); //SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList();
         for (FoodItemClass fitem : allFoodList) {
             if (itemList.size() <= 10) {  //add the top 10 recommended item
                 if (fitem.isRecommended()) {
@@ -128,6 +136,7 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
                 }
             }
         }
+        foodAdapter.setFilteredList(itemList);
     }
 
     @Override
@@ -136,14 +145,6 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         if(executeStatus) {
             if (returnClass.isInstance(getAllFood)) {
                 updateCompleteFoodList();
-                /*ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList(); //SingletonFoodSearchResult.getInstance().getFoodSearchResult();
-                for (FoodItemClass fitem : allFoodList) {
-                    if (itemList.size() <= 10) {  //add the top 10 recommended item
-                        if (fitem.isRecommended()) {
-                            itemList.add(fitem);
-                        }
-                    }
-                }*/
             } else {
                 itemList.clear();
                 ArrayList<FoodItemClass> searchedFoodList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();

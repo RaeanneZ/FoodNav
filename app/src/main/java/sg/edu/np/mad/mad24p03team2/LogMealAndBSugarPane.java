@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +53,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     TextView fatsBox;
     TextView calBox;
     Button addFoodBtn;
+    FloatingActionButton fabMealPlanner;
 
     TextView bsugarTimestamp;
     TextView bsugarLvl;
@@ -108,6 +111,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         fatsBox = view.findViewById(R.id.tvf1);
         calBox = view.findViewById(R.id.tvk1);
         addFoodBtn = view.findViewById(R.id.button2);
+        fabMealPlanner = view.findViewById(R.id.fabMealPlanner);
 
         //if user opt to track blood sugar
         if(toTrackBloodSugar) {
@@ -130,7 +134,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
                     bsugarReadingChanged = bsugarInputHasFocus = false;
                 }
             });
-        }else{
+        } else {
             layoutBSugar = view.findViewById(R.id.lay33);
             layoutBSugar.setVisibility(View.GONE);
         }
@@ -142,6 +146,8 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
         addFoodBtn.setOnClickListener(v -> switchFragment());
 
+        fabMealPlanner.setOnClickListener(v -> openMealPlanner());
+
         //read Model and update UI
         updateUI();
         updateSugarReading();
@@ -150,7 +156,8 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     private TextWatcher getTextWatcher(){
         TextWatcher txtWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -164,8 +171,8 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
         return txtWatcher;
     }
-    private void switchFragment() {
 
+    private void switchFragment() {
         // Get the current activity
         FragmentActivity activity = getActivity();
         if (activity instanceof MainActivity2) {
@@ -174,26 +181,35 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
                     replaceFragment(new SearchForFood(), "searchForFood", false);
         }
     }
-    private void updateUI(){
 
+    private void openMealPlanner() {
+        // Get the current activity
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity2) {
+            // Replace the current fragment with the MealPlannerFragment
+            ((MainActivity2) activity).replaceFragment(new MealPlanner(), "mealPlanner", true);
+        }
+    }
+
+    private void updateUI() {
         MealClass mClass = SingletonTodayMeal.getInstance().GetMeal(this.mealName);
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(mClass);
-        sugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        carbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        fatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        calBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        sugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        carbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        fatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        calBox.setText(String.format("%.1f", mMacros.gettCalories()));
 
         //update Recycler view
         mealFoodAdapter.setFilteredList(mClass.getMealName(), mClass.getSelectedFoodList());
     }
 
-    public void updateSugarReading(){
+    public void updateSugarReading() {
         //Update sugar level stored in Model
         BloodSugarClass bSugar = SingletonBloodSugarResult.getInstance().getBloodSugarByMeal(this.mealName);
         if(bSugar != null){
             this.bsugarLvl.setText(String.valueOf(bSugar.getBloodSugarReading()));
-        }else{
-            Log.d(LOG_TAG+"::UpdateSugarReading", "SingletonBloodSugar return null");
+        } else {
+            Log.d(LOG_TAG + "::UpdateSugarReading", "SingletonBloodSugar return null");
         }
     }
 

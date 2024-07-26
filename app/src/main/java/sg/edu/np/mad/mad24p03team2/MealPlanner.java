@@ -32,6 +32,9 @@ import java.util.Map;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodDB;
 
+// Ensure this import
+import sg.edu.np.mad.mad24p03team2.BuildConfig;
+
 public class MealPlanner extends Fragment {
 
     private Button generateButton;
@@ -39,7 +42,7 @@ public class MealPlanner extends Fragment {
     private TextView breakfastTextView, lunchTextView, dinnerTextView;
     private FoodDB foodDB;
     private String stringURLEndPoint = "https://api.openai.com/v1/chat/completions"; // Replace with your API endpoint
-    private String stringAPIKey = "TYPE_IN_API_KEY"; // API KEY is sent to you via teams from Jovan Tan Zhi Yao
+    private String apiKey = BuildConfig.API_KEY; // Use BuildConfig to access the API key
 
     // Variables to hold the current meal plan
     private String currentBreakfast = "";
@@ -186,7 +189,7 @@ public class MealPlanner extends Fragment {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mapHeader = new HashMap<>();
-                mapHeader.put("Authorization", "Bearer " + stringAPIKey);
+                mapHeader.put("Authorization", "Bearer " + apiKey);
                 mapHeader.put("Content-Type", "application/json");
                 return mapHeader;
             }

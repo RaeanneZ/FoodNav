@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
 }
@@ -14,10 +16,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Load the API key from local.properties
+        val properties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { properties.load(it) }
+        }
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("GPT_API_KEY")}\"")
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -29,11 +39,11 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true // Enable buildConfig feature
     }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -53,20 +63,20 @@ dependencies {
     implementation("net.sourceforge.jtds:jtds:1.3.1") //net.sourceforge.jtds:jtds:1.3.1
     implementation("com.android.volley:volley:1.2.1") //com.android.volley:volley:1.2.1
 
-    implementation ("com.fasterxml.jackson.core:jackson-databind:2.10.1") //com.fasterxml.jackson.core:jackson-databind:2.10.1
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.1") //com.fasterxml.jackson.core:jackson-databind:2.10.1
 
-    implementation ("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
-    implementation ("com.google.code.gson:gson:2.10.1") //com.google.code.gson:gson:2.10.1
+    implementation("com.squareup.okhttp3:okhttp:4.9.1") //com.squareup.okhttp3:okhttp:4.9.1
+    implementation("com.google.code.gson:gson:2.10.1") //com.google.code.gson:gson:2.10.1
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0") // Update version as needed
 
     //library to take care of UI interactions
-    //implementation ("com.jakewharton.rxbinding:rxbinding:0.4.0")
+    //implementation("com.jakewharton.rxbinding:rxbinding:0.4.0")
 
     //for animation
-    implementation ("com.airbnb.android:lottie:6.4.1")
+    implementation("com.airbnb.android:lottie:6.4.1")
 
     //to encrypt info stored in shared preference
-    implementation ("androidx.security:security-crypto:1.0.0-alpha02")
+    implementation("androidx.security:security-crypto:1.0.0-alpha02")
 
     //MLKit Unbundled : Models are downloaded and managed via Google Play Services.
     implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")

@@ -39,7 +39,7 @@ public class MealPlanner extends Fragment {
     private TextView breakfastTextView, lunchTextView, dinnerTextView;
     private FoodDB foodDB;
     private String stringURLEndPoint = "https://api.openai.com/v1/chat/completions"; // Replace with your API endpoint
-    private String stringAPIKey = "TYPE_IN_API_KEY"; // API KEY is sk-proj-Kl2DatFCXJDQoTrpkBwKT3BlbkFJDcUUQa1G1xScuoCtvuTo
+    private String stringAPIKey = "TYPE_IN_API_KEY"; // API KEY is sent to you via teams from Jovan Tan Zhi Yao
 
     // Variables to hold the current meal plan
     private String currentBreakfast = "";

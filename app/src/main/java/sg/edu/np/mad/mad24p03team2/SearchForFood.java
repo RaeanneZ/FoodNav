@@ -85,11 +85,12 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             }
         });
 
+        // navigate to the SpeechToText page
         btnSpeak = view.findViewById(R.id.btnSpeak);
         btnSpeak.setOnClickListener(v -> {
             FragmentActivity activity = getActivity();
             if (activity instanceof MainActivity2) {
-                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", false);
+                ((MainActivity2) activity).replaceFragment(new SpeechToText(), "speechToText", true);
             }
         });
 

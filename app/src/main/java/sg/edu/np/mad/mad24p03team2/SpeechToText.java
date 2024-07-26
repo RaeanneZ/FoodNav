@@ -44,7 +44,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
     private RecyclerView recyclerView;
     private FoodAdapter foodAdapter;
-    private IMealRecyclerViewInterface mealRecyclerViewInterface;
+    private IMealRecyclerViewInterface MealRecyclerViewInterface;
 
     @Nullable
     @Override
@@ -66,7 +66,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
         itemListInDB = new ArrayList<FoodItemClass>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
-        getAllFood.execute();
+        getAllFood.execute(); // This is to get all food in database and save in SingletonFood
 
         if (recyclerView != null) {
             foodAdapter = new FoodAdapter(getView().getContext(), itemListInDB, this, false);
@@ -95,7 +95,8 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == Activity.RESULT_OK && data != null) {
+        // && data != null
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == Activity.RESULT_OK ) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (result != null && !result.isEmpty()) {
                 String recognizedText = result.get(0);
@@ -126,6 +127,7 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
         Log.d("Food2Nom", "ItemListInDB: " + itemListInDB.toString());
         Log.d("Food2Nom", "FilteredList: " + filteredList.toString());
+        Log.d("Food2Nom", "Recognized text: " + recognizedText);
 
         if (mealFound) {
             foodAdapter.setFilteredList(filteredList);
@@ -161,15 +163,14 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-        itemListInDB = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        itemListInDB = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList(); //SingletonFoodSearchResult.getInstance().getFoodSearchResult();
         if (itemListInDB != null) {
             Log.d("Food2Nom", "Food DB fetched successfully");
+            Log.d("Food2Nom", "ItemListInDB after fetch: " + itemListInDB.toString());
+            foodAdapter.setFilteredList(itemListInDB);
         } else {
             Log.d("Food2Nom", "Food DB fetch failed");
         }
-
-        Log.d("Food2Nom", "ItemListInDB after fetch: " + itemListInDB.toString());
-        foodAdapter.setFilteredList(itemListInDB);
     }
 
     @Override
@@ -181,6 +182,14 @@ public class SpeechToText extends Fragment implements IDBProcessListener, Recycl
             switchFragment(item);
         }
     }
+
+    /*@Override
+    public void onItemClick(int itemPos) {
+        //grab user selection
+        FoodItemClass foodItemSelected = filteredList.get(itemPos);
+        // Move on to addfood page
+        switchFragment(foodItemSelected);
+    }*/
 
     private void switchFragment(FoodItemClass foodItemSelected) {
         FragmentActivity activity = getActivity();

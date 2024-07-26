@@ -38,6 +38,7 @@ import java.util.Scanner;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.CreateFoodRecord;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetAllFood;
 
 
 public class InputNewFood extends Fragment implements IDBProcessListener {
@@ -45,6 +46,7 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
     private static final String TAG = "InputNewFood";
 
     //Create Food Class
+    GetAllFood getAllFood = null;
     CreateFoodRecord createFoodRecord = null;
 
     private Uri imageUri = null;
@@ -107,6 +109,9 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
 
         saveBtn = view.findViewById(R.id.save);
         saveBtn.setOnClickListener(v -> {
+
+            getAllFood = new GetAllFood(getActivity().getApplicationContext());
+
             //Check all data are filled
             String sugar = "";
             String protein = "";
@@ -392,7 +397,10 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
     public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {}
 
     @Override
-    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {}
+    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
+        // refresh Singleton
+        requireActivity().runOnUiThread(()-> getAllFood.execute());
+    }
 
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {}

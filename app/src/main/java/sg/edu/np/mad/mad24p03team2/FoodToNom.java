@@ -57,28 +57,27 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
 
     private static final String TAG = "FoodToNom";
 
-    private GetAllFood getAllFood = null;
     private ArrayList<FoodItemClass> itemListInDB = null;
 
     private Uri imageUri = null;
 
-    //TextRecogniser
-   // private TextRecognizer textRecognizer;
-
     private RecyclerView recyclerView;
     private FoodAdapter foodAdapter;
 
-    private Button cameraIButton;
-    private Button galleryIButton;
     private ImageView imageIv;
+    private GetAllFood getAllFood;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //Get Database food items
-        getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
-        getAllFood.execute();
+        //PULL FROM SINGLETON INSTEAD
+        itemListInDB = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList();
+        if(itemListInDB.isEmpty()){
+            //pull from Database
+            getAllFood = new GetAllFood(requireActivity().getApplicationContext(), this);
+            getAllFood.execute();
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_food_to_nom, container, false);
@@ -86,7 +85,7 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d("Food2Nom", "OnViewCreated!");
+
         super.onViewCreated(view, savedInstanceState);
 
         //textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
@@ -97,17 +96,15 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
         recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
 
         imageIv = view.findViewById(R.id.ImageURI);
-        cameraIButton = view.findViewById(R.id.cameraIButton);
-        galleryIButton = view.findViewById(R.id.galleryIButton);
+        Button cameraIButton = view.findViewById(R.id.cameraIButton);
+        Button galleryIButton = view.findViewById(R.id.galleryIButton);
 
         //Camera access needs permission
         cameraIButton.setOnClickListener(v -> {
             if (checkCameraPermissions())
                 pickImageCamera();
-            else {
-                Log.d(TAG, "Request for Camera Permission");
+            else
                 requestCameraPermissions();
-            }
         });
 
         //read/write drive doesn't need permission
@@ -116,7 +113,6 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
 
     private void pickImageCamera() {
 
-        Log.d(TAG, "Pick Image Camera");
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Sample Title");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Sample Description");
@@ -189,14 +185,10 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
                                 //food names in DB are all in lowerCase
                                 processIdentifiedText(text.getText().toLowerCase());
                             })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //hide result pane
-                            recyclerView.setVisibility(View.GONE);
-                            Log.d(TAG, "Failed to recognise text due to " + e.getMessage());
-                            Toast.makeText(getActivity(), "Failed to recognise text due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                    .addOnFailureListener(e -> {
+                        //hide result pane
+                        recyclerView.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "Failed to recognise text due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
 
         } catch (Exception e) {
@@ -205,16 +197,15 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
         }
     }
 
+    //identify food items from recognised text detected from Image
+    //run through the recognisedtext to find matching food item names in DB
     private void processIdentifiedText(String recognisedText) {
 
-        //identify food items from recognised text detected from Image
-        //run through the recognisedtext to find matching food item names in DB
         if (itemListInDB == null || itemListInDB.isEmpty()) {
-            Log.d("Food2Nom", "Fail to access Food DB");
+            Toast.makeText(getActivity(), "No matching food found in FoodNav DB", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.d("Food2Nom", "Recognised Text = "+recognisedText);
         ArrayList<FoodItemClass> filteredList = new ArrayList<FoodItemClass>();
         for (FoodItemClass fItem : itemListInDB) {
             if (recognisedText.contains(fItem.getName())) {
@@ -226,8 +217,7 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
         foodAdapter.setFilteredList(filteredList);
 
         if (!filteredList.isEmpty())
-            //show result pane
-            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);  //show result pane
         else
             recyclerView.setVisibility(View.GONE);
     }
@@ -267,7 +257,10 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-        itemListInDB = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        if(executeStatus)
+            itemListInDB = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList();
+        else
+            requireActivity().runOnUiThread(()->Toast.makeText(getActivity(), "Fail to load food from database", Toast.LENGTH_SHORT).show() );
     }
 
     @Override

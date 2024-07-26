@@ -59,7 +59,8 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        itemList = new ArrayList<FoodItemClass>();
+
+        itemList = new ArrayList<>();
         getFood = new GetFood(requireContext().getApplicationContext(), this);
         getAllFood = new GetAllFood(requireContext().getApplicationContext(), this);
         foodAdapter = new FoodAdapter(getView().getContext(), itemList, this, true);
@@ -83,12 +84,12 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
                 ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", true);
             }
         });
-      
+
         btnSpeak = view.findViewById(R.id.btnSpeak);
         btnSpeak.setOnClickListener(v -> {
             FragmentActivity activity = getActivity();
             if (activity instanceof MainActivity2) {
-                ((MainActivity2) activity).replaceFragment(new SpeechToText(), "speechToText", true);
+                ((MainActivity2) activity).replaceFragment(new InputNewFood(), "inputNewFood", false);
             }
         });
 
@@ -100,8 +101,8 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
             // 1. User enter query text, send the text to search the db
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.isEmpty())
-                    getAllFood.execute();
+                if(newText.isEmpty()) //260724
+                    updateCompleteFoodList(); //getAllFood.execute();
                 else
                     getFood.execute(newText); // This is to get from search query, Result get from Singleton in afterProcess
 
@@ -116,21 +117,34 @@ public class SearchForFood extends Fragment implements IDBProcessListener, Recyc
         searchView.setOnQueryTextListener(null);
     }
 
+    public void updateCompleteFoodList(){
+        itemList.clear();
+        ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList(); //SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+        for (FoodItemClass fitem : allFoodList) {
+            if (itemList.size() <= 10) {  //add the top 10 recommended item
+                if (fitem.isRecommended()) {
+                    itemList.add(fitem);
+                }
+            }
+        }
+    }
+
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
         // ALL PROCESSES AFTER DATABASE CALL MUST BE WRITTEN HERE !!
         if(executeStatus) {
-            itemList.clear();
             if (returnClass.isInstance(getAllFood)) {
-                ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
+                updateCompleteFoodList();
+                /*ArrayList<FoodItemClass> allFoodList = SingletonFoodSearchResult.getInstance().getCompleteFoodItemList(); //SingletonFoodSearchResult.getInstance().getFoodSearchResult();
                 for (FoodItemClass fitem : allFoodList) {
                     if (itemList.size() <= 10) {  //add the top 10 recommended item
                         if (fitem.isRecommended()) {
                             itemList.add(fitem);
                         }
                     }
-                }
+                }*/
             } else {
+                itemList.clear();
                 ArrayList<FoodItemClass> searchedFoodList = SingletonFoodSearchResult.getInstance().getFoodSearchResult();
                 for (FoodItemClass fitem : searchedFoodList) {
                     if (itemList.size() <= 10) {  //add the top 10 found items

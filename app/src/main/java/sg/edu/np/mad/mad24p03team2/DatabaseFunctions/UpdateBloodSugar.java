@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
+import sg.edu.np.mad.mad24p03team2.GlobalUtil;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 
 /**
@@ -41,7 +42,8 @@ public class UpdateBloodSugar extends AsyncTaskExecutorService<String, String , 
         //String timestamp = strings[2];
 
         try {
-             isSuccess = bloodSugarTrackingDB.UpdateRecord(SingletonSession.getInstance().GetAccount().getId(), bloodSugar, mealName);//, timestamp);
+            isSuccess = bloodSugarTrackingDB.UpdateRecord(SingletonSession.getInstance().GetAccount().getId(),
+                    bloodSugar, mealName, GlobalUtil.DateFormatter.format(SingletonSession.getInstance().getMealDate().getTime()));//, timestamp);
         } catch (Exception e) {
             Log.d("UpdateBloodSugar", "Error occurred: " + e.getMessage());
             isSuccess = false;

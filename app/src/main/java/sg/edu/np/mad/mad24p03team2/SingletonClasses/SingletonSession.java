@@ -2,6 +2,7 @@ package sg.edu.np.mad.mad24p03team2.SingletonClasses;
 
 import android.accounts.Account;
 
+import java.util.Calendar;
 import java.util.Date;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 
@@ -13,6 +14,7 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 public class SingletonSession {
 
     private AccountClass account = null;
+    Calendar mealDate;
     private static volatile SingletonSession INSTANCE = null;
 
     // private constructor to prevent instantiation of the class
@@ -21,7 +23,7 @@ public class SingletonSession {
         account = new AccountClass();
         account.setName("");
         account.setEmail("");
-        Date date = new Date();
+        mealDate = Calendar.getInstance();
     }
 
     // public static method to retrieve the singleton instance
@@ -64,6 +66,13 @@ public class SingletonSession {
         SetBloodSugarTracking(toTrackBloodSugar);
     }
 
+    public void setMealDate(int year, int mth, int dayOfMth){
+        mealDate.set(year, mth, dayOfMth);
+    }
+
+    public Calendar getMealDate(){
+        return mealDate;
+    }
 
         public void SetBloodSugarTracking(Boolean toTrack) {
         account.setTrackBloodSugar(toTrack);

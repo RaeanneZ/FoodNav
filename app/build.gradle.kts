@@ -47,7 +47,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-
+    implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0") // for recycler view
     testImplementation("junit:junit:4+")
     implementation("net.sourceforge.jtds:jtds:1.3.1") //net.sourceforge.jtds:jtds:1.3.1

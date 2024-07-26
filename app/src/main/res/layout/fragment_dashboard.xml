@@ -48,18 +48,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/share_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="38dp"
-                    android:text="Share"
-                    android:fontFamily="@font/inter_bold"
-                    android:backgroundTint="@color/lavender"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvdate"
-                    app:layout_constraintStart_toEndOf="@+id/tvdate"
-                    app:layout_constraintTop_toTopOf="@id/tvdate" />
-
                 <View
                     android:id="@+id/viewline"
                     android:layout_width="380dp"
@@ -887,4 +875,13 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Share"
+        android:src="@drawable/baseline_share_24"
+        app:backgroundTint="@color/lavender"/>
 </FrameLayout>

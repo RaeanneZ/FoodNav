@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Set;
@@ -29,8 +31,6 @@ import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IMealRecyclerViewInterfac
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.BloodSugarClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetTodayBloodSugarByMeal;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateBloodSugar;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateMeal;
@@ -53,18 +53,16 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     TextView fatsBox;
     TextView calBox;
     Button addFoodBtn;
+    FloatingActionButton fabMealPlanner;
 
     TextView bsugarTimestamp;
     TextView bsugarLvl;
     MealFoodAdapter mealFoodAdapter;
     RecyclerView recyclerView;
 
-    GetTodayBloodSugarByMeal getTodayBloodSugarByMeal;
-    UpdateBloodSugar updateBloodSugar;
-
     //Model access
-    GetMeal getMeal = null;
     UpdateMeal updateMeal = null;// Initialize UpdateMeal object
+    UpdateBloodSugar updateBloodSugar;
 
     //To differentiate which meal is this pane setup for
     String mealName = "Breakfast";
@@ -88,7 +86,6 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
         // Initialize UpdateMeal object with application context and current fragment
         updateMeal = new UpdateMeal(requireContext().getApplicationContext(), this);
 
@@ -98,8 +95,6 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
             //ensure the softkeyboard doesn't change components layout when shown
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-            getTodayBloodSugarByMeal = new GetTodayBloodSugarByMeal(requireActivity().getApplicationContext(), this);
             updateBloodSugar = new UpdateBloodSugar(requireActivity().getApplicationContext(), this);
         }
         // Inflate the layout for this fragment
@@ -116,6 +111,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         fatsBox = view.findViewById(R.id.tvf1);
         calBox = view.findViewById(R.id.tvk1);
         addFoodBtn = view.findViewById(R.id.button2);
+        fabMealPlanner = view.findViewById(R.id.fabMealPlanner);
 
         //if user opt to track blood sugar
         if(toTrackBloodSugar) {
@@ -138,7 +134,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
                     bsugarReadingChanged = bsugarInputHasFocus = false;
                 }
             });
-        }else{
+        } else {
             layoutBSugar = view.findViewById(R.id.lay33);
             layoutBSugar.setVisibility(View.GONE);
         }
@@ -150,20 +146,18 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
         addFoodBtn.setOnClickListener(v -> switchFragment());
 
-        //read Model and update UI
-        Log.d("LogMealAndBSugarPane", "getMeal for mealName="+mealName);
-        getMeal.execute(mealName,
-                Integer.toString(SingletonSession.getInstance().GetAccount().getId()));
+        fabMealPlanner.setOnClickListener(v -> openMealPlanner());
 
-        if(toTrackBloodSugar) {
-            getTodayBloodSugarByMeal.execute(mealName);
-        }
+        //read Model and update UI
+        updateUI();
+        updateSugarReading();
     }
 
     private TextWatcher getTextWatcher(){
         TextWatcher txtWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -177,8 +171,8 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
 
         return txtWatcher;
     }
-    private void switchFragment() {
 
+    private void switchFragment() {
         // Get the current activity
         FragmentActivity activity = getActivity();
         if (activity instanceof MainActivity2) {
@@ -187,26 +181,35 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
                     replaceFragment(new SearchForFood(), "searchForFood", false);
         }
     }
-    private void updateUI(){
 
+    private void openMealPlanner() {
+        // Get the current activity
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity2) {
+            // Replace the current fragment with the MealPlannerFragment
+            ((MainActivity2) activity).replaceFragment(new MealPlanner(), "mealPlanner", true);
+        }
+    }
+
+    private void updateUI() {
         MealClass mClass = SingletonTodayMeal.getInstance().GetMeal(this.mealName);
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(mClass);
-        sugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        carbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        fatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        calBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        sugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        carbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        fatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        calBox.setText(String.format("%.1f", mMacros.gettCalories()));
 
         //update Recycler view
         mealFoodAdapter.setFilteredList(mClass.getMealName(), mClass.getSelectedFoodList());
     }
 
-    public void updateSugarReading(){
+    public void updateSugarReading() {
         //Update sugar level stored in Model
-        BloodSugarClass bSugar = SingletonBloodSugarResult.getInstance().getTodayBloodSugarByMeal(this.mealName);
+        BloodSugarClass bSugar = SingletonBloodSugarResult.getInstance().getBloodSugarByMeal(this.mealName);
         if(bSugar != null){
             this.bsugarLvl.setText(String.valueOf(bSugar.getBloodSugarReading()));
-        }else{
-            Log.d(LOG_TAG+"::UpdateSugarReading", "SingletonBloodSugar return null");
+        } else {
+            Log.d(LOG_TAG + "::UpdateSugarReading", "SingletonBloodSugar return null");
         }
     }
 
@@ -232,11 +235,10 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         if(executeStatus) {
             if(msg.compareToIgnoreCase(this.mealName)== 0) {
                 //return result from Meal-Model
-                if(returnClass.isInstance(getMeal) || returnClass.isInstance(updateMeal)) {
+                if(returnClass.isInstance(updateMeal)) {
                     updateUI();
 
-                }else if(returnClass.isInstance(getTodayBloodSugarByMeal) ||
-                        returnClass.isInstance(updateBloodSugar)){
+                }else if(returnClass.isInstance(updateBloodSugar)){
                     //return result from BloodSugar-Model
                     updateSugarReading();
                 }

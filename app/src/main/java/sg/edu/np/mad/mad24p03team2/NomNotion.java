@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -57,7 +58,7 @@ public class NomNotion extends Fragment {
     private Button galleryIButton;
     private ImageView imageIv;
 
-    ScrollView svConstraints;
+    HorizontalScrollView svConstraints;
     CardView cvSugar;
     TextView txtViewSugar;
     ImageView ivSugar;
@@ -66,7 +67,7 @@ public class NomNotion extends Fragment {
     CardView cvDairy;
     TextView txtViewDairy;
     ImageView ivDairy;
-    ImageView ivDiaryFree;
+    ImageView ivDairyFree;
 
     CardView cvGluten;
     TextView txtViewGluten;
@@ -126,7 +127,7 @@ public class NomNotion extends Fragment {
         cvDairy = view.findViewById(R.id.cardViewDairy);
         txtViewDairy = view.findViewById(R.id.textViewDairy);
         ivDairy = view.findViewById(R.id.image_Dairy);
-        ivDiaryFree = view.findViewById(R.id.image_Dairyfree);
+        ivDairyFree = view.findViewById(R.id.image_Dairyfree);
 
         cvGluten = view.findViewById(R.id.cardViewGluten);
         txtViewGluten = view.findViewById(R.id.textViewGluten);
@@ -433,11 +434,11 @@ public class NomNotion extends Fragment {
                     break;
                 case DAIRY_FREE:
                     if (cIngredients.isEmpty()) {
-                        ivDiaryFree.setVisibility(View.VISIBLE);
+                        ivDairyFree.setVisibility(View.VISIBLE);
                         ivDairy.setVisibility(View.GONE);
                         txtViewDairy.setText("");
                     } else {
-                        ivDiaryFree.setVisibility(View.GONE);
+                        ivDairyFree.setVisibility(View.GONE);
                         ivDairy.setVisibility(View.VISIBLE);
                         txtViewDairy.setText(listing);
                     }

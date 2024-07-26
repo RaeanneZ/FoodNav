@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad24p03team2.SingletonClasses;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
@@ -12,6 +13,8 @@ public class SingletonFoodSearchResult {
     private FoodItemClass selFoodItem = null;
     private ArrayList<FoodItemClass> foodItemList;
 
+    private ArrayList<FoodItemClass> allFoodItemList;
+
     private String mealName = "Breakfast";
 
     private static volatile SingletonFoodSearchResult INSTANCE = null;
@@ -19,6 +22,7 @@ public class SingletonFoodSearchResult {
     // private constructor to prevent instantiation of the class
     private SingletonFoodSearchResult() {
         selFoodItem = new FoodItemClass();
+        allFoodItemList = new ArrayList<>(); //initialise
     }
 
     // public static method to retrieve the singleton instance
@@ -44,6 +48,14 @@ public class SingletonFoodSearchResult {
 
     public void setSelectedFoodFromSearchResult(FoodItemClass selectedFoodItem){
         selFoodItem = selectedFoodItem;
+    }
+
+    public void setAllFoodItemList(ArrayList<FoodItemClass> completeList){
+        this.allFoodItemList = completeList;
+    }
+
+    public ArrayList<FoodItemClass> getCompleteFoodItemList(){
+        return this.allFoodItemList;
     }
 
     public FoodItemClass getSelectedFoodItemFromSearchResult(){

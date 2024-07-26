@@ -24,7 +24,6 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
     ArrayList<IDBProcessListener> dbListeners = null;
     FoodItemClass foodItem;
     ArrayList<FoodItemClass> foodItems = null;
-    ApiHandler apiHandler = new ApiHandler();
 
     public GetAllFood(Context appContext){
         // Later will pass in ApplicationContext
@@ -70,7 +69,7 @@ public class GetAllFood extends AsyncTaskExecutorService<String, String , String
                     Log.d("Get Food", "Resultset unable to close");
                 }
             }
-            SingletonFoodSearchResult.getInstance().setFoodItemList(foodItems);
+            SingletonFoodSearchResult.getInstance().setAllFoodItemList(foodItems);
             isSuccess = true;
         }
         return "";

@@ -1,15 +1,10 @@
 package sg.edu.np.mad.mad24p03team2;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,15 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.UpdateUserProfile;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
-
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * EditProfile

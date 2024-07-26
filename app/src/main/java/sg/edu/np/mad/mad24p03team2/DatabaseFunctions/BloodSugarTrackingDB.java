@@ -23,9 +23,10 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
     }
 
     // Read Function - Get the record by querying with Account ID, MealName and today's date
-    public ResultSet GetRecord(int AccID, String mealName) {
+    public ResultSet GetRecord(int AccID, String mealName, String date) {
 
-        String sql = "SELECT * FROM BloodSugar WHERE AccID = " + AccID + " AND MealName = '" + mealName + "'";
+        String sql = "SELECT * FROM BloodSugar WHERE CONVERT (date, Timestamp) = '"+date+"' AND AccID = " + AccID + " AND MealName = '" + mealName + "'";
+        Log.d("BloodSugarTrackingDB", "GetRecord SQL = "+sql);
         try {
             stmt = dbCon.createStatement();
             return stmt.executeQuery(sql);
@@ -36,7 +37,9 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
 
     public ResultSet GetRecordByDate(int AccID, String date) {
 
-        String sql = "SELECT * FROM BloodSugar WHERE AccID = " + AccID + " AND TimeStamp = '" + date + "'";
+        String sql = "SELECT * FROM BloodSugar WHERE CONVERT (date, Timestamp) = '"+date+"' AND AccID = " + AccID;
+        Log.d("BloodSugarTrackDB", "BLOOD SUGAR REC SQL BY DATE = "+sql);
+
         try {
             stmt = dbCon.createStatement();
             return stmt.executeQuery(sql);
@@ -47,16 +50,17 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
 
     // Create Function
     //int AccID, Float bloodSugarReading, String mealName, String timestamp
-    public boolean CreateRecord(int AccID, Float bloodSugarReading, String mealName) throws SQLException {
+    public boolean CreateRecord(int AccID, Float bloodSugarReading, String mealName, String date) throws SQLException {
 
         Boolean isSuccess = false;
         ResultSet resultSet = null;
         String sql = "INSERT INTO BloodSugar(AccID, BloodSugarReading, MealName, Timestamp) " +
-                "VALUES (" + AccID + ", " + bloodSugarReading + ", '" + mealName + "'" + ", GETDATE())";
+                "VALUES (" + AccID + ", " + bloodSugarReading + ", '" + mealName + "'" + ", '"+date+"')";
+        Log.d("BloodSugarTrackingDB", "CreateRecord SQL = "+sql);
 
         try {
             // Check if record already exist
-            resultSet = GetRecord(AccID, mealName);
+            resultSet = GetRecord(AccID, mealName, date);
             //if record does not exist
             if (!resultSet.isBeforeFirst() && resultSet.getRow() == 0) {
                 // Create and execute the SQL statement to Database
@@ -79,18 +83,20 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
     }
 
     //int AccID, Float bloodSugarReading, String mealName, String timestamp
-    public boolean UpdateRecord(int AccID, Float bloodSugarReading, String mealName) throws SQLException {
+    public boolean UpdateRecord(int AccID, Float bloodSugarReading, String mealName, String date) throws SQLException {
         boolean isUpdateSuccessful = false;
         ResultSet resultSet = null;
         String sql = null;
 
         try {
-            resultSet = GetRecord(AccID, mealName);
+            resultSet = GetRecord(AccID, mealName,date);
             // if there is result
             if (resultSet.next()) {
                 // Create and execute the SQL statement to Database
-                sql = "UPDATE BloodSugar SET BloodSugarReading = " + bloodSugarReading + ", Timestamp = GETDATE() WHERE " +
+                sql = "UPDATE BloodSugar SET BloodSugarReading = " + bloodSugarReading + ", Timestamp = '"+date+"' WHERE " +
                         "AccID = " + AccID + " AND MealName = '" + mealName + "'";
+
+                Log.d("BloodSugarTrackingDB", "UpdateRecord SQL = "+sql);
 
                 stmt = dbCon.createStatement();
                 stmt.executeUpdate(sql);
@@ -99,16 +105,17 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
 
             } else {
                 // If there is no results, call create function
-                CreateRecord(AccID, bloodSugarReading, mealName);
+                CreateRecord(AccID, bloodSugarReading, mealName, date);
                 isUpdateSuccessful = true;
             }
 
             //getUpdated record and store locally
-            resultSet = GetRecord(AccID, mealName);
+            resultSet = GetRecord(AccID, mealName, date);
             if (resultSet.next()) {
                 BloodSugarClass bsugarClass = new BloodSugarClass(resultSet.getInt("BloodSugarID"), bloodSugarReading,
                         mealName, resultSet.getString("Timestamp"));
-                SingletonBloodSugarResult.getInstance().addTodayBloodSugarByMeal(bsugarClass);
+
+                SingletonBloodSugarResult.getInstance().addBloodSugarByMeal(bsugarClass);
             }
 
         } catch (Exception e) {
@@ -119,8 +126,7 @@ public class BloodSugarTrackingDB extends AbstractDBProcess {
             if (resultSet != null) {
                 resultSet.close();
             }
-
-            return isUpdateSuccessful;
         }
+        return isUpdateSuccessful;
     }
 }

@@ -1,43 +1,59 @@
 package sg.edu.np.mad.mad24p03team2;
 
+
+import android.app.AlarmManager;
+import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietConstraint;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetDietPlanOption;
-import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetMeal;
+import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetLoggedMealsByDate;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.MealClass;
+import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonBloodSugarResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
-/**
- * Dashboard
- * UI-Fragment to display summary of current user's Food Journal
- * Display includes, progress bar to summaries total intake of macros and calories balance based
- * on all food logged today
- * Summary of each meal presented in card-form
- */
 public class Dashboard extends Fragment implements IDBProcessListener {
-    GetMeal getMeal = null;
-    GetDietPlanOption getDietPlanOption = null;
+
+    GetLoggedMealsByDate getLoggedMealsByDate;
 
     TextView title;
     TextView sugarBox;
@@ -61,30 +77,45 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     ProgressBar cbar;
     TextView calProgressText;
 
-    GetDietConstraint getDietConstraint;
+    Button calBtn;
+    int tmpYear = 1;
+    int tmpMth = 1;
+    int tmpDay = 1;
+    String todayTitle = "";
+    Calendar todayDate = Calendar.getInstance();
 
+    DatePickerDialog datePickerDialog = null;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
-
     boolean setupProgressBarMax = false;
+
+    //**Hong Rong
+    public static int Carb = 0;
+    public static int Fat = 0;
+    public static int sugarn = 0;
+    public static int Cal = 0;
+    public static int CalLeft = 0;
+
+    public static int Rcarb = 0;
+    public static int Rfat = 0;
+    public static int Rsugar = 0;
+    public static int Rcal = 0;
+    //**
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getMeal = new GetMeal(requireActivity().getApplicationContext(), this);
-        getDietPlanOption = new GetDietPlanOption(requireActivity().getApplicationContext(), this);
-
-        //Grab user diet Constraints and store in SingletonDietConstraints
-        getDietConstraint = new GetDietConstraint(requireActivity().getApplicationContext(), this);
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+        getLoggedMealsByDate = new GetLoggedMealsByDate(requireActivity().getApplicationContext(), this);
         title = view.findViewById(R.id.tvdate);
+        todayTitle = "Today, " + sdf.format(todayDate.getTime());
 
-        String todayDate = "Today, "+sdf.format(Calendar.getInstance().getTime());
-        title.setText(todayDate);
+        Calendar tmp = SingletonSession.getInstance().getMealDate();
+        title.setText(formatTitleDate(tmp.get(Calendar.YEAR), tmp.get(Calendar.MONTH), tmp.get(Calendar.DAY_OF_MONTH)));
+
         sugarBox = view.findViewById(R.id.tvp1);
         carbsBox = view.findViewById(R.id.tvc1);
         fatsBox = view.findViewById(R.id.tvf1);
@@ -106,70 +137,240 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
 
-        return view;
+        //calendar button to switch day
+        calBtn = view.findViewById(R.id.calendar_button);
+        initDatePickerDialog();
+        calBtn.setOnClickListener(v -> datePickerDialog.show());
 
+        //Jovan shared button
+        FloatingActionButton shareButton = view.findViewById(R.id.share_button);
+        scheduleDailyNotification();
+
+        shareButton.setOnClickListener(v -> shareImage());
+
+        return view;
+    }
+
+    private void initDatePickerDialog() {
+
+        datePickerDialog = new DatePickerDialog(getContext(),
+                (view1, year, month, dayOfMonth) -> {
+
+                    String sTitle = formatTitleDate(year, month, dayOfMonth);
+                    if (!sTitle.isEmpty()) {
+                        title.setText(sTitle);
+                        datePickerDialog.getDatePicker().updateDate(year, month, dayOfMonth);
+
+                        //save selected dates
+                        SingletonSession.getInstance().setMealDate(year, month, dayOfMonth);
+                        //reset prev records
+                        SingletonTodayMeal.getInstance().onDestroy();
+                        SingletonBloodSugarResult.getInstance().onDestroy();
+
+                        //refresh all data by date
+                        String date = year + "-" + (month + 1) + "-" + dayOfMonth;
+                        Log.d("Dashboard", "GetLogged Food for = " + date);
+                        getLoggedMealsByDate.execute(date);
+                    }
+
+                }, tmpYear, tmpMth, tmpDay);
+
+        //set the max and min date
+        Calendar cal = Calendar.getInstance();
+        datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
+
+        cal.add(Calendar.DATE, -2);
+        datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+    }
+
+    private String formatTitleDate(int year, int month, int dayOfMonth) {
+
+        String newTitle = "";
+        if (tmpYear == year && tmpMth == month && tmpDay == dayOfMonth) {
+            newTitle = ""; //no change in date selection, dun refresh
+        } else if (todayDate.get(Calendar.YEAR) == year
+                && todayDate.get(Calendar.MONTH) == month && todayDate.get(Calendar.DAY_OF_MONTH) == dayOfMonth) {
+            //change to TODAY's date
+            newTitle = todayTitle;
+        } else {
+
+            //selected yesterday or the day before
+            Calendar tmpCal = Calendar.getInstance();
+            tmpCal.set(year, month, dayOfMonth);
+            int week_number = tmpCal.get(Calendar.DAY_OF_WEEK);
+
+            switch (week_number) {
+                case Calendar.MONDAY:
+                    newTitle += "Mon, ";
+                    break;
+                case Calendar.TUESDAY:
+                    newTitle += "Tues, ";
+                    break;
+                case Calendar.WEDNESDAY:
+                    newTitle += "Wed, ";
+                    break;
+                case Calendar.THURSDAY:
+                    newTitle += "Thurs, ";
+                    break;
+                case Calendar.FRIDAY:
+                    newTitle += "Fri, ";
+                    break;
+                case Calendar.SATURDAY:
+                    newTitle += "Sat, ";
+                    break;
+                case Calendar.SUNDAY:
+                    newTitle += "Sun, ";
+                    break;
+                default:
+                    newTitle += "Today, ";
+                    break;
+            }
+
+            newTitle += sdf.format(tmpCal.getTime());
+        }
+
+        //update
+        tmpYear = year;
+        tmpMth = month;
+        tmpDay = dayOfMonth;
+
+        return newTitle;
+
+    }
+
+    //Jovan
+    private void shareImage() {
+        View view = getView().findViewById(R.id.constraintLayout); // Adjust this to the correct view id
+        if (view != null) {
+            Bitmap bitmap = getBitmapFromView(view);
+
+            // Save bitmap to file
+            File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image.png");
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+
+                // Get the URI of the image
+                Uri uri = FileProvider.getUriForFile(requireActivity(), "sg.edu.np.mad.mad24p03team2.provider", file);
+
+                // Create the share intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                // Ensure Instagram or other apps can read the file
+                List<ResolveInfo> resInfoList = requireContext().getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo : resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+                try {
+                    shareIntent.setPackage("com.instagram.android");
+                    shareIntent.putExtra("Instagram_story", uri);
+                    startActivity(shareIntent);
+                } catch (ActivityNotFoundException actNotFound) {
+                    Toast.makeText(getContext(), "Instagram app is not available", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Failed to share image", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "View not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Jovan
+    private Bitmap getBitmapFromView(View view) {
+        // Ensure the view has the correct background color
+        view.setBackgroundColor(getResources().getColor(android.R.color.white));
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //grab diet plan ; hardcoded plan name because this is the only option for now
-        getDietPlanOption.execute("Diabetic Friendly", SingletonSession.getInstance().GetAccount().getGender());
+        //to ensure max setup only done once when view is created
+        if (!setupProgressBarMax) {
+            DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
+            if (dietPlan != null) {
+                carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
+                fatBar.setMax(dietPlan.getReccFatsIntake() + 10);
+                sugarBar.setMax(dietPlan.getReccSugarIntake() + 10);
 
-        //get details from model to display
-        String acctId = Integer.toString(SingletonSession.getInstance().GetAccount().getId());
-        getMeal.execute("Breakfast", acctId);
-        getMeal.execute("Lunch", acctId);
-        getMeal.execute("Dinner", acctId);
+                int calories = dietPlan.getReccCaloriesIntake();
+                cbar.setMax(calories);
+                calProgressText.setText(String.valueOf(calories));
 
-        //update dietPreference
-        getDietConstraint.execute(acctId);
+                //setupcomplete
+                setupProgressBarMax = true;
+
+            } else {
+                //hardcode value if Model is not ready
+                carbBar.setMax(200);
+                fatBar.setMax(200);
+                sugarBar.setMax(200);
+                cbar.setMax(1550);
+            }
+        }
+
+        refreshUI();
+    }
+
+    private void refreshUI() {
+        updateBreakfastCard(SingletonTodayMeal.getInstance().GetMeal("Breakfast"));
+        updateLunchCard(SingletonTodayMeal.getInstance().GetMeal("Lunch"));
+        updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
+        updateTodayMacros();
     }
 
     private void updateBreakfastCard(MealClass meal) {
-
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        bsugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        bcarbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        bfatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        bcalBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        bsugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        bcarbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        bfatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        bcalBox.setText(String.format("%.1f", mMacros.gettCalories()));
     }
 
     private void updateLunchCard(MealClass meal) {
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        sugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        carbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        fatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        calBox.setText(String.format("%.1f",mMacros.gettCalories()));
-
-     }
+        sugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        carbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        fatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        calBox.setText(String.format("%.1f", mMacros.gettCalories()));
+    }
 
     private void updateDinnerCard(MealClass meal) {
         MealMacros mMacros = GlobalUtil.getMealTotalMacros(meal);
-        dSugarBox.setText(String.format("%.1f",mMacros.gettSugar()));
-        dcarbsBox.setText(String.format("%.1f",mMacros.gettCarbs()));
-        dfatsBox.setText(String.format("%.1f",mMacros.gettFats()));
-        dcalBox.setText(String.format("%.1f",mMacros.gettCalories()));
+        dSugarBox.setText(String.format("%.1f", mMacros.gettSugar()));
+        dcarbsBox.setText(String.format("%.1f", mMacros.gettCarbs()));
+        dfatsBox.setText(String.format("%.1f", mMacros.gettFats()));
+        dcalBox.setText(String.format("%.1f", mMacros.gettCalories()));
     }
 
     private void updateTodayMacros() {
         //calculate total of 3 meals macros for the day
-        float tSugar = Float.parseFloat((String) sugarBox.getText()) +
-                Float.parseFloat((String) bsugarBox.getText()) +
-                Float.parseFloat((String) dSugarBox.getText());
+        float tSugar = Float.parseFloat(sugarBox.getText().toString()) +
+                Float.parseFloat(bsugarBox.getText().toString()) +
+                Float.parseFloat(dSugarBox.getText().toString());
 
-        float tFats = Float.parseFloat((String) fatsBox.getText()) +
-                Float.parseFloat((String) bfatsBox.getText()) +
-                Float.parseFloat((String) dfatsBox.getText());
+        float tFats = Float.parseFloat(fatsBox.getText().toString()) +
+                Float.parseFloat(bfatsBox.getText().toString()) +
+                Float.parseFloat(dfatsBox.getText().toString());
 
-        float tCarbs = Float.parseFloat((String) carbsBox.getText()) +
-                Float.parseFloat((String) bcarbsBox.getText()) +
-                Float.parseFloat((String) dcarbsBox.getText());
+        float tCarbs = Float.parseFloat(carbsBox.getText().toString()) +
+                Float.parseFloat(bcarbsBox.getText().toString()) +
+                Float.parseFloat(dcarbsBox.getText().toString());
 
-        float tCal = Float.parseFloat((String) calBox.getText()) +
-                Float.parseFloat((String) bcalBox.getText()) +
-                Float.parseFloat((String) dcalBox.getText());
+        float tCal = Float.parseFloat(calBox.getText().toString()) +
+                Float.parseFloat(bcalBox.getText().toString()) +
+                Float.parseFloat(dcalBox.getText().toString());
 
         carbBar.setProgress((int) tCarbs);
         fatBar.setProgress((int) tFats);
@@ -178,63 +379,123 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         cbar.setProgress((int) tCal);
         int calLeft = cbar.getMax() - (int) tCal;
         calProgressText.setText(String.valueOf(calLeft));
+
+        //** HongRong
+        Log.d("Data", "Data received from fragment: " + (int) tCarbs);
+        Carb = (int) tCarbs;
+        Fat = (int) tFats;
+        sugarn = (int) tSugar;
+        Cal = (int) tCal;
+
+        CalLeft = (int) (Rcal - tCal);
+        //**
+
+    }
+
+    //** HongRong
+    public void makeNotification() {
+
+        String channelID = "CHANNEL_ID_NOTIFICATION";
+
+        NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create notification channel if necessary
+        NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelID);
+        if (notificationChannel == null) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            notificationChannel = new NotificationChannel(channelID, "Channel Name", importance);
+            notificationChannel.setLightColor(android.R.color.darker_gray);
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Intent intent = new Intent(getContext(), PopupActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // Ensure activity is not recreated
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+        // After loading is complete, update the notification
+        NotificationCompat.Builder updatedBuilder = new NotificationCompat.Builder(getContext(), channelID)
+                .setSmallIcon(R.drawable.baseline_notifications_active_24)
+                .setContentTitle("Warning")
+                .setContentText("You have used over half of your daily limit.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setProgress(0, 0, false)  // Remove the progress bar
+                .setOngoing(false)  // Allow user interaction
+                .setContentIntent(pendingIntent)  // Set the same PendingIntent
+                .setAutoCancel(true);  // Dismiss the notification when clicked
+
+        // Create an Intent for the dismiss action
+        Intent dismissIntent = new Intent(getContext(), NotificationDismissedReceiver.class);
+        PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(getContext(),
+                1, dismissIntent, PendingIntent.FLAG_MUTABLE);
+
+        // Add the dismiss action to the updated notification
+        updatedBuilder.addAction(R.drawable.baseline_disabled_by_default_24, "Dismiss", dismissPendingIntent);
+
+        // Notify with the updated content
+        notificationManager.notify(0, updatedBuilder.build());
+
+    }
+
+    //HongRong
+    private void scheduleDailyNotification() {
+        Context context = getContext();
+        if (context == null) return;
+
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 15); // Set the time you want the notification to be triggered
+        calendar.set(Calendar.MINUTE, 51);     // 26 minutes past the hour
+        calendar.set(Calendar.SECOND, 0);      // Optional: Set seconds to zero if you want
+
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Move to the next day
+            Log.d("Data", "rrr");
+        }
+
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+            );
+        }
     }
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-
-        if (executeStatus) {
-             if(returnClass.isInstance(getDietPlanOption)) {
-                //to ensure max setup only done once when view is created
-                if (!setupProgressBarMax) {
-                    DietPlanClass dietPlan = SingletonDietPlanResult.getInstance().getDietPlan();
-                    if (dietPlan != null) {
-                        carbBar.setMax(dietPlan.getReccCarbIntake() + 10);
-                        fatBar.setMax(dietPlan.getReccFatsIntake() + 10);
-                        sugarBar.setMax(dietPlan.getReccSugarIntake() + 10);
-
-                        int calories = dietPlan.getReccCaloriesIntake();
-                        cbar.setMax(calories);
-                        calProgressText.setText(String.valueOf(calories));
-
-                        //setupcomplete
-                        setupProgressBarMax = true;
-
-                    } else {
-                        //hardcode value if Model is not ready
-                        carbBar.setMax(200);
-                        fatBar.setMax(200);
-                        sugarBar.setMax(200);
-                        cbar.setMax(1550);
-                    }
-                }
-            } //update diet plan
-        } else {
-            // Handle failure
-            Toast.makeText(getContext(), "Failed to fetch meal data", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
-        if(executeStatus){
-            if(returnClass.isInstance(getMeal)){
-                if(msg.compareToIgnoreCase("breakfast")==0){
-                    updateBreakfastCard(SingletonTodayMeal.getInstance().GetMeal("Breakfast"));
-                }else if(msg.compareToIgnoreCase("lunch") == 0){
-                    updateLunchCard(SingletonTodayMeal.getInstance().GetMeal("Lunch"));
-                }else{
-                    updateDinnerCard(SingletonTodayMeal.getInstance().GetMeal("Dinner"));
-                }
+        if (executeStatus) {
+            refreshUI();
 
-                updateTodayMacros();
+            //hongrong
+            double c = Rcarb * 0.75;
+            double s = Rsugar * 0.75;
+            double f = Rfat * 0.75;
+            double kcal = Rcal * 0.75;
+            if (Carb >= c || sugarn >= s || Fat >= f || Cal >= kcal) {
+                makeNotification();
             }
-        }else {
+
+        } else {
             // Handle failure
-            Log.d("Dashboard::afterProcess","Fail to load meal details");
+            Log.d("Dashboard::afterProcess", "Fail to load meal details");
         }
     }
 
     @Override
-    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {}
+    public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
+    }
 }

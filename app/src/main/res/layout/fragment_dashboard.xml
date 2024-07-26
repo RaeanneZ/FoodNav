@@ -7,8 +7,8 @@
     android:background="@color/white"
     tools:context=".Dashboard">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,6 +32,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <Button
+                    android:id="@+id/calendar_button"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/calendericon"
+                    android:backgroundTint="@color/lavender"
+                    android:fontFamily="@font/inter_bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvdate"
+                    app:layout_constraintEnd_toStartOf="@+id/tvdate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvdate" />
+
                 <TextView
                     android:id="@+id/tvdate"
                     android:layout_width="wrap_content"
@@ -43,9 +56,7 @@
                     android:textColor="@color/eggplant"
                     android:textSize="30sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.14"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/calendar_button"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -64,7 +75,7 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayoutCombineBars"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -82,7 +93,7 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutCircularProgressBar"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="10dp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayoutMealCard"
@@ -106,7 +117,6 @@
 
                 </RelativeLayout>
 
-
                 <TextView
                     android:id="@+id/tvProgress"
                     android:layout_width="wrap_content"
@@ -127,7 +137,7 @@
 
                 <TextView
                     android:id="@+id/tvkcalleft"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="30dp"
@@ -149,7 +159,6 @@
                     app:layout_constraintStart_toEndOf="@+id/RelativeLayoutCircularProgressBar"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="NotSibling">
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -245,7 +254,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayoutCombineBars">
-
 
             <HorizontalScrollView
                 android:id="@+id/mealCardScrollView"
@@ -368,7 +376,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        android:textColor="@color/white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -437,7 +445,6 @@
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
-
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
@@ -552,7 +559,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        android:textColor="@color/white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -621,7 +628,6 @@
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
-
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
@@ -732,11 +738,9 @@
                                         android:textSize="10sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.5"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.5"
-                                        tools:textColor="@color/white" />
+                                        android:textColor="@color/white" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -881,6 +885,14 @@
 
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Share"
+        android:src="@drawable/baseline_share_24"
+        app:backgroundTint="@color/lavender"/>
 </FrameLayout>

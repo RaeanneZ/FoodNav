@@ -14,7 +14,7 @@ public class SingletonBloodSugarResult {
 
     // private constructor to prevent instantiation of the class
     private SingletonBloodSugarResult() {
-        bloodSugarArrayList = new ArrayList<BloodSugarClass>();
+        bloodSugarArrayList = new ArrayList<>();
     }
 
     // public static method to retrieve the singleton instance
@@ -34,7 +34,7 @@ public class SingletonBloodSugarResult {
         return INSTANCE;
     }
 
-    public BloodSugarClass getTodayBloodSugarByMeal(String mealName){
+    public BloodSugarClass getBloodSugarByMeal(String mealName){
         if(bloodSugarArrayList != null) {
             for (BloodSugarClass bloodSugar : bloodSugarArrayList) {
                 if (bloodSugar.getMealName().compareToIgnoreCase(mealName) == 0) {
@@ -45,7 +45,7 @@ public class SingletonBloodSugarResult {
 
         return new BloodSugarClass();
     }
-    public void addTodayBloodSugarByMeal(BloodSugarClass bloodSugarObject){
+    public void addBloodSugarByMeal(BloodSugarClass bloodSugarObject){
         for(BloodSugarClass bloodSugar : bloodSugarArrayList){
             //if record already exist, update
             if(bloodSugar.getMealName().compareToIgnoreCase(bloodSugarObject.getMealName())==0)

@@ -20,10 +20,11 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 
 /**
  * FoodAdapter
- * RecyclerView-Adapter for RecyclerView component in SearchFood and Food2Nom page
+ * RecyclerView-Adapter for RecyclerView component in SearchFood and FoodToNom
  */
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
+    private int LIMIT_SIZE = 10;
     private Context context;
     private ArrayList<FoodItemClass> items = new ArrayList<FoodItemClass>();
     private final RecyclerViewInterface recyclerViewInterface;
@@ -84,6 +85,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         // Total number of items to be displayed
         if (items == null)
             return 0;
+
+        if(items.size() > LIMIT_SIZE)
+            return LIMIT_SIZE;
 
         return items.size();
     }

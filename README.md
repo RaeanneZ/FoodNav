@@ -183,12 +183,12 @@ Notifications are essential features that help keep users informed and engaged b
 
 **Week 8**
 1. Prepare Slides for Week 11 Presentations (Raeanne)
-2. Modify and refine frontend (UI) to dynamically during runtime to reflect model change (Raeanne) 
+2. Revamped Frontend - from UI components to integration with backend. (Raeanne) 
    
 **Week 9**
-1. All Stage 1 functions testing and bug fix to ensure right behavior. (Raeanne)
+1. All Stage 1 functions testing, bugs fixing and rework to ensure all features work correctly. (Raeanne)
 2. Stage 2 Food2Nom implementation (Raeanne)
-3. Design application logo and banner (Raeanne)
+3. Design application logo and banner for Google Playstore submission. (Raeanne)
 
 **Week 10**
 1. Rehearse for Presentation 23 June 2024
@@ -203,14 +203,23 @@ Notifications are essential features that help keep users informed and engaged b
 6. Submit application to Google for approval on 29th June 2024.
 
 **Week 12**
-1. Update Github with new baseline for fellow members to integrate Stage 2 features. (Raeanne)
+1. Implement Forgot Password annd refine sign up process with security qna
+2. Update Github with new baseline for fellow members to integrate Stage 2 features. (Raeanne)
 
 **Week 13**
-1. Update Google Play Store application on 12 July 2024
+1. Stage 2 NomNotion and Dietary Profile implementation (Raeanne)
+2. More testing and Get ready to update Google Play Store application on 12 July 2024 (Raeanne)
 
 **Week 14**
+1. Stage 2 Lottie implementation for Login and Logout animation. (Raeanne)
+2. Draft Stage 2 Presentation Slide (Raeanne)
+3. Update Github Readme(Raeanne)
 
 **Week 15**
+1. Implement Log Food History (2Days) (Raeanne)
+2. Code merge on 24th and last one on 26th July.
+3. FoodNav user guide and github readme
+4. Finalise Presentation slide and Rehearsal on Sunday
 
 **Week 16**
 1. Rehearsal for Stage 2 Presentation on 29th July 2024
@@ -240,22 +249,22 @@ I work with my team to brainstorm and ideate on the application features. The te
 
 During the course of development, I regularly meetup with the team members to ensure that their UI stays true to the figma prototype and to offer Frontend technical support, like, Food Search implementation and others if they have difficulty.
 
-I will also be responsible for the development of application logo icon and banner.
+I am also responsible for the creation of application logo icon and banner for Google Playstore.
 
 **Database Designer/Architect**
 
 I am responsible for the design and setup of the database required for the mobile application, FoodNav. Applying knowledge from Year 1 - Database Module, I started with data modeling and created an ER Diagram (refer to Appendices below) for visual reference before the setup of MSSQL for this project. I am also responsible for the migration of local databases to MS Azure (cloud) for accessibility.
 
 **Developer**
-For stage 2 advanced feature, I implemented Food2Nom page. I explored and incorporated Google MLKit OCR API to recognise text from photos as a key to search our food database. Extended the use of Google OCR to recognise Food Nutrition Label and process text captured to autofill 'New Food' form so that user can easily add to FoodNav Database.
+For stage 2 advanced feature, I implemented Food2Nom page. I explored and incorporated Google MLKit OCR SDK kit to recognise text from photos as a key to search our food database. Extended the use of Google OCR to recognise Food Nutrition Label and process text captured to autofill 'New Food' form so that user can easily add to FoodNav Database. I later extended the use of MLKit OCR to develop feature like Input New Food and NomNotion. Input New Food made use of OCR to detect text on Nutritional labels before processed to extract relevant micronutrients info to autofill form and save to Database. NomNotion used OCR to detect food ingredients names which based on user dietary profile setup, check and highlight ingredients that are of concerned and categorised them for easy understanding.
 
 *Database*
 I am responsible for the coding of all functionality that interacts with the database. Adopting OOP, custom Event Listener and MVC software design patterns, the codes are organized in ways such that all database handling is transparent to the Activity classes. I worked closely with the team members to help them understand with psuedo codes and ease into the process of integrating to the backend.
 
 *Tester*
-I created test cases 'Stage 1 Features - Test Cases' and 'Stage 2 Features - Food2Nom and Add New Food'. 
-To officially baseline the STAGE 1 version, I compiled and resolved the list of bugs found (based on Stage 1 -Week 7 submission version), including identifying and refining incomplete features. 
+To officially baseline the STAGE 1 version, I compiled and resolved the list of bugs found (based on Stage 1 -Week 7 submission version), including identifying, revamped and refining incomplete features. 
 To ensure application stability, I conducted freeplay testing with families and friends, including team members before sending the application for Google approval.
+
 
 
 ### Sian Kim
@@ -310,16 +319,29 @@ I checked with the UI designer on the layout and color scheme to ensure consiste
 
 
 ## Appendices
-[Stage 1 Figma Prototype](https://www.figma.com/design/bbhzqmDpylFzYIMlHsy6BY/Untitled?node-id=0-1&t=qKwwhxSDWoxE48rR-0))
+[Stage 1 Figma Prototype](https://www.figma.com/design/bbhzqmDpylFzYIMlHsy6BY/Untitled?node-id=0-1&t=qKwwhxSDWoxE48rR-0)
 
-[Stage 2 Figma Prototype] *(To be updated)*
-[Stage 2 Features Screenshots] *(To be updated)*
+[FoodNav User Guide](https://www.canva.com/design/DAGMDXtp7IY/nmQxe76qziMiB6c6pxdJ4w/edit?utm_content=DAGMDXtp7IY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Credits
 ### Raeanne
 
-General:
-
 **Run Apps on Hardware device**
 https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/
 https://developer.android.com/studio/run/device
+
+**Stage 1 Features**
+[MS Azure](https://youtu.be/WJBs0zKGqH0?feature=shared)
+[Encrypted Shared Preference](https://www.geeksforgeeks.org/encrypted-shared-preferences-in-android/)
+[Tab Layout](https://youtu.be/pIKdHeOjYNw?feature=shared)
+[RecyclerView](https://youtu.be/Mc0XT58A1Z4?feature=shared)
+
+**Stage 2 Features**
+[Google MLKit Text Recognition]
+Explanation: https://youtu.be/9EKQ0UC04S8?feature=shared
+Coding Tutorial: https://youtu.be/1wewsm0Av98?feature=shared
+Documents: https://developers.google.com/ml-kit/vision/text-recognition/v2/android
+
+[Google MLKit Translation]
+Documents: https://developers.google.com/ml-kit/language/translation
+

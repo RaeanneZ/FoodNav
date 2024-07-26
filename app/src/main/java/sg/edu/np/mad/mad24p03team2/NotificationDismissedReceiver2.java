@@ -10,7 +10,7 @@ public class NotificationDismissedReceiver2 extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(1); // Cancels the notification with ID 1
+        notificationManager.cancel(9); // Cancels the notification with ID 9
 
     }
 }

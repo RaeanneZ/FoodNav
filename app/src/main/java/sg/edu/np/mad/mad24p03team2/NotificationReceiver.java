@@ -29,7 +29,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "daily_notification_channel";
-    private static final int NOTIFICATION_ID = 1;
+    private static final int NOTIFICATION_ID = 9;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -51,7 +51,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent dismissIntent = new Intent(context, NotificationDismissedReceiver2.class);
         PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(
                 context,
-                0,
+                5,
                 dismissIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE // Use FLAG_IMMUTABLE
         );
@@ -59,14 +59,14 @@ public class NotificationReceiver extends BroadcastReceiver {
         // Create initial loading notification
         RemoteViews loadingLayout = new RemoteViews(context.getPackageName(), R.layout.notification_loading);
 
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.baseline_notifications_active_24)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(loadingLayout)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOngoing(true)  // Keeps the notification visible until loading is complete
-                .setProgress(0, 0, true);  // Indeterminate progress bar
+                .setProgress(0, 0, true)  // Indeterminate progress bar
+                .addAction(R.drawable.baseline_disabled_by_default_24, "Dismiss", dismissPendingIntent);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(NOTIFICATION_ID, builder.build());

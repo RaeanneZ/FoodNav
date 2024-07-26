@@ -137,14 +137,17 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         sugarBar = view.findViewById(R.id.progressBarSugar);
         cbar = view.findViewById(R.id.Cbar);
 
+
         //calendar button to switch day
         calBtn = view.findViewById(R.id.calendar_button);
         initDatePickerDialog();
         calBtn.setOnClickListener(v -> datePickerDialog.show());
 
         //Jovan shared button
+
         FloatingActionButton shareButton = view.findViewById(R.id.share_button);
-        scheduleDailyNotification();
+       // scheduleDailyNotification();
+
 
         shareButton.setOnClickListener(v -> shareImage());
 
@@ -436,40 +439,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     }
 
-    //HongRong
-    private void scheduleDailyNotification() {
-        Context context = getContext();
-        if (context == null) return;
 
-        Intent intent = new Intent(context, NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_IMMUTABLE
-        );
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 15); // Set the time you want the notification to be triggered
-        calendar.set(Calendar.MINUTE, 51);     // 26 minutes past the hour
-        calendar.set(Calendar.SECOND, 0);      // Optional: Set seconds to zero if you want
-
-        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1); // Move to the next day
-            Log.d("Data", "rrr");
-        }
-
-        if (alarmManager != null) {
-            alarmManager.setInexactRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY,
-                    pendingIntent
-            );
-        }
-    }
 
     @Override
     public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {

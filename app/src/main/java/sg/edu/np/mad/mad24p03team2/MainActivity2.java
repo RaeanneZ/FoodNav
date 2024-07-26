@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,6 +38,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Calendar;
 
 /**
  * MainActivity2
@@ -102,7 +105,7 @@ public class MainActivity2 extends AppCompatActivity {
             return false; // Indicate that the event was not handled
         });
 
-
+        scheduleDailyNotification();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, 0, systemBars.right, 0);
@@ -121,6 +124,43 @@ public class MainActivity2 extends AppCompatActivity {
         trans.commit();
         manager.popBackStack();
 
+    }
+    public void scheduleDailyNotification() {
+        Context context =getApplicationContext();
+        if (context == null) return;
+
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                9,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 15); // Set the time you want the notification to be triggered
+        calendar.set(Calendar.MINUTE, 30);      // Set the minute
+        calendar.set(Calendar.SECOND, 0);       // Optional: Set seconds to zero
+
+        // If the set time has already passed for today, schedule for the next day
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Move to the next day
+            Log.d("DailyNotification", "Scheduled for next day as the time has already passed for today.");
+        }
+
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+            );
+            Log.d("DailyNotification", "Daily notification scheduled.");
+        } else {
+            Log.e("DailyNotification", "Failed to retrieve AlarmManager service.");
+        }
     }
 
     // Method to replace the current fragment with a new one

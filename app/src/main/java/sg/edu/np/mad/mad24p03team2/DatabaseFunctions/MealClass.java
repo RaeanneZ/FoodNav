@@ -15,7 +15,7 @@ public class MealClass {
     // Constructor
     public MealClass(String mealName) {
         this.mealName = mealName;
-        this.selectedFoodList = new HashMap<FoodItemClass, Integer>();
+        this.selectedFoodList = new HashMap<>();
     }
     public MealClass(int id, String mealName) {
         this.id = id;

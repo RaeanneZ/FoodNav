@@ -34,7 +34,7 @@ public class SingletonTodayMeal {
 
     // private constructor to prevent instantiation of the class
     private SingletonTodayMeal() {
-        mealClassArray = new MealClass[4];
+        mealClassArray = new MealClass[3];
     }
 
     // public static method to retrieve the singleton instance
@@ -71,14 +71,20 @@ public class SingletonTodayMeal {
     }
 
     public MealClass GetMeal(String mealName) {
-        for (MealNames n : MealNames.values()) {
-            if (mealName.compareTo(n.getString()) == 0) {
-                return mealClassArray[n.ordinal()];
+        if(mealClassArray.length >0) {
+            for (MealNames n : MealNames.values()) {
+                if (mealName.compareTo(n.getString()) == 0) {
+                    MealClass tmp = mealClassArray[n.ordinal()];
+                    if(tmp != null) //ensure array has valid mealClass
+                        return tmp;
+                }
             }
         }
 
-        //if not found, return new obj class
-        return new MealClass(mealName);
+        //if not found, add and return new obj class
+        MealClass newMClass = new MealClass(mealName);
+        this.AddMeal(newMClass);
+        return newMClass;
     }
 
     public void onDestroy(){

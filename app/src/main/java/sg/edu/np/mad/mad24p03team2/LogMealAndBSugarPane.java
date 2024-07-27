@@ -200,10 +200,16 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         calBox.setText(String.format("%.1f", mMacros.gettCalories()));
 
         //update Recycler view
+        Log.d("LogMealAndBSugarPane", "Meal Class = "+mClass.getMealName()+"/ FoodList size = "+mClass.getSelectedFoodList().size());
         mealFoodAdapter.setFilteredList(mClass.getMealName(), mClass.getSelectedFoodList());
     }
 
     public void updateSugarReading() {
+
+        //if user did not opt for glucose tracking, then nothing to update
+        if(!toTrackBloodSugar)
+            return;
+
         //Update sugar level stored in Model
         BloodSugarClass bSugar = SingletonBloodSugarResult.getInstance().getBloodSugarByMeal(this.mealName);
         if(bSugar != null){
@@ -211,6 +217,7 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
         } else {
             Log.d(LOG_TAG + "::UpdateSugarReading", "SingletonBloodSugar return null");
         }
+
     }
 
     @Override

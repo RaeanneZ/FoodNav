@@ -37,12 +37,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.DietPlanClass;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetLoggedMealsByDate;
@@ -235,6 +238,41 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
         return newTitle;
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("Dashboard", "Pause");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final StartUp app = (StartUp)requireActivity().getApplicationContext();
+        Connection dbCon = app.getConnection();
+        try {
+            if(dbCon.isClosed())
+                Log.d("Dashboard","onResume - Database closed!");
+        } catch (SQLException e) {
+            Log.d("Dashboard","Error testing dbCon = "+e.getMessage());
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d("Dashboard", "OnStop");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        Log.d("Dashboard", "OnViewStateRestored");
     }
 
     @Override

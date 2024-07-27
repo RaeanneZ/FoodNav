@@ -75,7 +75,6 @@ public class MealFoodAdapter extends RecyclerView.Adapter<MealFoodAdapter.MealFo
         holder.foodId = item.getId();
         holder.nameView.setText(item.getName());
         holder.calNumView.setText(String.format("%.1f", item.getCalories()));
-        Log.d("MealFoodAdapter","Update Meal ="+item.getName()+"/"+item.getServings());
         holder.servingSizeView.setText(String.format("%d", item.getServings()));
     }
 
@@ -84,6 +83,9 @@ public class MealFoodAdapter extends RecyclerView.Adapter<MealFoodAdapter.MealFo
         // Total number of items to be displayed
         if(foodItemList == null)
             return 0;
+
+        if(foodItemList.size()>4)
+            return 4;
 
         return foodItemList.size();
     }

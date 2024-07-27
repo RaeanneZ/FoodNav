@@ -103,6 +103,41 @@ public class LogMealAndBSugarPane extends Fragment implements IDBProcessListener
     }
 
     @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        Log.d("LogMealnSugar", "OnViewStateRestored");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("LogMealnSugar", "onResume");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d("LogMealnSugar", "onStop");
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("LogMealnSugar", "onStart");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("LogMealnSugar", "onPause");
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

@@ -20,7 +20,7 @@
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="@id/textInput"
-            app:layout_constraintHorizontal_bias="0.48"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/textInput"
             app:layout_constraintTop_toBottomOf="@+id/textInput"
             tools:context=".MainActivity2">
@@ -52,7 +52,8 @@
             <HorizontalScrollView
                 android:id="@+id/scrollViewConstraints"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/scrollVLinearLayout"

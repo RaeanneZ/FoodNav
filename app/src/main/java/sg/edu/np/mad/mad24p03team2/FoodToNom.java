@@ -218,8 +218,10 @@ public class FoodToNom extends Fragment implements IDBProcessListener, RecyclerV
 
         if (!filteredList.isEmpty())
             recyclerView.setVisibility(View.VISIBLE);  //show result pane
-        else
+        else{
             recyclerView.setVisibility(View.GONE);
+            Toast.makeText(getActivity(), "Can't find food details in FoodNav", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void pickImageGallery() {

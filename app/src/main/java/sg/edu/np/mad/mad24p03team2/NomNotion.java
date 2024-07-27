@@ -285,13 +285,11 @@ public class NomNotion extends Fragment {
             Log.d(TAG,"Korean Translator is null");
         }else{
             Task<String> result = translatorKorean.translate(detectedText).addOnSuccessListener(s -> {
-                Log.d(TAG,"Translated text = "+s);
                 processIdentifiedText(s);
                 svConstraints.setVisibility(View.VISIBLE);
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Fail to translate text due to: "+e.getMessage());
                     Toast.makeText(getActivity(), "Fail to translate recognized text", Toast.LENGTH_SHORT).show();
                     svConstraints.setVisibility(View.GONE);
                 }
@@ -318,10 +316,12 @@ public class NomNotion extends Fragment {
             //setIngredient listing
             String listing = "";
             for (String item : cIngredients) {
-                if(listing.isEmpty())
-                    listing += item;
-                else
-                    listing += ", "+ item ;
+                if(listing.length() < 8) { //per category limit display of item to 8
+                    if (listing.isEmpty())
+                        listing += item;
+                    else
+                        listing += ", " + item;
+                }
             }
 
             switch (dc) {

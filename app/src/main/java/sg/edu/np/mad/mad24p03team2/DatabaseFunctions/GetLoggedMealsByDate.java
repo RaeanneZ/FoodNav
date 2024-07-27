@@ -127,7 +127,7 @@ public class GetLoggedMealsByDate extends AsyncTaskExecutorService<String, Strin
 
                             mealClass.getSelectedFoodList().put(foodItem, mealResultSet.getInt("Quantity"));
                         }else{
-                            Log.d(TAG, "There is no foodItem found ****");
+                            Log.d(TAG, "GetMeal - There is no foodItem found ****");
                         }
 
                     } catch (Exception e) {
@@ -144,6 +144,7 @@ public class GetLoggedMealsByDate extends AsyncTaskExecutorService<String, Strin
             }
             // Save db return for global access
             SingletonTodayMeal.getInstance().AddMeal(mealClass);
+            Log.d(TAG, "updated SingletonTodayMeal = "+accID +" on this date = "+date);
         }
         catch (SQLException e) {
             Log.d(TAG, "Exception msg = "+e.getMessage());

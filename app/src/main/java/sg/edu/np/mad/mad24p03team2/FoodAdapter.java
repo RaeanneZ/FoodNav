@@ -81,9 +81,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         if (items == null)
             return 0;
 
-        if (items.size() > 10)
-            return 10;
-
         return items.size();
     }
 

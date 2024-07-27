@@ -101,9 +101,6 @@ This prototype will primarily focus on Diabetic Friendly Diet which includes:
 
 **Food2Nom**: To quickly choose food of lower calories, simply upload a picture of the menu. Users can either choose an existing photo from the gallery or take a photo to view food or similar food listing available in FoodNav Database, highlighting which are the healthier choices recommended based on Diet plan selected. This allows the users to get a quick peek and makes a better choice for each meal. 
 
-**Add New Food**: If user cannot find food items in the Search Food Page, they can choose to to add new food to the database. They can either manually input the values or scan the Nutrition Labels via the camera.
-Text recognition will auto input the values if detection is successful.
-
 Considerations for Diabetic Friendly Food includes:
 
 	- Amount of saturated Fats, Sodium and added sugar should be <10% per serving
@@ -112,19 +109,26 @@ Considerations for Diabetic Friendly Food includes:
 	- High fiber food helps to manage blood glucose (Wholegrains, vegetables, beans and nuts)
 	- Opt for drinks with <= 25% sugar
 
+**Add New Food**: If user cannot find food items in the Search Food Page, they can choose to to add new food to the database. They can either manually input the values or scan the Nutrition Labels via the camera.
+Text recognition will auto input the values if detection is successful.
+
+**NomNotion**: NomNotion aims to help user identity and highlight potential ingredients that are not desired based on the user's dietary profile. Users can either take a picture of food ingredients or upload an existing photo from the gallery. This version of FoodNav supports Korean translation of ingredient lists.
 
 
 **Sian Kim**
 
-Feature in Search Bar that suggest words from the dictionary that match the text entered in the search field before the user finishes entering their query. These suggestions are valuable because they can effectively predict what the user wants and provide instant access to it.
+**Speech To Text**: This feature leverages Google's Speech Recognition API to enhance user experience by allowing users to input meal names through voice commands. By activating the speech recognition through a simple button press, users can speak the name of their meal, which the app captures and converts into text. This text is then processed and displayed on a new fragment, making it easier for users to log their meals without typing. This feature adds convenience and accessibility, streamlining the process of tracking daily food intake.
 
 **Jovan**
 
-Feature to allow items in food log to be scrolled horizontally, in addition to vertically, which would reveal icons that have functions such as delete or favourite. The favourites page would be a separate page that shows all the "favourite" items. These improve UX as it makes adding and deleting food more convenient.
+**Instagram Share**: The Instagram Sharing feature allows users to share their daily diet progress directly from the app to Instagram. This feature captures a snapshot of the user's dashboard, which includes daily calorie intake, progress bars for different macronutrients (carbs, fats, sugars), and the total remaining calories for the day. Users can then share this image either as a story, direct message or a post on Instagram.
+
+**Meal Planner**: The Meal Planning feature in our application allows users to generate customized meal plans based on their dietary preferences and caloric needs. Users can select dietary restrictions such as dairy-free, gluten-free, nut-free, soy-free, sugar-free, eggless, vegan, vegetarian, and no seafood. The feature ensures that the total calorie intake aligns with gender-specific requirements—1200 calories for females and 1800 calories for males.
+
 
 **Hong Rong**
 
-Notifications are essential features that help keep users informed and engaged by sending them timely updates or reminders. These notifications serve as gentle nudges to keep users connected to relevant information or actions within an application or platform. By delivering messages directly to users, notifications enhance user experience and increase user engagement by ensuring they stay informed and up-to-date with the latest developments, events, or tasks.
+**Notification**: Notifications are essential features that help keep users informed and engaged by sending them timely updates or reminders. These notifications serve as gentle nudges to keep users connected to relevant information or actions within an application or platform. By delivering messages directly to users, notifications enhance user experience and increase user engagement by ensuring they stay informed and up-to-date with the latest developments, events, or tasks.
 
 ## Feature Test 
 
@@ -214,9 +218,10 @@ Notifications are essential features that help keep users informed and engaged b
 1. Stage 2 Lottie implementation for Login and Logout animation. (Raeanne)
 2. Draft Stage 2 Presentation Slide (Raeanne)
 3. Update Github Readme(Raeanne)
+4. Completed Speech to Text function (Sian Kim)
 
 **Week 15**
-1. Implement Log Food History (2Days) (Raeanne)
+1. Implement Log Food History (2 Days) (Raeanne)
 2. Code merge on 24th and last one on 26th July.
 3. FoodNav user guide and github readme
 4. Finalise Presentation slide and Rehearsal on Sunday
@@ -256,14 +261,20 @@ I am also responsible for the creation of application logo icon and banner for G
 I am responsible for the design and setup of the database required for the mobile application, FoodNav. Applying knowledge from Year 1 - Database Module, I started with data modeling and created an ER Diagram (refer to Appendices below) for visual reference before the setup of MSSQL for this project. I am also responsible for the migration of local databases to MS Azure (cloud) for accessibility.
 
 **Developer**
+
 For stage 2 advanced feature, I implemented Food2Nom page. I explored and incorporated Google MLKit OCR SDK kit to recognise text from photos as a key to search our food database. Extended the use of Google OCR to recognise Food Nutrition Label and process text captured to autofill 'New Food' form so that user can easily add to FoodNav Database. I later extended the use of MLKit OCR to develop feature like Input New Food and NomNotion. Input New Food made use of OCR to detect text on Nutritional labels before processed to extract relevant micronutrients info to autofill form and save to Database. NomNotion used OCR to detect food ingredients names which based on user dietary profile setup, check and highlight ingredients that are of concerned and categorised them for easy understanding.
 
 *Database*
+
 I am responsible for the coding of all functionality that interacts with the database. Adopting OOP, custom Event Listener and MVC software design patterns, the codes are organized in ways such that all database handling is transparent to the Activity classes. I worked closely with the team members to help them understand with psuedo codes and ease into the process of integrating to the backend.
 
 *Tester*
-To officially baseline the STAGE 1 version, I compiled and resolved the list of bugs found (based on Stage 1 -Week 7 submission version), including identifying, revamped and refining incomplete features. 
-To ensure application stability, I conducted freeplay testing with families and friends, including team members before sending the application for Google approval.
+
+I created test cases [Stage 1 Features - Test Cases]  and
+[Stage 2 Features - Food2Nom, Add New Food, NomNotion, Forgot Password].
+To officially baseline the STAGE 1 version, I compiled and resolved the list of bugs found (based on Stage 1 -Week 7 submission version), including identifying and refining incomplete features. 
+To ensure application stability, I conducted freeplay testing with families and friends, including team members before sending the application for GOOGLE approval. Integration testing is done before each update is sent to GOOGLE.
+
 
 
 
@@ -280,7 +291,7 @@ I am responsible for the UI development of:
 2. Sugar tracking option page layout
 3. Display of suggested micronutrients and calories intake based on gender and diet plan layout
 
-I was tasked  to assist other members in refining the UI layout of the following: Dashboard page, Log Food Product, Add Food Page. Other involvement includes debugging to ensure responsiveness of application.
+I was tasked to assist other members in refining the UI layout of the following: Dashboard page, Log Food Product, Add Food Page. Other involvement includes debugging to ensure responsiveness of application.
 
 
 ### Jovan
@@ -319,6 +330,7 @@ I checked with the UI designer on the layout and color scheme to ensure consiste
 
 
 ## Appendices
+
 [Stage 1 Figma Prototype](https://www.figma.com/design/bbhzqmDpylFzYIMlHsy6BY/Untitled?node-id=0-1&t=qKwwhxSDWoxE48rR-0)
 
 [FoodNav User Guide](https://www.canva.com/design/DAGMDXtp7IY/nmQxe76qziMiB6c6pxdJ4w/edit?utm_content=DAGMDXtp7IY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
@@ -327,21 +339,41 @@ I checked with the UI designer on the layout and color scheme to ensure consiste
 ### Raeanne
 
 **Run Apps on Hardware device**
-https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/
-https://developer.android.com/studio/run/device
+
+[https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/](https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/)
+
+[https://developer.android.com/studio/run/device](https://developer.android.com/studio/run/device)
+
+**Run Apps on Hardware device**
+
+[https://developer.android.com/tools/bundletool](https://developer.android.com/tools/bundletool)
+
 
 **Stage 1 Features**
+
 [MS Azure](https://youtu.be/WJBs0zKGqH0?feature=shared)
+
 [Encrypted Shared Preference](https://www.geeksforgeeks.org/encrypted-shared-preferences-in-android/)
+
 [Tab Layout](https://youtu.be/pIKdHeOjYNw?feature=shared)
+
 [RecyclerView](https://youtu.be/Mc0XT58A1Z4?feature=shared)
 
 **Stage 2 Features**
-[Google MLKit Text Recognition]
-Explanation: https://youtu.be/9EKQ0UC04S8?feature=shared
-Coding Tutorial: https://youtu.be/1wewsm0Av98?feature=shared
-Documents: https://developers.google.com/ml-kit/vision/text-recognition/v2/android
 
-[Google MLKit Translation]
-Documents: https://developers.google.com/ml-kit/language/translation
+**Google MLKit Text Recognition**
+
+[Explanation](https://youtu.be/9EKQ0UC04S8?feature=shared)
+
+[Coding Tutorial](https://youtu.be/1wewsm0Av98?feature=shared)
+
+[Documents](https://developers.google.com/ml-kit/vision/text-recognition/v2/android)
+
+**Google MLKit Translation**
+
+[Documents](https://developers.google.com/ml-kit/language/translation)
+
+### Sian Kim
+
+[Google Speech Recognition API](https://www.youtube.com/watch?si=Yvhd9WzGArbYV9EF&v=Z3GuccRUO5E&feature=youtu.be)
 

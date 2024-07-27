@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
@@ -18,7 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
+import sg.edu.np.mad.mad24p03team2.ApplicationSetUp.StartUp;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.GetCurrentUserProfile;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.LoginUser;
@@ -83,17 +88,71 @@ public class MainActivity extends AppCompatActivity implements IDBProcessListene
         return true;
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("Dashboard", "Pause");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final StartUp app = (StartUp)this.getApplicationContext();
+        Connection dbCon = app.getConnection();
+        try {
+            if(dbCon.isClosed())
+                Log.d("MainActivity","onResume - Database closed!");
+        } catch (SQLException e) {
+            Log.d("MainActivity","Error testing dbCon = "+e.getMessage());
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        final StartUp app = (StartUp)this.getApplicationContext();
+        Connection dbCon = app.getConnection();
+        try {
+            if(dbCon.isClosed())
+                Log.d("MainActivity","onStart - Database closed!");
+        } catch (SQLException e) {
+            Log.d("MainActivity","onStart Error testing dbCon = "+e.getMessage());
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d("MainActivity", "OnStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.d("MainActivity", "onDestroy");
+    }
+
     @Override
     public void afterProcess(Boolean isValidUser, Boolean isValidPwd) {
         if (isValidPwd && isValidUser) {
             //moving on to next page
-            Intent login = new Intent(MainActivity.this, MainActivity2.class);
-            startActivity(login);
-            this.finish();  //offload page
+            //Intent login = new Intent(MainActivity.this, MainActivity2.class);
+           // startActivity(login);
+           // this.finish();  //offload page
 
             getCurrentUserProfile = new GetCurrentUserProfile(getApplicationContext(), this);
             // Grab current user profile and store into SingletonSession
             runOnUiThread(() -> getCurrentUserProfile.execute(email));
+
+            Intent loginAnimate = new Intent(MainActivity.this, LoginAnimate.class);
+            startActivity(loginAnimate);
+            this.finish();  //offload login page
         }
     }
 

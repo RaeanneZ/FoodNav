@@ -156,7 +156,7 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     private void initDatePickerDialog() {
 
-        datePickerDialog = new DatePickerDialog(getContext(),
+        datePickerDialog = new DatePickerDialog(requireContext(),
                 (view1, year, month, dayOfMonth) -> {
 
                     String sTitle = formatTitleDate(year, month, dayOfMonth);
@@ -262,10 +262,38 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        final StartUp app = (StartUp)requireActivity().getApplicationContext();
+        Connection dbCon = app.getConnection();
+        try {
+            if(dbCon.isClosed())
+                Log.d("Dashboard","onStart - Database closed!");
+        } catch (SQLException e) {
+            Log.d("Dashboard","onStart Error testing dbCon = "+e.getMessage());
+        }
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
 
         Log.d("Dashboard", "OnStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.d("Dashboard", "onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Log.d("Dashboard", "onDestroyView");
     }
 
     @Override
@@ -378,8 +406,16 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         Cal = (int) tCal;
 
         CalLeft = (int) (Rcal - tCal);
-        //**
 
+        //hongrong
+        double c = Rcarb * 0.75;
+        double s = Rsugar * 0.75;
+        double f = Rfat * 0.75;
+        double kcal = Rcal * 0.75;
+        if (Carb >= c || sugarn >= s || Fat >= f || Cal >= kcal) {
+            makeNotification();
+        }
+        //**
     }
 
     //Jovan
@@ -485,16 +521,6 @@ public class Dashboard extends Fragment implements IDBProcessListener {
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
         if (executeStatus) {
             refreshUI();
-
-            //hongrong
-            double c = Rcarb * 0.75;
-            double s = Rsugar * 0.75;
-            double f = Rfat * 0.75;
-            double kcal = Rcal * 0.75;
-            if (Carb >= c || sugarn >= s || Fat >= f || Cal >= kcal) {
-                makeNotification();
-            }
-
         } else {
             // Handle failure
             Log.d("Dashboard::afterProcess", "Fail to load meal details");

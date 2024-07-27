@@ -17,7 +17,7 @@ public class UpdateDietConstraints extends AsyncTaskExecutorService<String, Stri
 
     public UpdateDietConstraints(Context appContext) {
         this.dietConstraintDB= new DietConstraintDB(appContext);
-        this.dbListeners = new ArrayList<IDBProcessListener>();
+        this.dbListeners = new ArrayList<>();
     }
 
     public UpdateDietConstraints(Context appContext, IDBProcessListener listener) {
@@ -44,7 +44,6 @@ public class UpdateDietConstraints extends AsyncTaskExecutorService<String, Stri
         try {
             // Get the selected diet constraints from singleton
             ArrayList<String> dietConstraints = SingletonDietConstraints.getInstance().getDietProfileInDBFormat();
-
             isSuccess = dietConstraintDB.UpdateRecord(accID, dietConstraints);
 
         } catch (Exception e) {

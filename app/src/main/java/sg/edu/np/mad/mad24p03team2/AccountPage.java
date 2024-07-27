@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.security.crypto.EncryptedSharedPreferences;
 
+import java.util.Objects;
+
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.AccountClass;
@@ -37,10 +39,8 @@ import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
  */
 public class AccountPage extends Fragment {
 
-    //private Switch darkmodeSwitch;
     private ImageView maleIconView;
     private ImageView femaleIconView;
-    private Button logoutBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +56,15 @@ public class AccountPage extends Fragment {
         TextView changePassword = view.findViewById(R.id.changePassword);
 
         // Find the switch by its id
-        //darkmodeSwitch = view.findViewById(R.id.darkmode);
         maleIconView = view.findViewById(R.id.male_icon);
         femaleIconView = view.findViewById(R.id.female_icon);
-        logoutBtn = view.findViewById(R.id.logoutButton);
+        Button logoutBtn = view.findViewById(R.id.logoutButton);
 
         logoutBtn.setOnClickListener(v -> {
 
             //Logout - remove shared preferences
             EncryptedSharedPreferences sharedPreferences =
-                    GlobalUtil.getEncryptedSharedPreference(getActivity().getApplicationContext());
+                    GlobalUtil.getEncryptedSharedPreference(requireActivity().getApplicationContext());
 
             if (sharedPreferences != null) {
                 sharedPreferences.edit().putString(GlobalUtil.SHARED_PREFS_LOGIN_KEY, "").apply();
@@ -81,23 +80,6 @@ public class AccountPage extends Fragment {
             getActivity().finishAffinity();
 
         });
-
-
-        // Set listener for switch changes
-      /*  if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            darkmodeSwitch.setChecked(true);
-        } else{
-            darkmodeSwitch.setChecked(false);
-        }
-        darkmodeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // Update UI for Dark Mode
-                updateUiForDarkMode();
-            } else {
-                // Update UI for Light Mode
-                updateUiForLightMode();
-            }
-        });*/
 
 
         TextView editProfile = view.findViewById(R.id.editProfile);
@@ -175,14 +157,5 @@ public class AccountPage extends Fragment {
         SingletonDietPlanResult.getInstance().onDestroy();
         SingletonSignUp.getInstance().onDestroy();
     }
-
-    // Define methods to update UI elements based on theme (dark/light)
-    //private void updateUiForDarkMode() {
-    //    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    // }
-
-    // private void updateUiForLightMode() {
-    //     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    // }
 
 }

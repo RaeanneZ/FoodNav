@@ -31,8 +31,6 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
     private CheckBox cbEggless;
     private CheckBox cbGlutenFree;
 
-    private Button save;
-    private Button cancel;
     UpdateDietConstraints updateDietConstraints = null;
 
     @Override
@@ -56,7 +54,7 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
         //update checkbox on selection
         updateDietPreferences(SingletonDietConstraints.getInstance().getDietProfile());
 
-        save =findViewById(R.id.saveBtn);
+        Button save = findViewById(R.id.saveBtn);
         updateDietConstraints = new UpdateDietConstraints(getApplicationContext(), this);
         save.setOnClickListener(v -> {
             SingletonDietConstraints.getInstance().setDietProfile(getUpdatedDietPreference());
@@ -64,7 +62,7 @@ public class DietConstraintActivity extends AppCompatActivity implements IDBProc
             this.finish();
         });
 
-        cancel = findViewById(R.id.cancelBtn);
+        Button cancel = findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(v -> finish());
     }
     private ArrayList<String> getUpdatedDietPreference(){

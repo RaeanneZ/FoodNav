@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
@@ -168,7 +169,6 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
                         //refresh all data by date
                         String date = year + "-" + (month + 1) + "-" + dayOfMonth;
-                        Log.d("Dashboard", "GetLogged Food for = " + date);
                         getLoggedMealsByDate.execute(date);
                     }
 
@@ -237,63 +237,11 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     }
 
-    //Jovan
-    private void shareImage() {
-        View view = getView().findViewById(R.id.constraintLayout); // Adjust this to the correct view id
-        if (view != null) {
-            Bitmap bitmap = getBitmapFromView(view);
-
-            // Save bitmap to file
-            File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image.png");
-            try (FileOutputStream out = new FileOutputStream(file)) {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.flush();
-
-                // Get the URI of the image
-                Uri uri = FileProvider.getUriForFile(requireActivity(), "sg.edu.np.mad.mad24p03team2.provider", file);
-
-                // Create the share intent
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("image/*");
-                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                // Ensure Instagram or other apps can read the file
-                List<ResolveInfo> resInfoList = requireContext().getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
-                for (ResolveInfo resolveInfo : resInfoList) {
-                    String packageName = resolveInfo.activityInfo.packageName;
-                    requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                }
-
-                try {
-                    shareIntent.setPackage("com.instagram.android");
-                    shareIntent.putExtra("Instagram_story", uri);
-                    startActivity(shareIntent);
-                } catch (ActivityNotFoundException actNotFound) {
-                    Toast.makeText(getContext(), "Instagram app is not available", Toast.LENGTH_SHORT).show();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), "Failed to share image", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(getContext(), "View not found", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //Jovan
-    private Bitmap getBitmapFromView(View view) {
-        // Ensure the view has the correct background color
-        view.setBackgroundColor(getResources().getColor(android.R.color.white));
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        /*Diet plan doesnt change, hence no need to reset progress bar limits when date change*/
 
         //to ensure max setup only done once when view is created
         if (!setupProgressBarMax) {
@@ -380,7 +328,6 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         calProgressText.setText(String.valueOf(calLeft));
 
         //** HongRong
-        Log.d("Data", "Data received from fragment: " + (int) tCarbs);
         Carb = (int) tCarbs;
         Fat = (int) tFats;
         sugarn = (int) tSugar;
@@ -389,6 +336,60 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         CalLeft = (int) (Rcal - tCal);
         //**
 
+    }
+
+    //Jovan
+    private void shareImage() {
+        View view = getView().findViewById(R.id.constraintLayout); // Adjust this to the correct view id
+        if (view != null) {
+            Bitmap bitmap = getBitmapFromView(view);
+
+            // Save bitmap to file
+            File file = new File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image.png");
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+
+                // Get the URI of the image
+                Uri uri = FileProvider.getUriForFile(requireActivity(), "sg.edu.np.mad.mad24p03team2.provider", file);
+
+                // Create the share intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                // Ensure Instagram or other apps can read the file
+                List<ResolveInfo> resInfoList = requireContext().getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo : resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+                try {
+                    shareIntent.setPackage("com.instagram.android");
+                    shareIntent.putExtra("Instagram_story", uri);
+                    startActivity(shareIntent);
+                } catch (ActivityNotFoundException actNotFound) {
+                    Toast.makeText(getContext(), "Instagram app is not available", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Failed to share image", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "View not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Jovan
+    private Bitmap getBitmapFromView(View view) {
+        // Ensure the view has the correct background color
+        view.setBackgroundColor(getResources().getColor(android.R.color.white));
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     //** HongRong
@@ -411,8 +412,9 @@ public class Dashboard extends Fragment implements IDBProcessListener {
         Intent intent = new Intent(getContext(), PopupActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // Ensure activity is not recreated
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
-        // After loading is complete, update the notification
-        NotificationCompat.Builder updatedBuilder = new NotificationCompat.Builder(getContext(), channelID)
+
+        // update the notification
+        NotificationCompat.Builder updatedBuilder = new NotificationCompat.Builder(requireContext(), channelID)
                 .setSmallIcon(R.drawable.baseline_notifications_active_24)
                 .setContentTitle("Warning")
                 .setContentText("You have used over half of your daily limit.")
@@ -435,12 +437,6 @@ public class Dashboard extends Fragment implements IDBProcessListener {
 
     }
 
-
-
-    @Override
-    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
-    }
-
     @Override
     public void afterProcess(Boolean executeStatus, String msg, Class<? extends AsyncTaskExecutorService> returnClass) {
         if (executeStatus) {
@@ -459,6 +455,10 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             // Handle failure
             Log.d("Dashboard::afterProcess", "Fail to load meal details");
         }
+    }
+
+    @Override
+    public void afterProcess(Boolean executeStatus, Class<? extends AsyncTaskExecutorService> returnClass) {
     }
 
     @Override

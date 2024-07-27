@@ -839,29 +839,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="177dp">
 
-                <CheckBox
+                <TextView
                     android:id="@+id/checkBox3"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="42dp"
                     android:layout_marginBottom="48dp"
-                    android:text="Record blood sugar level after each meal"
+                    android:text="2. Record blood glucose after each meal"
+                    android:fontFamily="@font/inter_regular"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/msnCheckbox2" />
 
-                <CheckBox
+                <TextView
                     android:id="@+id/msnCheckbox2"
                     android:layout_width="0dp"
-                    android:layout_height="39dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="42dp"
-                    android:text="Choose No or Low sugar option"
+                    android:text="1. Choose No or Low sugar option"
+                    android:fontFamily="@font/inter_regular"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

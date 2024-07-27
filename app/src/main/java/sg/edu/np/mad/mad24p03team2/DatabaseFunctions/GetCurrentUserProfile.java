@@ -11,11 +11,9 @@ import java.util.Calendar;
 import sg.edu.np.mad.mad24p03team2.Abstract_Interfaces.IDBProcessListener;
 import sg.edu.np.mad.mad24p03team2.AsyncTaskExecutorService.AsyncTaskExecutorService;
 import sg.edu.np.mad.mad24p03team2.GlobalUtil;
-import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonBloodSugarResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietConstraints;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonDietPlanResult;
 import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonSession;
-import sg.edu.np.mad.mad24p03team2.SingletonClasses.SingletonTodayMeal;
 
 /**
  * GetCurrentUserProfile
@@ -94,9 +92,7 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
 
         try {
             //no constraint
-            if (dietTypeResultSet == null) {
-                SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
-            }else {
+            if (dietTypeResultSet != null) {
                 // If there are any diet constraints
                 while (dietTypeResultSet.next()) {
                     try {
@@ -106,10 +102,12 @@ public class GetCurrentUserProfile extends AsyncTaskExecutorService<String, Stri
                         Log.d("GetCurrentUserProfile::DietConstraint ", e.getMessage());
                     }
                 }
-
-                // Save db return for global access
-                SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
+            }else{
+                Log.d("GetCurrentUserProfile::DietConstraint ", "No dietary profile found for user");
             }
+
+            // Save db return for global access
+            SingletonDietConstraints.getInstance().setDietProfile(dietContraintList);
         }
         catch (SQLException e) {
             z = "Fail to get Diet Constraints from DB";

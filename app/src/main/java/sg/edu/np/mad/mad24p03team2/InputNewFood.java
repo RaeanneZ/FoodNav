@@ -52,9 +52,6 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
     private Uri imageUri = null;
     ArrayList<LineItem> organisedText;
     HashMap<String, LineItem> filteredInfo;
-    private Button cameraIButton;
-    private Button saveBtn;
-    private Button cancelBtn;
     private EditText sugarEt;
     private EditText fatsEt;
     private EditText proteinEt;
@@ -107,9 +104,10 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
         foodNameEt = view.findViewById(R.id.nameEt);
 
 
-        saveBtn = view.findViewById(R.id.save);
+        Button saveBtn = view.findViewById(R.id.save);
         saveBtn.setOnClickListener(v -> {
 
+            //init getAllFood because if new food is saved to DB, update singletonFoodSearch
             getAllFood = new GetAllFood(getActivity().getApplicationContext());
 
             //Check all data are filled
@@ -158,7 +156,7 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
         });
 
         FragmentActivity factivity = getActivity();
-        cancelBtn = view.findViewById(R.id.cancelBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(v -> {
                 //remove 'this' from frag-stack
             if (factivity instanceof MainActivity2) {
@@ -166,7 +164,7 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
             }
         });
 
-        cameraIButton = view.findViewById(R.id.cameraIButton);
+        Button cameraIButton = view.findViewById(R.id.cameraIButton);
         cameraIButton.setOnClickListener(v -> {
             //reset variables for new input
             initTextScan();
@@ -238,18 +236,14 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
             InputImage inputImage = InputImage.fromFilePath(getContext(), imageUri);
             Task<Text> textTaskResult = GlobalUtil.MLTextRecognizer.process(inputImage).addOnSuccessListener(
                             text -> {
-                                Log.d(TAG, "Success in recognising text");
                                 //process recognised-text; map it to the food DB
                                 //food names in DB are all in lowerCase
                                 processIdentifiedText(text);
                                 updateUI();
                             })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //hide result pane
-                            Toast.makeText(getActivity(), "Failed to recognise text due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                    .addOnFailureListener(e -> {
+                        //hide result pane
+                        Toast.makeText(getActivity(), "Failed to recognise text due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
 
         } catch (Exception e) {
@@ -362,8 +356,10 @@ public class InputNewFood extends Fragment implements IDBProcessListener {
 
     private void reorganiseTextDetected(Text.Line element) {
 
-        //text detected are not by rows but column appended to column of data
-        //reorganise is to find out which are the data that are within the same row
+        /*
+        text detected are not by rows but column appended to next column of data
+        reorganise is to find out which are the data that are within the same row
+         */
         Point[] points = element.getCornerPoints();
 
         //between two rect, rectA and rectB, get the mid point of rectB point[0].y and point[3].y

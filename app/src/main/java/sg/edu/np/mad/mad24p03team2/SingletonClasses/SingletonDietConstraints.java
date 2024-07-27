@@ -16,13 +16,13 @@ public class SingletonDietConstraints {
     ArrayList<String> allDairy = new ArrayList<>();
     ArrayList<String> allSoy = new ArrayList<>();
     //store the list of things in each category that is undesirable to have in diet
-    public ArrayList<ArrayList<String>> allAllergens = new ArrayList<ArrayList<String>>();
+    public ArrayList<ArrayList<String>> allAllergens = new ArrayList<>();
     public ArrayList<String> allVegan = new ArrayList<>();
     public ArrayList<String> allVegetarian = new ArrayList<>();
     public ArrayList<String> allGluten = new ArrayList<>();
 
     //because this is a diabetic friendly diet plan, to check on sugar is a must
-    private ArrayList<String> allSugar = new ArrayList<String>();
+    private ArrayList<String> allSugar = new ArrayList<>();
 
     private ArrayList<DIET_CONSTRAINTS> userDietPref = new ArrayList<>();
 
@@ -70,7 +70,8 @@ public class SingletonDietConstraints {
         Collections.addAll(this.allDairy, "milk", "butter", "buttermilk", "casein",
                 "caseinate", "cheese", "cream", "curds", "lactose", "lactulose", "lactate", "custard",
                 "yogurt", "condense milk", "evaporated milk", "lacto acidophilus", "lactalbumin",
-                "lactoglobulin", "nougats", "sour cream", "rennet", "whey");
+                "lactoglobulin", "nougats", "sour cream", "rennet", "whey", "skim milk powder", "skim milk",
+                "milk fat", "milk chocolate");
 
         this.allVegetarian.addAll(allEggs);
         Collections.addAll(this.allVegetarian, "pork", "meat", "beef", "chicken",
@@ -102,20 +103,10 @@ public class SingletonDietConstraints {
         return INSTANCE;
     }
 
-    public void setDietProfile(String... preferences){
-        //clear previous settting
-        userDietPref.clear();
-
-        //call by DB and store the diet preference
-        for(String pref : preferences){
-            userDietPref.add(DIET_CONSTRAINTS.valueOf(pref));
-        }
-
-    }
-
     public ArrayList<DIET_CONSTRAINTS> getDietProfile(){
         return userDietPref;
     }
+
     public ArrayList<String> getDietProfileInDBFormat(){
         ArrayList<String> constraintString = new ArrayList<>();
 
@@ -129,8 +120,10 @@ public class SingletonDietConstraints {
         //clear previous setting
         userDietPref.clear();
 
-        for(String pref: preference){
-            userDietPref.add(DIET_CONSTRAINTS.valueOf(pref.toUpperCase()));
+        if(!preference.isEmpty()) {
+            for (String pref : preference) {
+                userDietPref.add(DIET_CONSTRAINTS.valueOf(pref.toUpperCase()));
+            }
         }
     }
 
@@ -139,8 +132,7 @@ public class SingletonDietConstraints {
         HashMap<SingletonDietConstraints.DIET_CONSTRAINTS, ArrayList<String>> resultMap = new HashMap<>();
 
         for(SingletonDietConstraints.DIET_CONSTRAINTS constraint : userDietPref){
-            ArrayList<String> returnList = new ArrayList<>();
-            returnList = SingletonDietConstraints.getInstance().checkDietConstraint(ingredients, constraint);
+            ArrayList<String> returnList = SingletonDietConstraints.getInstance().checkDietConstraint(ingredients, constraint);
             resultMap.putIfAbsent(constraint, returnList);
         }
 
@@ -148,8 +140,10 @@ public class SingletonDietConstraints {
     }
 
     private ArrayList<String> checkDietConstraint(String ingredients, DIET_CONSTRAINTS constraints) {
-        ArrayList<String> returnList = new ArrayList<String>();
+
+        ArrayList<String> filteredList = new ArrayList<>();
         ArrayList<String> constraintList = new ArrayList<>();
+
         switch (constraints) {
             case VEGAN:
                 constraintList = allVegan;
@@ -180,13 +174,13 @@ public class SingletonDietConstraints {
         }
 
         //check against user's allergies
+        String ingredientsLower = ingredients.toLowerCase();
         for (String item : constraintList) {
-            if (ingredients.contains(item)) {
-                if (!returnList.contains(item)) //incase of duplicate item
-                    returnList.add(item);
+            if (ingredientsLower.contains(item)) {
+                    filteredList.add(item);
             }
         }
-        return returnList;
+        return filteredList;
     }
 
     public void onDestroy(){

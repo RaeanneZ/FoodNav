@@ -1,20 +1,16 @@
 package sg.edu.np.mad.mad24p03team2;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
 
@@ -24,7 +20,6 @@ import sg.edu.np.mad.mad24p03team2.DatabaseFunctions.FoodItemClass;
  */
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
-    private int LIMIT_SIZE = 10;
     private Context context;
     private ArrayList<FoodItemClass> items = new ArrayList<FoodItemClass>();
     private final RecyclerViewInterface recyclerViewInterface;
@@ -38,7 +33,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     }
 
     public FoodAdapter(ArrayList<FoodItemClass> itemList, RecyclerViewInterface recyclerViewInterface, boolean recommend) {
-        if(itemList != null && !itemList.isEmpty())
+        if (itemList != null && !itemList.isEmpty())
             this.items.addAll(itemList);
 
         this.recyclerViewInterface = recyclerViewInterface;
@@ -46,8 +41,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     }
 
-    public FoodAdapter(Context context, ArrayList<FoodItemClass> items, RecyclerViewInterface recyclerViewInterface,boolean recommend) {
-        this(items,recyclerViewInterface,recommend);
+    public FoodAdapter(Context context, ArrayList<FoodItemClass> items, RecyclerViewInterface recyclerViewInterface, boolean recommend) {
+        this(items, recyclerViewInterface, recommend);
         this.context = context;
     }
 
@@ -71,11 +66,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.nameView.setText(item.getName());
         holder.calNumView.setText(String.format("%.1f", item.getCalories()));
         holder.servingSizeView.setText(String.format("%.1f", item.getServing_size_g()));
-        if(showRecommendation){
-            if(item.isRecommended())
-                holder.recomendIcon.setVisibility(View.VISIBLE);
+        if (showRecommendation) {
+            if (item.isRecommended())
+                holder.recommendIcon.setVisibility(View.VISIBLE);
             else
-                holder.recomendIcon.setVisibility(View.GONE);
+                holder.recommendIcon.setVisibility(View.GONE);
         }
 
     }
@@ -86,8 +81,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         if (items == null)
             return 0;
 
-        if(items.size() > LIMIT_SIZE)
-            return LIMIT_SIZE;
+        if (items.size() > 10)
+            return 10;
 
         return items.size();
     }
@@ -98,14 +93,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         TextView calNumView;
         TextView servingSizeView;
 
-        ImageButton recomendIcon;
+        ImageButton recommendIcon;
 
         public FoodViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             nameView = itemView.findViewById(R.id.Name);
             calNumView = itemView.findViewById(R.id.calNum);
             servingSizeView = itemView.findViewById(R.id.servingSize);
-            recomendIcon = itemView.findViewById(R.id.ImageViewRecom);
+            recommendIcon = itemView.findViewById(R.id.ImageViewRecom);
 
             itemView.setOnClickListener(v -> {
                 if (recyclerViewInterface != null) {

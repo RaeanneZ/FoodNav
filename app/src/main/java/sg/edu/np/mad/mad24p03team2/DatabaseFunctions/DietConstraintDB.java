@@ -46,56 +46,40 @@ public class DietConstraintDB extends AbstractDBProcess {
     }
 
     public boolean UpdateRecord(int accountID, ArrayList<String> constraints) throws SQLException {
-        Boolean isSuccess = false;
-        ResultSet resultSet = null;
+        boolean isSuccess = false;
 
-        Log.d("DietConstraintDB", "Update Diet Profile in DB for user ="+accountID);
-        try {
-            //check if there's record
-            resultSet = GetRecord(accountID);
-            String existConstraint="";
-            while (resultSet.next()) {
-                Log.d("DietConstraintDB", "User has existing diet constraints");
-                // If there is record
-                // Get the diet type
-                existConstraint = resultSet.getString("DietType");
-                // Remove all diet constraints from new list that are already in the database
-                // no need to recreate
-                if(constraints.contains(existConstraint)) {
-                    constraints.remove(existConstraint);
-                    break;
-                } else {
-                    // If diet constraint found in database is no longer found in the new list,
-                    // Delete record of a specific diet constraint that was saved previously
-                    DeleteRecord(accountID, existConstraint);
+        boolean delIsSuccess = DeleteRecord(accountID);
+        if(delIsSuccess) {
+            ResultSet resultSet = null;
+
+            try {
+                Log.d("DietConstraintDB", "Insert New Diet Pref to DB");
+                for (String constraint : constraints) {
+                    String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES (" + accountID + ",'" + constraint + "')";
+                    stmt = dbCon.createStatement();
+                    stmt.executeUpdate(sql);
+                }
+            } catch (Exception e) {
+                return isSuccess;
+            } finally {
+                // Close resultset
+                if (resultSet != null) {
+                    resultSet.close();
                 }
             }
 
-            Log.d("DietConstraintDB", "Insert New Diet Pref to DB");
-            for (String constraint : constraints) {
-                String sql = "INSERT INTO DietConstraint(AccID, DietType) VALUES (" + accountID + ",'" + constraint + "')";
-                stmt = dbCon.createStatement();
-                stmt.executeUpdate(sql);
-            }
-        } catch (Exception e) {
-            return isSuccess;
-        } finally {
-            // Close resultset
-            if (resultSet != null) {
-                resultSet.close();
-            }
+            return true;
         }
-
-        return true;
+        return false;
     }
 
-    public boolean DeleteRecord(int acctID, String constraint) throws SQLException {
+    public boolean DeleteRecord(int acctID) throws SQLException {
         boolean isUpdateSuccessful = false;
         String sql = null;
         Log.d("DietConstraintDB", "*** Delete Diet Pref to DB");
 
         try {
-            sql = "DELETE FROM DietConstraint WHERE AccID = " + acctID + " AND DietType = '"+ constraint +"'";
+            sql = "DELETE FROM DietConstraint WHERE AccID = " + acctID;
             stmt = dbCon.createStatement();
             stmt.executeUpdate(sql);
             isUpdateSuccessful = true;
@@ -105,4 +89,5 @@ public class DietConstraintDB extends AbstractDBProcess {
 
         return isUpdateSuccessful;
     }
+
 }

@@ -189,17 +189,9 @@ public class NomNotion extends Fragment {
                 .build();
         translatorKorean = Translation.getClient(option);
 
-        translatorKorean.downloadModelIfNeeded().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Downloaded korean translator pack successfully");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Fail to download korean translator pack");
-            }
-        });
+        translatorKorean.downloadModelIfNeeded().addOnSuccessListener(unused ->
+                Log.d(TAG, "Downloaded korean translator pack successfully")).
+                addOnFailureListener(e -> Log.d(TAG, "Fail to download korean translator pack"));
     }
 
     private void pickImageCamera() {
@@ -292,13 +284,10 @@ public class NomNotion extends Fragment {
         if(translatorKorean == null){
             Log.d(TAG,"Korean Translator is null");
         }else{
-            Task<String> result = translatorKorean.translate(detectedText).addOnSuccessListener(new OnSuccessListener<String>() {
-                @Override
-                public void onSuccess(String s) {
-                    Log.d(TAG,"Translated text = "+s);
-                    processIdentifiedText(s);
-                    svConstraints.setVisibility(View.VISIBLE);
-                }
+            Task<String> result = translatorKorean.translate(detectedText).addOnSuccessListener(s -> {
+                Log.d(TAG,"Translated text = "+s);
+                processIdentifiedText(s);
+                svConstraints.setVisibility(View.VISIBLE);
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {

@@ -267,6 +267,12 @@ public class Dashboard extends Fragment implements IDBProcessListener {
             }
         }
 
+        //Hong Rong : init Notication variable
+        Rcal = cbar.getMax();
+        Rcarb = carbBar.getMax();
+        Rsugar = sugarBar.getMax();
+        Rfat = fatBar.getMax();
+
         refreshUI();
     }
 
